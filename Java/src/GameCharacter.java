@@ -1,2 +1,0 @@
-
-enum GameCharacter {PLAYER, MONSTER}
