@@ -26,7 +26,7 @@ public class TestP1 {
         // PRUEBA DE LA CLASE WEAPON
 
         System.out.println("PRUEBA CLASE WEAPON");
-        Weapon arma = new Weapon(dado.weaponPower(),5);
+        Weapon arma = new Weapon(Dice.getMaxAttack(),Dice.getMaxUses());
         System.out.println(arma.toString());
         arma.attack();
         System.out.println("Ataque realizado");
@@ -36,13 +36,17 @@ public class TestP1 {
         
         // PRUEBA CLASE SHIELD
         
-        Shield escudo = new Shield(dado.shieldPower(), 4);
+        System.out.println("PRUEBA CLASE SHIELD");
+        Shield escudo = new Shield(Dice.getMaxShield(),Dice.getMaxUses());
         System.out.println(escudo.toString()); 
+        System.out.println("Escudo realizado");
         escudo.protect();
         System.out.println(escudo.toString());
         
+        //Prueba de los tipos Enumerados
+        
         Enum orientacion = Orientation.VERTICAL;
-        System.out.println("El arma se encuentra en una orientación" +orientacion);
+        System.out.println("El arma se encuentra en una orientación " +orientacion);
         
         //PRUEBA CLASE DICE
         

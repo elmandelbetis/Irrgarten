@@ -167,5 +167,17 @@ public class Dice {
         return discard;
     }
     
+    public static int getMaxAttack(){
+        return MAX_ATTACK;
+    }
+    
+    public static int getMaxShield(){
+        return MAX_SHIELD;
+    }
+    
+    public static int getMaxUses(){
+        return MAX_USES;
+    }
+    
     
 }
