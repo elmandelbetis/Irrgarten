@@ -28,10 +28,11 @@ module Irrgarten
 
           def attack
                if @uses > 0
-               @uses -= 1
-               power
-          else
-               0
+                    @uses -= 1
+                    power
+               else
+                    0
+               end
           end
 
           # Método "to_string" de la clase Weapon, devuelve una cadena con el valor

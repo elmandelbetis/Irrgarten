@@ -25,11 +25,12 @@ module Irrgarten
         # usos restantes sea mayor que 0
 
         def protect
-            if uses > 0
-                uses -= 1
-                @protection
+            if @uses > 0
+                @uses -= 1
+                protection
             else
                 0
+            end
         end
 
         # Método to_string, muestra una cadena con los valores de protección del
