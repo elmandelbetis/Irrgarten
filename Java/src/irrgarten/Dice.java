@@ -66,7 +66,7 @@ public class Dice {
     }
     
     public static float randomStrength(){
-        float strength = generator.nextFloat()*MAX_STRENGTH; //Intervalo
+        float strength = generator.nextFloat()*MAX_STRENGTH; 
         return strength;
     }
     
@@ -81,7 +81,7 @@ public class Dice {
     public static boolean resurrectPlayer(){
         
         boolean resurrect = false;
-        float prob_res = generator.nextFloat();
+        float prob_res = generator.nextFloat()*1;
         
         if (prob_res < RESURRECT_PROB){
             resurrect = true;
@@ -144,7 +144,7 @@ public class Dice {
     }
     
     // Método discardElement
-    // Devuelve "true" o "false" según los usos sean 0 ó un valor aleatorio generado
+    // Devuelve "true" o "false" según los usos sean 0 ó un valor aleatorio 
     // generado entre 0 y 1 sea menor o no al valor de probabilidad calculado
     // en función del nº de usos restantes
     
@@ -157,11 +157,12 @@ public class Dice {
         
         else{
             
-            float prob = (float) 1.0 / (usesLeft + 1);
-            float randomValue = generator.nextFloat()*(float) 1.1;
+            float prob = (float) usesLeft / MAX_USES;
+            float randomValue = generator.nextFloat()*(float) 1.01;
             
-            if (randomValue <= prob)
+            if (randomValue >= prob){
                 discard = true;
+            }
         }
         return discard;
     }
