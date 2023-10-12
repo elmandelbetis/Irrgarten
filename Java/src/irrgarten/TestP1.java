@@ -7,9 +7,9 @@
 
 package irrgarten;
 
-import irrgarten.Enums.Directions;
-import irrgarten.Enums.GameCharacter;
-import irrgarten.Enums.Orientation;
+import irrgarten.Directions;
+import irrgarten.GameCharacter;
+import irrgarten.Orientation;
 import java.util.Scanner;
 
 
