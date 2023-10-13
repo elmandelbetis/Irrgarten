@@ -1,7 +1,5 @@
 package irrgarten;
-import irrgarten.Directions;
-import irrgarten.GameCharacter;
-import irrgarten.Orientation;       
+import java.util.ArrayList;
 
 public class Labyrinth {
     
@@ -10,13 +8,17 @@ public class Labyrinth {
     private static final char MONSTER_CHAR = 'M';
     private static final char COMBAT_CHAR = 'C';
     private static final char EXIT_CHAR = 'E';
-    private static final int ROW = 0;
-    private static final int COL = 1;
+    private static int ROW = 0;
+    private static int COL = 1;
     
     private int nRows;
     private int nCols;
     private int exitRow;
     private int exitCol;
+    
+    private Monster[][] monsters; //realmente no sé muy bien qué hago
+    private Player[][] players;  //pero siempre se puede preguntar en clase
+    private char[][] cells;
     
     
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
@@ -25,48 +27,58 @@ public class Labyrinth {
         this.nCols = nCols;
         this.exitRow = exitRow;
         this.exitCol = exitCol;
+        this.monsters = new Monster[nRows][nCols];  // (?)
+        this.players = new Player[nRows][nCols];   // (?)
+        this.cells = new char [nRows][nCols];
         
     }
     
-    public void SpreadPlayers(Player[] players){
+    public boolean haveAWinner()
+    {
+        boolean haveAWinner = false;
         
+        for (ROW = 0; ROW < nRows; ROW++){
+            for (COL = 1; COL < nCols; COL++){
+                if (cells[ROW][COL] == EXIT_CHAR){
+                    haveAWinner = true;
+                }
+            }
+        }
+        
+        return haveAWinner;
     }
-    
-    public boolean haveAWinner(){}
     
     @Override
-    public String toString(){}
-    
-    public void addMonster(int row, int col, Monster monster){}
-    
-    public Monster putPlayer(Directions direction, Player player){}
-    
-    public void addBlock(Orientation orientation, int startRow, int startCol,
-                        int length){}
-    
-    public Directions[] validMoves(int row, int col){}
+    public String toString()
+    {
+        throw new UnsupportedOperationException();
+    }
     
     
-    private boolean emptyPos(int row, int col){}
+    public boolean posOK(int row, int col){
+        
+        boolean posOK = false;
+        
+        if (row >= 0 && row <= nRows && col >= 0 && col <= nCols)
+        {
+            posOK = true;
+        }
+        
+        return posOK;
+    }
     
-    private boolean monsterPos(int row, int col){}
+    public void addMonster(int row, int col, Monster monster)
+    {   
+        boolean posOK = posOK(row, col);
+        
+        if (cells[row][col] == EMPTY_CHAR && posOK)
+        {
+            monsters[row][col] = monster;
+            monster.setPos(row, col);
+        }
+    }
     
-    private boolean exitPos(int row, int col){}
-            
-    private boolean combatPos(int row, int col){}
     
-    private boolean canStepOn(int row, int col){}
-    
-    private boolean updateOldPos(int row, int col){}
-    
-    private void updateOldPos(int row, int col){}
-    
-    private int[] dir2Pos(int row, int col, Directions direction){}
-    
-    private int[] randomEmptyPos(){}
-    
-    private Monster putPlayer2D(int oldRow, int oldCol, int row, int col, 
-                                Player Player){}
     
     
     

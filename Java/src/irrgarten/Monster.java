@@ -1,5 +1,4 @@
 package irrgarten;
-import irrgarten.Dice;
 
 public class Monster {
     
@@ -53,9 +52,9 @@ public class Monster {
         System.out.println("Monster "+name+" got wounded, -1 HP");
     }
     
-    public boolean defend(float receivedAttack){
-        return false; 
-        // PROVISIONAL
-        
+    public boolean defend(float receivedAttack)
+    {
+        throw new UnsupportedOperationException();
+        // próxima práctica
     }
 }

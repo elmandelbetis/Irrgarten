@@ -1,22 +1,25 @@
 package irrgarten;
 
-import irrgarten.Directions;
-import irrgarten.GameCharacter;
-import irrgarten.Orientation;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     
     private static final int MAX_WEAPONS = 2, MAX_SHIELDS = 3;
-    private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3;
+    private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3; // aún no usados
     
-    private String name;
-    private char number;
-    private float intelligence;
-    private float strength;
+    private final String name;
+    private final char number;
+    private final float intelligence;
+    private final float strength;
     private float health;
     private int row;
     private int col;
     private int consecutiveHits = 0;
+    
+    private final List<Weapon> weapons; //idea para implementar los métodos Sum
+    private final List<Shield> shields; //mediante ArrayLists (duda pa clase)
+
     
    
     public Player(char number, float intelligence, float strength){
@@ -24,52 +27,153 @@ public class Player {
         this.number = number;
         this.intelligence = intelligence;
         this.strength = strength;
+        this.name = "Player#"+number;
+        this.weapons = new ArrayList<>(MAX_WEAPONS); // idea
+        this.shields = new ArrayList<>(MAX_SHIELDS); // idea
         
     }
     
-    public void resurrect(){}
+    public void resurrect(){} // ArrayList????????????
     
-    public int getRow(){}
+    public int getRow()
+    {
+        return row;
+    }
     
-    public int getCol(){}
+    public int getCol()
+    {
+        return col;
+    }
     
-    public char getNumber(){}
+    public char getNumber()
+    {
+        return number;
+    }
     
-    public void setPos(int row, int col){}
+    public void setPos(int row, int col)
+    {
+        this.row = row;
+        this.col = col;
+    }
     
-    public boolean dead(){}
+    public boolean dead(){
+        
+        boolean isDead = false;
+        
+        if (health <= 0){
+            isDead = true;
+        } 
+        
+        return isDead;
+    }
     
-    public Directions move(Directions direction, Directions[] validMoves){}
+    public Directions move(Directions direction, Directions[] validMoves)
+    {
+        throw new UnsupportedOperationException();
+    }
+    // próximas prácticas
+
     
-    public float attack(){}
-    
-    public boolean defend(float receivedAttack){}
-    
+    public boolean defend(float receivedAttack)
+    {
+        throw new UnsupportedOperationException();
+    }
+        
     public void receiveReward(){}
     
-    public String toString(){}
+    @Override
+    public String toString()
+    {
+        return ""+name+" ,Health: "+health+" ,Intelligence: "+health+
+                " ,Strength: "+strength+intelligence+" ,Position: "+row+","+col;
+    }
     
-    public void receiveWeapon(){}
+    public void receiveWeapon(Weapon s)
+    {    
+        // próxima práctica
+    }
     
-    public void receiveShields(){}
+    public void receiveShields(Shield s)
+    {
+        // próxima práctica
+    }
     
-    public Weapon newWeapon(){}
+    public Weapon newWeapon()
+    {
+        
+        float power = Dice.weaponPower();
+        int uses = Dice.usesLeft(); 
+        Weapon newWeapon = new Weapon(power,uses);
+        weapons.add(newWeapon); //idea
+        
+        System.out.println(newWeapon.toString());
+        return newWeapon; // idea
+        
+    }
     
-    public Shield newShield(){}
+    public Shield newShield()
+    {
+        
+        float protection = Dice.shieldPower();
+        int uses = Dice.usesLeft();
+        Shield newShield = new Shield(protection,uses);
+        
+        shields.add(newShield); // idea
+        
+        System.out.println(newShield.toString());
+        return newShield; // idea
+        
+    }
+     
+    public float sumWeapons()   // idea
+    {
+        float sum = (float) 0;
+        
+        for (Weapon weapon : weapons){
+            sum += weapon.attack();
+        }
+        
+        return sum;
+                
+    }
     
-    public float sumWeapons(){}
+    public float sumShields()   // idea
+    {
+        float sum = (float) 0;
+        
+        for (Shield shield : shields){
+            sum += shield.protect();
+        }
+        
+        return sum;
+    }
     
-    public float sumShields(){}
+    public float attack(){
+        return strength + sumWeapons();
+    }
     
-    public float defensiveEnergy(){}
+    public float defensiveEnergy()
+    {
+        return intelligence + sumShields();
+    }
     
-    public boolean manageHit(float receivedAttack){}
+    public boolean manageHit(float receivedAttack)
+    {
+        throw new UnsupportedOperationException();
+    }
     
-    public void resetHits(){}
+    public void resetHits(){
+        consecutiveHits = 0;
+    }
     
-    public void gotWounded(){}  
+    public void gotWounded(){
+        health--;
+        System.out.println(""+name+" got wounded, -1 HP");
+    }  
     
-    public void incConsecutiveHits(){}
+    public void incConsecutiveHits(){
+        consecutiveHits++;
+    }
     
     
 }

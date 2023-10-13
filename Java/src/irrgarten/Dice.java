@@ -117,13 +117,13 @@ public class Dice {
     // de instancia al que esté llamando cada uno
     
     public static float weaponPower(){
-        int attack = generator.nextInt(MAX_ATTACK + 1);
-        return attack;
+        int weaponPower = generator.nextInt(MAX_ATTACK + 1);
+        return weaponPower;
     }
     
     public static float shieldPower(){
-        int sh_power = generator.nextInt(MAX_SHIELD + 1);
-        return sh_power;
+        int shieldPower = generator.nextInt(MAX_SHIELD + 1);
+        return shieldPower;
     }
     
     // Método usesLeft
