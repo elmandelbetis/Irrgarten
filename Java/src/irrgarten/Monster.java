@@ -7,7 +7,6 @@ public class Monster {
     private float intelligence, strength, health;
     private int row, col;
     
-    Dice dado = new Dice();
     
     public Monster(String name, float intelligence, float strength)
     {
@@ -18,13 +17,13 @@ public class Monster {
     
     public boolean dead(){
         
-        boolean dead = false;
+        boolean isDead = false;
         
         if (health <= 0){
-            dead = true;
+            isDead = true;
         }
         
-        return dead;
+        return isDead;
     
     }
     
@@ -42,8 +41,8 @@ public class Monster {
     @Override
     public String toString()
     {
-        return "Name: "+name+" ,Health: "+health+" ,Strength: "+strength+""
-                + " ,Intelligence: "+intelligence+" ,Position: "+row+","+col;
+        return "Monster: "+name+" ,H: "+health+" ,S: "+strength+""
+                + " ,I: "+intelligence+" ,Pos: "+row+","+col;
     }
     
     public void gotWounded()

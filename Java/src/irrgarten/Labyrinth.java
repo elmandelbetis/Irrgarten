@@ -11,14 +11,14 @@ public class Labyrinth {
     private static int ROW = 0;
     private static int COL = 1;
     
-    private int nRows;
-    private int nCols;
-    private int exitRow;
-    private int exitCol;
+    private final int nRows;
+    private final int nCols;
+    private final int exitRow;
+    private final int exitCol;
     
-    private Monster[][] monsters; //realmente no sé muy bien qué hago
-    private Player[][] players;  //pero siempre se puede preguntar en clase
-    private char[][] cells;
+    private final ArrayList<ArrayList<Monster>> monsters; //realmente no sé muy bien qué hago
+    private final ArrayList<ArrayList<Player>> players;  //pero siempre se puede preguntar en clase
+    private final ArrayList<ArrayList<Character>> cells;
     
     
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
@@ -27,9 +27,9 @@ public class Labyrinth {
         this.nCols = nCols;
         this.exitRow = exitRow;
         this.exitCol = exitCol;
-        this.monsters = new Monster[nRows][nCols];  // (?)
-        this.players = new Player[nRows][nCols];   // (?)
-        this.cells = new char [nRows][nCols];
+        this.monsters = new ArrayList<>(nRows);  // (?)
+        this.players = new ArrayList<>(nRows);   // (?)
+        this.cells = new ArrayList<>(nRows);
         
     }
     
@@ -39,7 +39,7 @@ public class Labyrinth {
         
         for (ROW = 0; ROW < nRows; ROW++){
             for (COL = 1; COL < nCols; COL++){
-                if (cells[ROW][COL] == EXIT_CHAR){
+                if (cells.get(ROW).get(COL) == EXIT_CHAR){
                     haveAWinner = true;
                 }
             }
@@ -55,7 +55,7 @@ public class Labyrinth {
     }
     
     
-    public boolean posOK(int row, int col){
+    private boolean posOK(int row, int col){
         
         boolean posOK = false;
         
@@ -71,12 +71,66 @@ public class Labyrinth {
     {   
         boolean posOK = posOK(row, col);
         
-        if (cells[row][col] == EMPTY_CHAR && posOK)
+        if (cells.get(row).get(col) == EMPTY_CHAR && posOK)
         {
-            monsters[row][col] = monster;
+            monsters.get(row).set(col, monster);
             monster.setPos(row, col);
+            cells.get(row).set(col, 'M');
         }
     }
+    
+    private boolean emptyPos(int row, int col)
+    {   
+        boolean isEmpty = false;
+        
+        if (cells.get(row).get(col) == EMPTY_CHAR)
+        {
+            isEmpty = true;
+        }
+        
+        return isEmpty;
+    }
+    
+    private boolean monsterPos(int row, int col)
+    {
+        boolean monsterThere = false;
+        
+        if (cells.get(row).get(col) == MONSTER_CHAR)
+        {
+            monsterThere = true;
+        }
+        
+        return monsterThere;
+    }
+    
+    private boolean exitPos(int row, int col)
+    {
+        boolean exitPos = false;
+        
+        if (cells.get(row).get(col) == EXIT_CHAR){
+            exitPos = true;
+        }
+        
+        return exitPos;
+    }
+    
+    private boolean combatPos(int row, int col)
+    {
+        boolean combatPos = false;
+        
+        if (cells.get(row).get(col) == COMBAT_CHAR){
+            combatPos = true;
+        }
+        
+        return combatPos;
+    }
+    
+    private boolean canStepOn(int row, int col)
+    {
+        throw new UnsupportedOperationException(); // provisional
+    }
+    
+    
     
     
     

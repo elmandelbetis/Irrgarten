@@ -1,7 +1,6 @@
 package irrgarten;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Player {
     
@@ -17,8 +16,8 @@ public class Player {
     private int col;
     private int consecutiveHits = 0;
     
-    private final List<Weapon> weapons; //idea para implementar los métodos Sum
-    private final List<Shield> shields; //mediante ArrayLists (duda pa clase)
+    private final ArrayList<Weapon> weapons; //idea para implementar los métodos Sum
+    private final ArrayList<Shield> shields; //mediante ArrayLists (duda pa clase)
 
     
    
@@ -67,7 +66,7 @@ public class Player {
         return isDead;
     }
     
-    public Directions move(Directions direction, Directions[] validMoves)
+    public Directions move(Directions direction, ArrayList<Directions> validMoves)
     {
         throw new UnsupportedOperationException();
     }
@@ -160,6 +159,7 @@ public class Player {
     public boolean manageHit(float receivedAttack)
     {
         throw new UnsupportedOperationException();
+        // próxima práctica
     }
     
     public void resetHits(){
