@@ -1,3 +1,9 @@
+///////////////////////////////////////
+// Álvaro Maldonado Medina     	     //
+// 2D - D3                           //
+// Fichero: irrgarten/Monster.java   //
+///////////////////////////////////////
+
 package irrgarten;
 
 public class Monster {
@@ -8,12 +14,19 @@ public class Monster {
     private int row, col;
     
     
+    // Constructor de la clase
+    
     public Monster(String name, float intelligence, float strength)
     {
         this.name = name;
         this.intelligence = intelligence;
         this.strength = strength;
     }
+    
+    
+    // Método dead()
+    // Devuelve un valor booleano que será "true" o "false" en función de si
+    // el monstruo está muerto o no
     
     public boolean dead(){
         
@@ -27,16 +40,26 @@ public class Monster {
     
     }
     
+    // Método attack()
+    // Devuelve el resultado delegado del método intensity de la clase Dice,
+    // pasándole como parámetro la fuerza del monstruo
+    
     public float attack()
     {
         return Dice.intensity(strength);   
     }
+    
+    // Método setPos()
+    // Asigna una posición al monstruo en el tablero
     
     public void setPos(int row, int col)
     {
         this.row = row;
         this.col = col;
     }
+    
+    // Método toString()
+    // Genera el estado actual detallado del monstruo
     
     @Override
     public String toString()
@@ -45,11 +68,18 @@ public class Monster {
                 + " ,I: "+intelligence+" ,Pos: "+row+","+col;
     }
     
+    // Método gotWounded()
+    // Reduce la salud del monstruo en 1
+    
     public void gotWounded()
     {
         health--;
         System.out.println("Monster "+name+" got wounded, -1 HP");
     }
+    
+    
+    // Método defend()
+    //
     
     public boolean defend(float receivedAttack)
     {

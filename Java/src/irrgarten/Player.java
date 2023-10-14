@@ -1,3 +1,9 @@
+///////////////////////////////////////
+// Álvaro Maldonado Medina     	     //
+// 2D - D3                           //
+// Fichero: irrgarten/Player.java    //
+///////////////////////////////////////
+
 package irrgarten;
 
 import java.util.ArrayList;
@@ -20,7 +26,10 @@ public class Player {
     private final ArrayList<Shield> shields; //mediante ArrayLists (duda pa clase)
 
     
-   
+    // Constructor de la clase, incluyendo inicialización de los ArrayList
+    // Para las armas y los escudos pasando los límites de éstos en el
+    // inventario como parámetro
+    
     public Player(char number, float intelligence, float strength){
         
         this.number = number;
@@ -32,28 +41,56 @@ public class Player {
         
     }
     
-    public void resurrect(){} // ArrayList????????????
+    // Método resurrect()
+    // Reinicia las listas de armas y escudos a 0, establece el nivel de salud
+    // al valor dado como salud inicial, y resetea el contador de hits
+    // consecutivos a 0.
+    
+    public void resurrect()
+    {
+        weapons.clear();
+        shields.clear();
+        health = INITIAL_HEALTH;
+        resetHits();
+    } 
+    
+    // Método getRow()
+    // Devuelve la fila en la que se encuentra el jugador
     
     public int getRow()
     {
         return row;
     }
     
+    // Método getCol()
+    // Devuelve la columna en la que se encuentra el jugador
+    
     public int getCol()
     {
         return col;
     }
+    
+    // Método getNumber()
+    // Devuelve el num-ID del jugador
     
     public char getNumber()
     {
         return number;
     }
     
+    // Método setPos
+    // Modifica y establece la posición (row, col) del jugador
+    
     public void setPos(int row, int col)
     {
         this.row = row;
         this.col = col;
     }
+    
+    // Método dead()
+    // Booleano que devuelve "true" si el nivel de salud es 0 o menos (el
+    // jugador está muerto) o si por el contrario tiene algo de salud y sigue 
+    // vivo
     
     public boolean dead(){
         
@@ -66,6 +103,9 @@ public class Player {
         return isDead;
     }
     
+    // Método move()
+    // 
+    
     public Directions move(Directions direction, ArrayList<Directions> validMoves)
     {
         throw new UnsupportedOperationException();
@@ -76,9 +116,13 @@ public class Player {
     public boolean defend(float receivedAttack)
     {
         throw new UnsupportedOperationException();
-    }
+    }   // próxima práctica
         
     public void receiveReward(){}
+    //próxima práctica
+    
+    // Método toString()
+    // Devuelve el estado actual detallado del jugador
     
     @Override
     public String toString()
@@ -86,6 +130,9 @@ public class Player {
         return ""+name+" ,Health: "+health+" ,Intelligence: "+health+
                 " ,Strength: "+strength+intelligence+" ,Position: "+row+","+col;
     }
+    
+    // Método receiveWeapon()
+    //
     
     public void receiveWeapon(Weapon s)
     {    
@@ -96,6 +143,10 @@ public class Player {
     {
         // próxima práctica
     }
+    
+    // Método newWeapon()
+    // Llama a la clase Weapon, crea una nuueva instancia de arma, y la 
+    // añade a la lista de armas que hemos creado anteriormente
     
     public Weapon newWeapon()
     {
@@ -110,6 +161,9 @@ public class Player {
         
     }
     
+    // Método newShield()
+    // Igual que el método newWeapon, pero llamando a la clase Shield
+    
     public Shield newShield()
     {
         
@@ -123,7 +177,11 @@ public class Player {
         return newShield; // idea
         
     }
-     
+    
+    // Método sumWeapons()
+    // Devuelve la suma total de todas las armas, llamando a sus respectivos
+    // métodos attack()
+    
     public float sumWeapons()   // idea
     {
         float sum = (float) 0;
@@ -136,6 +194,10 @@ public class Player {
                 
     }
     
+    // Método sumShields()
+    // Devuelve la suma total de todos los escudos, llamando a sus métodos
+    // protect()
+    
     public float sumShields()   // idea
     {
         float sum = (float) 0;
@@ -147,9 +209,17 @@ public class Player {
         return sum;
     }
     
+    // Método attack()
+    // Calcula y devuelve la suma de la fuerza del jugador y lo aportado por
+    // sus armas
+    
     public float attack(){
         return strength + sumWeapons();
     }
+    
+    // Método defensiveEnergy()
+    // Calcula y devuelve la suma de la inteligencia del jugador y lo
+    // aportado por la protección de sus escudos
     
     public float defensiveEnergy()
     {
@@ -162,14 +232,24 @@ public class Player {
         // próxima práctica
     }
     
+    // Método resetHits
+    // Resetea el contador de hits consecutivos a cero
+    
     public void resetHits(){
         consecutiveHits = 0;
     }
+    
+    // Método gotWounded()
+    // Al igual que en la clase Monster, reduce en 1 unidad el contador de 
+    // salud del jugador
     
     public void gotWounded(){
         health--;
         System.out.println(""+name+" got wounded, -1 HP");
     }  
+    
+    // Método incConsecutiveHits
+    // Incrementa de uno en uno el contador de hits consecutivos del jugador
     
     public void incConsecutiveHits(){
         consecutiveHits++;
