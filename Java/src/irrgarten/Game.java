@@ -4,7 +4,6 @@
 // Fichero: irrgarten/Game.java      //
 ///////////////////////////////////////
 
-
 package irrgarten;
 
 
@@ -13,19 +12,18 @@ public class Game {
     private static int MAX_ROUNDS = 10;
     private int currentPlayerIndex;
     private String log;
-    
-    
-    public int Game(int nplayers) // ????
+        
+    public Game(int nplayers) 
     {
         this.currentPlayerIndex = nplayers;
     }
     
     public boolean finished()
     {
-        throw new UnsupportedOperationException();
+        return Labyrinth.haveAWinner;
     }
     
-    public boolean nexStep(Directions preferredDirection)
+    public boolean nextStep(Directions preferredDirection)
     {
         throw new UnsupportedOperationException();
     }

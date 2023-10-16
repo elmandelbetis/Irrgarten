@@ -21,6 +21,7 @@ public class Monster {
         this.name = name;
         this.intelligence = intelligence;
         this.strength = strength;
+        this.health = INITIAL_HEALTH;
     }
     
     

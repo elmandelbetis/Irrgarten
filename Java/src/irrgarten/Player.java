@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Player {
     
     private static final int MAX_WEAPONS = 2, MAX_SHIELDS = 3;
-    private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3; // aún no usados
+    private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3;
     
     private final String name;
     private final char number;
@@ -22,13 +22,11 @@ public class Player {
     private int col;
     private int consecutiveHits = 0;
     
-    private final ArrayList<Weapon> weapons; //idea para implementar los métodos Sum
-    private final ArrayList<Shield> shields; //mediante ArrayLists (duda pa clase)
+    private Weapon[] weapons = new Weapon[MAX_WEAPONS]; // idea para implementar los métodos Sum
+    private Shield[] shields = new Shield[MAX_SHIELDS];
 
     
-    // Constructor de la clase, incluyendo inicialización de los ArrayList
-    // Para las armas y los escudos pasando los límites de éstos en el
-    // inventario como parámetro
+    // Constructor de la clase
     
     public Player(char number, float intelligence, float strength){
         
@@ -36,8 +34,7 @@ public class Player {
         this.intelligence = intelligence;
         this.strength = strength;
         this.name = "Player#"+number;
-        this.weapons = new ArrayList<>(MAX_WEAPONS); // idea
-        this.shields = new ArrayList<>(MAX_SHIELDS); // idea
+        this.health = INITIAL_HEALTH;
         
     }
     
@@ -47,11 +44,20 @@ public class Player {
     // consecutivos a 0.
     
     public void resurrect()
-    {
-        weapons.clear();
-        shields.clear();
+    {   
         health = INITIAL_HEALTH;
         resetHits();
+        
+        for (int i = 0; i < MAX_WEAPONS; i++)
+        {
+            weapons[i] = null;
+        }
+        
+        for (int j = 0; j < MAX_SHIELDS; j++)
+        {
+            shields[j] = null;
+        }
+        
     } 
     
     // Método getRow()
@@ -127,8 +133,8 @@ public class Player {
     @Override
     public String toString()
     {
-        return ""+name+" ,Health: "+health+" ,Intelligence: "+health+
-                " ,Strength: "+strength+intelligence+" ,Position: "+row+","+col;
+        return ""+name+",H: "+health+",I: "+intelligence+
+                ",S: "+strength+",Pos: "+row+","+col;
     }
     
     // Método receiveWeapon()
@@ -154,7 +160,14 @@ public class Player {
         float power = Dice.weaponPower();
         int uses = Dice.usesLeft(); 
         Weapon newWeapon = new Weapon(power,uses);
-        weapons.add(newWeapon); //idea
+        
+        for (int i = 0; i < MAX_WEAPONS; i++)
+        {
+            if (weapons[i] == null){
+                weapons[i] = newWeapon;
+                break;
+            }
+        }
         
         System.out.println(newWeapon.toString());
         return newWeapon; // idea
@@ -171,7 +184,13 @@ public class Player {
         int uses = Dice.usesLeft();
         Shield newShield = new Shield(protection,uses);
         
-        shields.add(newShield); // idea
+        for (int i = 0; i < MAX_SHIELDS; i++)
+        {
+            if (shields[i] == null){
+                shields[i] = newShield;
+                break;
+            }
+        }
         
         System.out.println(newShield.toString());
         return newShield; // idea
