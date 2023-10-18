@@ -43,7 +43,7 @@ def main
     separation_lines
     puts "PROBANDO CLASE WEAPON..."
 
-    arma = Irrgarten::Weapon.new(dado.getMaxAttack.to_f, dado.getMaxUses)
+    arma = Irrgarten::Weapon.new(dado.get_max_attack.to_f, dado.get_max_uses)
 
     #Prueba      
 
@@ -60,7 +60,7 @@ def main
     puts "PROBANDO CLASE SHIELD"
 
 
-    escudo = Irrgarten::Shield.new(dado.getMaxShield.to_f, dado.getMaxUses)
+    escudo = Irrgarten::Shield.new(dado.get_max_shield.to_f, dado.get_max_uses)
 
     #Prueba    
 
@@ -80,7 +80,7 @@ def main
     puts "Método randomPos para 10 filas o columnas" 
 
     for i in 0..(iteraciones)
-        puts dado.randomPos(10)
+        puts dado.random_pos(10)
     end
     salto_linea
 
@@ -88,7 +88,7 @@ def main
     puts "Método whoStarts para 16 jugadores (0-15)"
 
     for i in 0..(iteraciones)
-        puts dado.whoStarts(15)
+        puts dado.who_starts(15)
     end
     salto_linea
 
@@ -96,7 +96,7 @@ def main
     puts "Método randomIntelligence"
 
     for i in 0..(iteraciones)
-        puts dado.randomIntelligence.round(n_decimales)
+        puts dado.random_intelligence.round(n_decimales)
     end
     salto_linea
 
@@ -104,7 +104,7 @@ def main
     puts "Método randomStrength"
 
     for i in 0..(iteraciones)
-        puts dado.randomStrength.round(n_decimales)
+        puts dado.random_strength.round(n_decimales)
     end
 
 
@@ -112,7 +112,7 @@ def main
     puts "Método resurrectPlayer"
 
     for i in 0..(iteraciones)
-        puts dado.resurrectPlayer
+        puts dado.resurrect_player
     end
 
 
@@ -120,7 +120,7 @@ def main
     puts "Método weaponsReward"
 
     for i in 0..(iteraciones)
-        puts dado.weaponsReward
+        puts dado.weapons_reward
     end
 
 
@@ -128,7 +128,7 @@ def main
     puts "Método shieldsReward"
 
     for i in 0..(iteraciones)
-        puts dado.shieldsReward
+        puts dado.shields_reward
     end
 
 
@@ -136,7 +136,7 @@ def main
     puts "Método healthReward"
 
     for i in 0..(iteraciones)
-        puts dado.healthReward
+        puts dado.health_reward
     end
 
 
@@ -144,7 +144,7 @@ def main
     puts "Método weaponPower"
 
     for i in 0..(iteraciones)
-        puts dado.weaponPower.round(n_decimales)
+        puts dado.weapon_power.round(n_decimales)
     end
 
 
@@ -152,7 +152,7 @@ def main
     puts "Método shieldPower"
 
     for i in 0..(iteraciones)
-        puts dado.shieldPower.round(n_decimales)
+        puts dado.shield_power.round(n_decimales)
     end
 
 
@@ -160,7 +160,7 @@ def main
     puts "Método usesLeft"
 
     for i in 0..(iteraciones)
-        puts dado.usesLeft
+        puts dado.uses_left
     end
 
 
@@ -176,7 +176,7 @@ def main
     puts "Método discardElement"
 
     for i in 0..(iteraciones)
-        puts dado.discardElement(dado.getMaxUses)
+        puts dado.discardElement(dado.get_max_uses)
     end
 
 end

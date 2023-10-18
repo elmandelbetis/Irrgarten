@@ -10,8 +10,8 @@ module Irrgarten
 
     class Shield
 
-        attr_accessor :protection
-        attr_accessor :uses
+        attr_reader :protection
+        attr_reader :uses
         
         #Constructor
 

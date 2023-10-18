@@ -15,10 +15,15 @@ module  Irrgarten
         attr_accessor :row, :col
 
         def initialize (name, intelligence, strength)
+            
             @name = name
-            @intelligence = intelligence
-            @strength = strength
-            @health = @@INITIAL_HEALTH
+            @intelligence = intelligence.to_f
+            @strength = strength.to_f
+            @health = @@INITIAL_HEALTH.to_f
+            
+            @row = nil
+            @col = nil 
+            
         end
 
         def dead

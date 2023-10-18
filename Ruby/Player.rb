@@ -8,157 +8,166 @@
 
 module Irrgarten
 
-    require 'Array'
-    require_relative 'Weapon.rb'
-    require_relative 'Shield.rb'
-    require_relative 'Directions.rb'
-    require_relative 'Dice.rb'
+    class Player
 
-    @@MAX_WEAPONS = 2
-    @@MAX_SHIELDS = 3
-    @@INITIAL_HEALTH = 10
-    @@HITS2LOSE = 3
+        require 'Array'
+        require_relative 'Weapon.rb'
+        require_relative 'Shield.rb'
+        require_relative 'Directions.rb'
+        require_relative 'Dice.rb'
 
-    attr_accessor :name, :number, :intelligence, :strength, :health, :row, :col
-    attr_accessor :consecutive_hits
+        @@MAX_WEAPONS = 2
+        @@MAX_SHIELDS = 3
+        @@INITIAL_HEALTH = 10
+        @@HITS2LOSE = 3
 
-    attr_accessor :weapons
-    attr_accessor :shields
+        attr_accessor :name, :number, :intelligence, :strength, :health, :row, :col
+        attr_accessor :consecutive_hits
 
-    def initialize(number, intelligence, strength)
-        @number = number
-        @intelligence = intelligence
-        @strength = strength
-        @name = "Player##{number}"
-        @health = @@INITIAL_HEALTH
-        @weapons = Array.new(@@MAX_WEAPONS)
-        @shields = Array.new(@@MAX_SHIELDS)
+        attr_accessor :weapons
+        attr_accessor :shields
 
-    end
+        def initialize(number, intelligence, strength)
+            
+            @number = number
+            @intelligence = intelligence
+            @strength = strength
+            @name = "Player##{number}"
+            @health = @@INITIAL_HEALTH
 
-    def resurrect
-        @weapons.clear
-        @shields.clear
-        @health = @@INITIAL_HEALTH
-        reset_hits
-    end
+            @weapons = Array.new(@@MAX_WEAPONS) #capacidad inicial, pero NO FIJA
+            @shields = Array.new(@@MAX_SHIELDS)
 
-    def get_row
-        @row
-    end
+            @row = nil
+            @col = nil 
 
-    def get_col
-        @col
-    end
-
-    def get_number
-        @number
-    end
-
-    def set_pos(row, col)
-        @row = row
-        @col = col
-    end 
-
-    def dead
-
-        is_dead = false
-
-        if @health <= 0
-            is_dead = true
         end
 
-        is_dead
+        def resurrect
+            @weapons.clear
+            @shields.clear
+            @health = @@INITIAL_HEALTH
+            reset_hits
+        end
 
-    end
+        def get_row
+            @row
+        end
 
-    def move(direction, valid_moves)
-        #próximas prácticas
-    end
+        def get_col
+            @col
+        end
 
-    def attack
+        def get_number
+            @number
+        end
 
-    end
+        def set_pos(row, col)
+            @row = row
+            @col = col
+        end
 
-    def defend(receivedAttack)
-        #próximas prácticas
-    end
+        def dead
 
-    def receive_reward
-        #próximas prácticas
-    end
+            is_dead = false
 
-    def to_string
-        puts "#{name}, H: #{health}, I: #{intelligence}, S#{strength},
+            if @health <= 0
+                is_dead = true
+            end
+
+            is_dead
+
+        end
+
+        def move(direction, valid_moves)
+            #próximas prácticas
+        end
+
+        def attack
+            attack = strength + sum_weapons
+            attack
+        end
+
+        def defend(receivedAttack)
+            #próximas prácticas
+        end
+
+        def receive_reward
+            #próximas prácticas
+        end
+
+        def to_string
+            puts "#{name}, H: #{health}, I: #{intelligence}, S#{strength},
             Pos: #{row},#{col}"
-    end
-
-    def receive_weapon(w)
-        #próximas prácticas
-    end
-
-    def receive_shields(s)
-        #próximas prácticas
-    end
-
-    def new_weapon
-        power = Irrgarten::Dice.weaponPower
-        uses = Irrgarten::Dice.usesLeft
-        new_weapon = Irrgarten::Weapon.new(power,uses)
-        @weapons.push(new_weapon)
-
-        puts new_weapon.to_s
-        new_weapon
-    end
-
-    def new_shield
-        protection = Irrgarten::Dice.shieldPower
-        uses = Irrgarten::Dice.usesLeft
-        new_shield = Irrgarten::Shield.new(protection,uses)
-        @shields.push(new_shield)
-
-        puts new_shield.to_s
-        new_shield
-    end
-
-    def sum_weapons
-        sum = 0.0
-
-        @weapons.each do |weapon|
-            sum += weapon.attack
         end
 
-        sum
-    end
-
-    def sum_shields
-        sum = 0.0
-
-        @shields.each do |shield|
-            sum += shield.attack
+        def receive_weapon(w)
+            #próximas prácticas
         end
 
-        sum
+        def receive_shields(s)
+            #próximas prácticas
+        end
+
+        def new_weapon
+            power = Irrgarten::Dice.weaponPower
+            uses = Irrgarten::Dice.usesLeft
+            new_weapon = Irrgarten::Weapon.new(power,uses)
+            @weapons.push(new_weapon)
+
+            puts new_weapon.to_s
+            new_weapon
+        end
+
+        def new_shield
+            protection = Irrgarten::Dice.shieldPower
+            uses = Irrgarten::Dice.usesLeft
+            new_shield = Irrgarten::Shield.new(protection,uses)
+            @shields.push(new_shield)
+
+            puts new_shield.to_s
+            new_shield
+        end
+
+        def sum_weapons
+            sum = 0.0
+
+            @weapons.each do |weapon|
+                sum += weapon.attack.to_f
+            end
+
+            sum
+        end
+
+        def sum_shields
+            sum = 0.0
+
+            @shields.each do |shield|
+                sum += shield.attack.to_f
+            end
+
+            sum
+        end
+
+        def reset_hits
+            @consecutive_hits = 0
+        end
+
+        def got_wounded
+            @health -= 1
+            puts "#{name} got wounded, -1 HP"
+        end
+
+        def inc_consecutive_hits
+            @consecutive_hits += 1
+        end
+
+        def defensive_energy
+            #próximas prácticas
+        end
+
+
     end
-
-    def reset_hits
-        @consecutive_hits = 0
-    end
-
-    def got_wounded
-        @health -= 1
-        puts "#{name} got wounded, -1 HP"
-    end
-
-    def inc_consecutive_hits
-        @consecutive_hits += 1
-    end
-
-    def defensive_energy
-        #próximas prácticas
-    end
-
-
 
 
 end
