@@ -26,7 +26,12 @@ public class Player {
     private Shield[] shields = new Shield[MAX_SHIELDS];
 
     
-    // Constructor de la clase
+    // Constructores de la clase
+    
+    public Player()
+    {
+        this('\0',0f,0f);
+    }
     
     public Player(char number, float intelligence, float strength){
         

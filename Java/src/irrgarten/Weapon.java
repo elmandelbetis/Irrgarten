@@ -14,8 +14,7 @@ public class Weapon {
     // Constructores
     
     public Weapon(){
-        power = 0;
-        uses = 0;
+        this(0f,0);
     }
     
     public Weapon(float power, int uses){

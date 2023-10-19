@@ -27,7 +27,11 @@ public class Labyrinth {
     
     
 
-    // Constructor de la clase
+    // Constructores de la clase
+    
+    public Labyrinth(){
+        this(0,0,0,0);
+    }
        
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
      

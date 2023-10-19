@@ -17,7 +17,12 @@ public class GameState {
     private String log;
     
     
-    // Constructor
+    // Constructores
+    
+    public GameState()
+    {
+       this("","","",0,false,"");
+    }
     
     public GameState(String labyrinthv, String players, String monsters, 
                      int currentPlayer, boolean winner, String log){

@@ -14,7 +14,12 @@ public class Monster {
     private int row, col;
     
     
-    // Constructor de la clase
+    // Constructores de la clase
+    
+    public Monster()
+    {
+        this("",0f,0f);
+    }
     
     public Monster(String name, float intelligence, float strength)
     {

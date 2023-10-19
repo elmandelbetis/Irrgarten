@@ -17,8 +17,7 @@ public class Shield {
     
     
     public Shield(){
-        protection = 0;
-        uses = 0;
+        this(0f,0);
     }
     
     public Shield(float protection, int uses){
