@@ -7,6 +7,7 @@
 package irrgarten;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     
@@ -22,8 +23,8 @@ public class Player {
     private int col;
     private int consecutiveHits = 0;
     
-    private Weapon[] weapons = new Weapon[MAX_WEAPONS]; // idea para implementar los métodos Sum
-    private Shield[] shields = new Shield[MAX_SHIELDS];
+    private ArrayList<Weapon> weapons = new ArrayList<Weapon>(MAX_WEAPONS); // idea para implementar los métodos Sum
+    private ArrayList<Shield> shields = new ArrayList<Shield>(MAX_SHIELDS);
 
     
     // Constructores de la clase
@@ -55,12 +56,12 @@ public class Player {
         
         for (int i = 0; i < MAX_WEAPONS; i++)
         {
-            weapons[i] = null;
+            weapons.set(i, null);
         }
         
         for (int j = 0; j < MAX_SHIELDS; j++)
         {
-            shields[j] = null;
+            shields.set(j, null);
         }
         
     } 
@@ -168,8 +169,8 @@ public class Player {
         
         for (int i = 0; i < MAX_WEAPONS; i++)
         {
-            if (weapons[i] == null){
-                weapons[i] = newWeapon;
+            if (weapons.get(i) == null){
+                weapons.set(i, newWeapon);
                 break;
             }
         }
@@ -191,8 +192,8 @@ public class Player {
         
         for (int i = 0; i < MAX_SHIELDS; i++)
         {
-            if (shields[i] == null){
-                shields[i] = newShield;
+            if (shields.get(i) == null){
+                shields.set(i, newShield);
                 break;
             }
         }
