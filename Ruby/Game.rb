@@ -5,11 +5,11 @@ module Irrgarten
 	
 	class Game
 
-	attr_reader :current_player_index :log 
-        attr_accessor :players :monsters, :players, :labyrinth
-        attr_accessor :current_player
+		attr_reader :current_player_index :log 
+        	attr_accessor :players :monsters, :players, :labyrinth
+        	attr_accessor :current_player
 
-	@@MAX_ROUNDS = 10
+		@@MAX_ROUNDS = 10
 
 		def initialize(nplayers)
 			
