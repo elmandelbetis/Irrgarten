@@ -11,7 +11,7 @@ module Irrgarten
 
 		@@MAX_ROUNDS = 10
 
-		def Game(nplayers)
+		def initialize(nplayers)
 			
 			@current_player_index = Irrgarten::Dice.who_starts(nplayers)
 			@labyrinth = Irrgarten::Labyrinth.new(5,7,2,0)
