@@ -21,15 +21,16 @@ public class Labyrinth {
     private final int exitRow;
     private final int exitCol;
     
-    private Monster monsters[][]; //realmente no sé muy bien qué hago
-    private Player players[][];  //pero siempre se puede preguntar en clase
-    private char labyrinth[][];
+    public Monster[][] monsters; //realmente no sé muy bien qué hago
+    public Player[][] players;  //pero siempre se puede preguntar en clase
+    public char[][] labyrinth;
     
     
-
+    
     // Constructores de la clase
     
-    public Labyrinth(){
+    public Labyrinth()
+    {
         this(0,0,0,0);
     }
        
@@ -39,6 +40,10 @@ public class Labyrinth {
         this.nCols = nCols;
         this.exitRow = exitRow;
         this.exitCol = exitCol;
+        
+        this.players = new Player[nRows][nCols];
+        this.monsters = new Monster[nRows][nCols];
+        this.labyrinth = new char[nRows][nCols];
         
     }
 
@@ -309,11 +314,6 @@ public class Labyrinth {
         // próxima práctica
     }
     
-    
-    
-    
-    
-    
-    
+      
     
 }

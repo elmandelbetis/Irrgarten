@@ -18,7 +18,7 @@ public class Monster {
     
     public Monster()
     {
-        this("",0f,0f);
+        this("",0,0);
     }
     
     public Monster(String name, float intelligence, float strength)

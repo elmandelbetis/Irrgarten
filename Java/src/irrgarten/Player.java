@@ -7,7 +7,6 @@
 package irrgarten;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Player {
     
@@ -23,15 +22,14 @@ public class Player {
     private int col;
     private int consecutiveHits = 0;
     
-    private ArrayList<Weapon> weapons = new ArrayList<Weapon>(MAX_WEAPONS); // idea para implementar los métodos Sum
+    private ArrayList<Weapon> weapons = new ArrayList<Weapon>(MAX_SHIELDS); // idea para implementar los métodos Sum
     private ArrayList<Shield> shields = new ArrayList<Shield>(MAX_SHIELDS);
 
     
     // Constructores de la clase
-    
     public Player()
     {
-        this('\0',0f,0f);
+        this('\0', 0,0);
     }
     
     public Player(char number, float intelligence, float strength){
@@ -54,14 +52,14 @@ public class Player {
         health = INITIAL_HEALTH;
         resetHits();
         
-        for (int i = 0; i < MAX_WEAPONS; i++)
+        for (int i = 0; i < weapons.size(); i++)
         {
-            weapons.set(i, null);
+            weapons.set(i,null);
         }
         
-        for (int j = 0; j < MAX_SHIELDS; j++)
+        for (int j = 0; j < shields.size(); j++)
         {
-            shields.set(j, null);
+            shields.set(j,null);
         }
         
     } 
@@ -153,7 +151,15 @@ public class Player {
     
     public void receiveShields(Shield s)
     {
-        // próxima práctica
+        for(int i = shields.size()-1; i <= 0; i--){
+            boolean discard = shields.get(i).discard();
+            if(discard)
+                shields.remove(shields.get(i));
+        }
+        
+        int size = shields.size();
+        if(size < MAX_SHIELDS)
+            shields.add(s);
     }
     
     // Método newWeapon()
@@ -167,7 +173,7 @@ public class Player {
         int uses = Dice.usesLeft(); 
         Weapon newWeapon = new Weapon(power,uses);
         
-        for (int i = 0; i < MAX_WEAPONS; i++)
+        for (int i = 0; i < weapons.size(); i++)
         {
             if (weapons.get(i) == null){
                 weapons.set(i, newWeapon);
@@ -190,10 +196,10 @@ public class Player {
         int uses = Dice.usesLeft();
         Shield newShield = new Shield(protection,uses);
         
-        for (int i = 0; i < MAX_SHIELDS; i++)
+        for (int i = 0; i < shields.size(); i++)
         {
             if (shields.get(i) == null){
-                shields.set(i, newShield);
+                shields.set(i,newShield);
                 break;
             }
         }
@@ -209,10 +215,10 @@ public class Player {
     
     public float sumWeapons()   // idea
     {
-        float sum = (float) 0;
+        float sum = 0.0f;
         
-        for (Weapon weapon : weapons){
-            sum += weapon.attack();
+        for (int i = 0; i < weapons.size(); i++){
+            sum += weapons.get(i).attack();
         }
         
         return sum;
@@ -225,10 +231,10 @@ public class Player {
     
     public float sumShields()   // idea
     {
-        float sum = (float) 0;
+        float sum = 0.0f;
         
-        for (Shield shield : shields){
-            sum += shield.protect();
+        for (int i = 0; i < shields.size(); i++){
+            sum += shields.get(i).protect();
         }
         
         return sum;
