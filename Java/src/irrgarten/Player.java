@@ -113,23 +113,46 @@ public class Player {
         return isDead;
     }
     
-    // Método move()
-    // 
     
     public Directions move(Directions direction, ArrayList<Directions> validMoves)
-    {
-        throw new UnsupportedOperationException();
+    {   
+        
+        int size = validMoves.size();
+        boolean contained = validMoves.contains(direction);
+        
+        if (size > 0 && (!contained)){
+            Directions firstElement = validMoves.get(0);
+            return firstElement;
+        }
+        else{
+            return direction;
+        }
     }
-    // próximas prácticas
-
     
     public boolean defend(float receivedAttack)
     {
-        throw new UnsupportedOperationException();
-    }   // próxima práctica
+        return manageHit(receivedAttack);
+    }  
         
-    public void receiveReward(){}
-    //próxima práctica
+    public void receiveReward(){
+        
+        int wReward = Dice.weaponsReward();
+        int sReward = Dice.shieldsReward();
+        
+        for (int i = 0; i < wReward; i++){
+            Weapon wnew = newWeapon();
+            receiveWeapon(wnew);
+        }
+        
+        for (int i = 0; i < sReward; i++){
+            Shield snew = newShield();
+            receiveShields(snew);   
+        }
+        
+        int extraHealth = Dice.healthReward();
+        health += extraHealth;
+        
+    }
     
     // Método toString()
     // Devuelve el estado actual detallado del jugador
@@ -144,9 +167,18 @@ public class Player {
     // Método receiveWeapon()
     //
     
-    public void receiveWeapon(Weapon s)
+    public void receiveWeapon(Weapon w)
     {    
-        // próxima práctica
+        for (int i = weapons.size()-1; i <= 0; i--){
+            boolean discard = weapons.get(i).discard();
+            if (discard)
+                weapons.remove(weapons.get(i));
+        }
+        
+        int size = weapons.size();
+        if (size < MAX_WEAPONS){
+            weapons.add(w);
+        }
     }
     
     public void receiveShields(Shield s)
@@ -259,8 +291,22 @@ public class Player {
     
     public boolean manageHit(float receivedAttack)
     {
-        throw new UnsupportedOperationException();
-        // próxima práctica
+        float defense = defensiveEnergy();
+        if (defense < receivedAttack) {
+            gotWounded();
+            incConsecutiveHits();
+        }
+        else {
+            resetHits();
+        }
+        
+        if (((consecutiveHits == HITS2LOSE) || (dead() ))) {
+            resetHits();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     // Método resetHits
