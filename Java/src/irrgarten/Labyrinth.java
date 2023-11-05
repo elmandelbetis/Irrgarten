@@ -50,7 +50,6 @@ public class Labyrinth {
     }
 
     
-    
     // Método haveAWinner
     // Booleano que devuelve "true" en caso de que un jugador, habiendo
     // realizado las respectivas comprobaciones, haya llegado a la casilla 
@@ -81,7 +80,10 @@ public class Labyrinth {
     @Override
     public String toString()
     {
-        throw new UnsupportedOperationException();
+        return "Tamaño del laberinto: "+nRows+"x"+nCols+"\n"
+                + "Casilla de salida: "+exitRow+","+exitCol+"\n"
+                + "Número de monstruos: "+monsters.size()+"\n"
+                + "Número de jugadores: "+players.size()+"\n";
     }
     
     // Método posOK()

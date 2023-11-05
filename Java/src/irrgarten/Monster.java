@@ -84,9 +84,6 @@ public class Monster {
     }
     
     
-    // Método defend()
-    //
-    
     public boolean defend(float receivedAttack)
     {
         boolean isDead = dead();
