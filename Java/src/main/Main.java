@@ -7,7 +7,16 @@ import irrgarten.Game;
 public class Main {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Game game = new Game(0);
+        TextUI view = new TextUI();
+        Controller controlador = new Controller(game, view);
+        
+        view.showGame(game.getGameState());
+        controlador.play();
+        
+        
+        
     }
     
 }

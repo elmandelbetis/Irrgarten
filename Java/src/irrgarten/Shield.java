@@ -15,11 +15,6 @@ public class Shield {
     
     //Constructores 
     
-    
-    public Shield(){
-        this(0,0);
-    }
-    
     public Shield(float protection, int uses){
         this.protection = protection;
         this.uses = uses;

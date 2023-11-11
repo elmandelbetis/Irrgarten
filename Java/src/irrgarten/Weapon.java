@@ -12,11 +12,7 @@ public class Weapon {
     private int uses;
     
     // Constructores
-    
-    public Weapon(){
-        this(0,0);
-    }
-    
+        
     public Weapon(float power, int uses){
         this.power = power;
         this.uses = uses;

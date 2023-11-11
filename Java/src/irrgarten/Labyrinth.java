@@ -30,7 +30,7 @@ public class Labyrinth {
     
     public Labyrinth()
     {
-        this(0,0,0,0);
+        this(1,1,0,0);
     }
        
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
@@ -94,7 +94,8 @@ public class Labyrinth {
             estado += "\n";
         }
         
-        estado +="\n";
+        estado +="\nTamaño del laberinto: "+getRows()+"x"+getCols()+"\nCasilla "
+                + "de salida: ["+exitRow+","+exitCol+"]";
         return estado;
     }
     
@@ -183,7 +184,6 @@ public class Labyrinth {
             }
         
         }
-        
         return false;
     }
     

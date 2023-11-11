@@ -8,7 +8,7 @@ public class Game {
     private int currentPlayerIndex;
     private String log;
    
-    private Player currentPlayer;
+    public Player currentPlayer;
     private ArrayList<Player> players;
     private ArrayList<Monster> monsters;
     private Labyrinth labyrinth;

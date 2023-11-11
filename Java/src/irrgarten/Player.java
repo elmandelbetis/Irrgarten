@@ -19,14 +19,16 @@ public class Player {
     private int row, col;
     private int consecutiveHits = 0;
     
-    private ArrayList<Weapon> weapons; // idea para implementar los métodos Sum
-    private ArrayList<Shield> shields;
+    private ArrayList <Weapon> weapons; 
+    private ArrayList <Shield> shields;
 
     
     // Constructores de la clase
     public Player()
     {
         this('\0', 0,0);
+        this.name = null;
+        this.health = 0;
     }
     
     public Player(char number, float intelligence, float strength){
@@ -37,9 +39,13 @@ public class Player {
         this.name = "Player#"+number;
         this.health = INITIAL_HEALTH;
         
-        this.weapons = new ArrayList<>();
-        this.shields = new ArrayList<>();
+        weapons = new ArrayList<>();
+        shields = new ArrayList<>();
         
+        Weapon w = new Weapon(1,1);
+        Shield s = new Shield(1,1);
+        weapons.add(w);
+        shields.add(s);
     }
     
     // Método resurrect()
@@ -106,8 +112,7 @@ public class Player {
         boolean contained = validMoves.contains(direction);
         
         if (size > 0 && (!contained)){
-            Directions firstElement = validMoves.get(0);
-            return firstElement;
+            return validMoves.get(0);
         }
         else{
             return direction;
@@ -185,8 +190,15 @@ public class Player {
     
     public Weapon newWeapon()
     {
+        float power = Dice.weaponPower();
+        int uses = Dice.usesLeft();
+        
         Weapon newWeapon = new Weapon(Dice.weaponPower(),Dice.usesLeft());
-        weapons.add(newWeapon);
+        
+        do{
+            weapons.add(newWeapon);
+        }while ((power < 1.0f) && (uses < 1));
+        
         return newWeapon; // idea
         
     }
@@ -196,8 +208,15 @@ public class Player {
     
     public Shield newShield()
     {
-        Shield newShield = new Shield(Dice.shieldPower(),Dice.usesLeft());
-        shields.add(newShield);
+        float protection = Dice.shieldPower();
+        int uses = Dice.usesLeft();
+        
+        Shield newShield = new Shield(protection, uses);
+
+        do{
+            shields.add(newShield);
+        }while ((protection < 1.0f) && (uses < 1));
+        
         return newShield; // idea
         
     }
