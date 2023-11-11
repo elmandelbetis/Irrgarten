@@ -43,7 +43,7 @@ def main
     separation_lines
     puts "PROBANDO CLASE WEAPON..."
 
-    arma = Irrgarten::Weapon.new(dado.get_max_attack.to_f, dado.get_max_uses)
+    arma = Irrgarten::Weapon.new(dado.MAX_ATTACK.to_f, Dice.MAX_USES)
 
     #Prueba      
 

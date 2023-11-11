@@ -10,7 +10,6 @@ module Irrgarten
 
     class Player
 
-        require 'Array'
         require_relative 'Weapon.rb'
         require_relative 'Shield.rb'
         require_relative 'Directions.rb'
@@ -23,7 +22,6 @@ module Irrgarten
 
         attr_accessor :name, :number, :intelligence, :strength, :health, :row, :col
         attr_accessor :consecutive_hits
-
         attr_accessor :weapons
         attr_accessor :shields
 
@@ -47,7 +45,7 @@ module Irrgarten
             @weapons.clear
             @shields.clear
             @health = @@INITIAL_HEALTH
-            reset_hits
+            self.reset_hits
         end
 
         def get_row
@@ -97,10 +95,11 @@ module Irrgarten
         end
 
         def to_string
-            puts "#{name}, H: #{health}, I: #{intelligence}, S#{strength},
+            puts "#{name}, H: #{health}, I: #{intelligence}, S: #{strength},
             Pos: #{row},#{col}"
         end
 
+        private
         def receive_weapon(w)
             #próximas prácticas
         end
@@ -110,43 +109,32 @@ module Irrgarten
         end
 
         def new_weapon
-            power = Irrgarten::Dice.weaponPower
-            uses = Irrgarten::Dice.usesLeft
-            new_weapon = Irrgarten::Weapon.new(power,uses)
-            @weapons.push(new_weapon)
-
-            puts new_weapon.to_s
-            new_weapon
+            Weapon(Dice.weapon_power, Dice.uses_left)
         end
 
         def new_shield
-            protection = Irrgarten::Dice.shieldPower
-            uses = Irrgarten::Dice.usesLeft
-            new_shield = Irrgarten::Shield.new(protection,uses)
-            @shields.push(new_shield)
-
-            puts new_shield.to_s
-            new_shield
+            Shield(Dice.shield_power, Dice.uses_left)
         end
 
         def sum_weapons
-            sum = 0.0
 
-            @weapons.each do |weapon|
-                sum += weapon.attack.to_f
+            for i in 0..weapons.length
+                sum += weapons[i].attack.to_f
             end
 
             sum
         end
 
         def sum_shields
-            sum = 0.0
-
-            @shields.each do |shield|
-                sum += shield.attack.to_f
+            for i in 0..shields.length
+                sum+= shields[i].protect
             end
 
             sum
+        end
+
+        def defensive_energy
+            #próximas prácticas
         end
 
         def reset_hits
@@ -160,10 +148,6 @@ module Irrgarten
 
         def inc_consecutive_hits
             @consecutive_hits += 1
-        end
-
-        def defensive_energy
-            #próximas prácticas
         end
 
 

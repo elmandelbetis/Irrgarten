@@ -138,17 +138,5 @@ module Irrgarten
             return discard
         end
 
-        def get_max_attack
-            @@MAX_ATTACK
-        end
-        
-        def get_max_shield
-            @@MAX_SHIELD
-        end
-
-        def get_max_uses
-            @@MAX_USES
-        end
-
     end
 end

@@ -6,6 +6,8 @@
 # Fichero: Irrgarten/Labyrinth.rb     # 
 #######################################
 
+require 'matrix'
+
 module Irrgarten
 
     require_relative 'Monster.rb'
@@ -42,9 +44,11 @@ module Irrgarten
             @exit_row = exit_row
             @exit_col = exit_col
 
-            @monsters = Array.new(n_rows) { Array.new(n_cols) { Irrgarten::Monster } }
-            @players = Array.new(n_rows) { Array.new(n_cols) { Irrgarten::Player } }
-            @labyrinth = Array.new(n_rows) { Array.new(n_cols) }
+            @monsters = Matrix.new(n_rows) { Array.new(n_cols) {nil} }
+            @players = Matrix.new(n_rows) { Array.new(n_cols) {nil} }
+            @labyrinth = Matrix.new(n_rows) { Array.new(n_cols){nil} }
+
+
 
         end
 
@@ -62,7 +66,14 @@ module Irrgarten
         end
 
         def to_string
-            #estado del laberinto en string
+            estado = ""
+            for i in 0..@n_rows-1
+                for j in 0..n_cols-1
+                    estado << @labyrinth[i][j] #append a string
+                end
+                estado << "\n"
+            end
+            estado
         end
 
         def add_monster(row, col, monster)
@@ -74,7 +85,7 @@ module Irrgarten
                 @labyrinth[row][col] = @@MONSTER_CHAR
                 @monsters[row][col] = monster
                 
-                Irrgarten::Monster.set_pos(row,col)
+                Monster.set_pos(row,col)
  
             end 
                     
@@ -92,13 +103,14 @@ module Irrgarten
             # próxima práctica
         end
 
+        private
+
         def pos_ok(row, col)
             pos_ok = false
 
-            if row >= 0 && @@ROW <= @n_rows && col >= @@COL && col <= @n_cols
+            if row >= 0 && row <= @n_rows && @col >= 0 && col <= @n_cols
                 pos_ok = true
             end
-
             pos_ok
         end
         
@@ -206,13 +218,13 @@ module Irrgarten
         def random_empty_pos(n_rows, n_cols)    #realmente no tendría que poner parámetros pero no se me ocurre otra cosa
 
             random_empty_pos = Array.new(2)
-            random_row = Irrgarten::Dice.random_pos(n_rows)
-            random_col = Irrgarten::Dice.random_pos(n_cols)
+            random_row = Dice.random_pos(n_rows)
+            random_col = Dice.random_pos(n_cols)
             
-            while empty_pos(random_row, random_col) == false
+            while self.empty_pos(random_row, random_col) == false
 
-                random_row = Irrgarten::Dice.random_pos(n_rows)
-                random_col = Irrgarten::Dice.random_pos(n_cols)
+                random_row = Dice.random_pos(n_rows)
+                random_col = Dice.random_pos(n_cols)
 
                 random_empty_pos[0] = random_row
                 random_empty_pos[1] = random_col

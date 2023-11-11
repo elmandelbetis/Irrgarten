@@ -11,7 +11,7 @@ module Irrgarten
 
     class GameState
         
-        attr_accessor :labyrinthv
+        attr_accessor :labyrinth
         attr_accessor :players
         attr_accessor :monsters
         attr_accessor :currentPlayer
@@ -21,7 +21,7 @@ module Irrgarten
 
         #Constructor
 
-        def initialize(labyrinthv, players, monsters, currentPlayer, winner,
+        def initialize(labyrinth, players, monsters, currentPlayer, winner,
                        log)
             
             @labyrinthv = labyrinthv
@@ -36,27 +36,27 @@ module Irrgarten
 
         # Consultores
 
-        def labyrinthv
-            @labyrinthv
+        def get_labyrinth
+            @labyrinth
         end
 
-        def players
+        def get_players
             @players
         end
 
-        def monsters
+        def get_monsters
             @monsters
         end
 
-        def currentPlayer
+        def get_currentPlayer
             @currentPlayer
         end
 
-        def winner
+        def get_winner
             @winner
         end
 
-        def log
+        def get_log
             @log
         end
 
