@@ -101,6 +101,10 @@ public class Game {
         
         int nMonstruos = tamTotal / 5;
         
+        labyrinth.addBlock(Orientation.HORIZONTAL, 1, 0, 2);
+        labyrinth.addBlock(Orientation.VERTICAL, 2, 1, 2);
+        
+        
         for (int i = 0; i <= nMonstruos; i++){
             Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());
             monsters.add(monstruo);
@@ -109,8 +113,7 @@ public class Game {
         }
         
         labyrinth.spreadPlayers(players);
-        
-
+    
     }
     
     private void nextPlayer()
