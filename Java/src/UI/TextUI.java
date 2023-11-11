@@ -50,7 +50,14 @@ public class TextUI {
     }
     
     public void showGame(GameState gameState) {  
-        // TODO completar showGame con llamadas a métodos de GameState
+        
+        gameState.getLabyrinth();
+        gameState.getPlayers();
+        gameState.getMonsters();
+        gameState.getCurrentPlayer();
+        gameState.getWinner();
+        gameState.getLog();
+        
     }
     
 }

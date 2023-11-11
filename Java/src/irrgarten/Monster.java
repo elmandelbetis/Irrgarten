@@ -18,7 +18,7 @@ public class Monster {
     
     public Monster()
     {
-        this("",0,0);
+        this("",0f,0f);
     }
     
     public Monster(String name, float intelligence, float strength)
@@ -55,6 +55,22 @@ public class Monster {
         return Dice.intensity(strength);   
     }
     
+     public boolean defend(float receivedAttack)
+    {
+        boolean isDead = dead();
+        
+        if (!isDead){
+            float defensiveEnergy = Dice.intensity(intelligence);
+            
+            if(defensiveEnergy < receivedAttack){
+                gotWounded();
+                isDead = dead();
+            }
+        }
+        
+        return isDead;
+    }
+    
     // Método setPos()
     // Asigna una posición al monstruo en el tablero
     
@@ -77,26 +93,9 @@ public class Monster {
     // Método gotWounded()
     // Reduce la salud del monstruo en 1
     
-    public void gotWounded()
+    private void gotWounded()
     {
         health--;
-        System.out.println("Monster "+name+" got wounded, -1 HP");
     }
     
-    
-    public boolean defend(float receivedAttack)
-    {
-        boolean isDead = dead();
-        
-        if (!isDead){
-            float defensiveEnergy = Dice.intensity(intelligence);
-            
-            if(defensiveEnergy < receivedAttack){
-                gotWounded();
-                isDead = dead();
-            }
-        }
-        
-        return isDead;
-    }
 }

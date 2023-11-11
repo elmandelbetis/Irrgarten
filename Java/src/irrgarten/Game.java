@@ -25,17 +25,18 @@ public class Game {
     public Game(int nplayers)
     {
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
-        this.labyrinth = new Labyrinth(5, 7, 2, 0); // sample dado por el profesor
-        this.players = null;
-        this.monsters = null;
-        this.log = null;
+        this.labyrinth = new Labyrinth(10, 10, 2, 0); // sample dado por el profesor
+        this.players = new ArrayList<>();
+        this.monsters = new ArrayList<>();
+        this.log = "";
         
         for (int i = 0; i <= nplayers; i++){
             players.add(new Player((char) i,Dice.randomIntelligence(),Dice.randomStrength()));
         }
         
+        this.currentPlayerIndex = Dice.whoStarts(nplayers);
         this.currentPlayer = players.get(currentPlayerIndex);
-        
+        this.configureLabyrinth();
         
     }
     
@@ -46,14 +47,47 @@ public class Game {
     
     public boolean nextStep(Directions preferredDirection)
     {
-        throw new UnsupportedOperationException();
+        this.log = "";
+        boolean dead = currentPlayer.dead();
+        
+        if (!dead)
+        {
+            Directions direction = actualDirection(preferredDirection);
+            
+            if (direction != preferredDirection)
+            {
+                logPlayerNoOrders();
+            }
+            
+            Monster monster = labyrinth.putPlayer(direction, currentPlayer);
+            
+            if (monster == null)
+            {
+                logNoMonster();
+            } else {
+                GameCharacter winner = combat(monster);
+                manageReward(winner);
+            }
+            
+        } else {
+            manageResurrection();
+        }
+        
+        boolean endGame = finished();
+        
+        if (!endGame){
+            nextPlayer();
+        }
+        
+        return endGame;
+    
     }
     
     public GameState getGameState()
     {
         GameState gameState = new GameState(labyrinth.toString(),
                 players.toString(),monsters.toString(),currentPlayerIndex,
-                labyrinth.haveAWinner(),log);  
+                finished(),log);  
         
         return gameState;
     
@@ -61,32 +95,69 @@ public class Game {
     
     private void configureLabyrinth()
     {
-        throw new UnsupportedOperationException(); //TODO completar método
+        
+
     }
     
     private void nextPlayer()
     {
         if (this.currentPlayerIndex == players.size()){
-            currentPlayerIndex -= currentPlayerIndex;   // también vale poner el 0, pero sería nº mágico
+            currentPlayerIndex -= currentPlayerIndex;
         }
         else{
             currentPlayerIndex++;
         }
     }
     
-    private Directions actuaDirection(Directions preferredDirection)
+    private Directions actualDirection(Directions preferredDirection)
     {
-        throw new UnsupportedOperationException();
+        int currentRow = currentPlayer.getRow();
+        int currentCol = currentPlayer.getCol();
+        
+        ArrayList<Directions> validMoves = labyrinth.validMoves(currentRow, currentCol);
+        Directions output = currentPlayer.move(preferredDirection, validMoves);
+        
+        return output;
     }
     
     private GameCharacter combat(Monster monster)
     {
-        throw new UnsupportedOperationException();
+        int rounds = 0;
+        GameCharacter winner = GameCharacter.PLAYER;
+        float playerAttack = currentPlayer.attack();
+        boolean lose = monster.defend(playerAttack);
+        
+        while ((!lose) && (rounds < MAX_ROUNDS))
+        {
+            winner = GameCharacter.MONSTER;
+            rounds++;
+            float monsterAttack = monster.attack();
+            lose = currentPlayer.defend(monsterAttack);
+            
+            if (!lose) 
+            {
+                playerAttack = currentPlayer.attack();
+                winner = GameCharacter.PLAYER;
+                lose = monster.defend(playerAttack);
+            }
+            
+        }
+        
+        logRounds(rounds, MAX_ROUNDS);
+        
+        return winner;
+        
     }
     
     private void manageReward(GameCharacter winner)
     {
-        throw new UnsupportedOperationException();
+        if (winner == GameCharacter.PLAYER)
+        {
+            currentPlayer.receiveReward();
+            logPlayerWon();
+        } else {
+            logMonsterWon();
+        }
     }
     
     private void manageResurrection()
@@ -103,22 +174,22 @@ public class Game {
     
     private void logPlayerWon()
     {
-        log+="Jugador "+currentPlayerIndex+", has ganado el combate!!\n"; //también podría ponerse quizás el player.getNumber()?
+        log+="Jugador #"+currentPlayerIndex+", has ganado el combate!!\n"; //también podría ponerse quizás el player.getNumber()?
     }
     
     private void logMonsterWon()
     {
-        log+="Jugador "+currentPlayerIndex+", has perdido contra el monstruo!!\n";
+        log+="Jugador #"+currentPlayerIndex+", has perdido contra el monstruo!!\n";
     }
     
     private void logResurrected()
     {
-        log+="Jugador "+currentPlayerIndex+", has sido resucitado!!\n";
+        log+="Jugador #"+currentPlayerIndex+", has sido resucitado!!\n";
     }
     
     private void logPlayerSkipTurn()
     {
-        log+="Jugador "+currentPlayerIndex+", estás muerto. Se pasa el turno al jugador "+(currentPlayerIndex++)+"\n";
+        log+="Jugador #"+currentPlayerIndex+", estás muerto. Se pasa tu turno\n";
     }
     
     private void logPlayerNoOrders()
@@ -126,7 +197,7 @@ public class Game {
         log+="No es posible seguir la instrucción\n";
     }
     
-    private void logNoMonsters()
+    private void logNoMonster()
     {
         log+="Jugador "+currentPlayerIndex+", acabas de caer en una celda vacía o no es posible moverse.\n"; // no debería hacerse con un if?
     }

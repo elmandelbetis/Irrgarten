@@ -13,17 +13,14 @@ public class Player {
     private static final int MAX_WEAPONS = 2, MAX_SHIELDS = 3;
     private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3;
     
-    private final String name;
-    private final char number;
-    private final float intelligence;
-    private final float strength;
-    private float health;
-    private int row;
-    private int col;
+    private String name;
+    private char number;
+    private float intelligence, strength, health;
+    private int row, col;
     private int consecutiveHits = 0;
     
-    private ArrayList<Weapon> weapons = new ArrayList<Weapon>(MAX_SHIELDS); // idea para implementar los métodos Sum
-    private ArrayList<Shield> shields = new ArrayList<Shield>(MAX_SHIELDS);
+    private ArrayList<Weapon> weapons; // idea para implementar los métodos Sum
+    private ArrayList<Shield> shields;
 
     
     // Constructores de la clase
@@ -40,6 +37,9 @@ public class Player {
         this.name = "Player#"+number;
         this.health = INITIAL_HEALTH;
         
+        this.weapons = new ArrayList<>();
+        this.shields = new ArrayList<>();
+        
     }
     
     // Método resurrect()
@@ -49,19 +49,10 @@ public class Player {
     
     public void resurrect()
     {   
-        health = INITIAL_HEALTH;
+        weapons.clear();
+        shields.clear();
+        this.health = INITIAL_HEALTH;
         resetHits();
-        
-        for (int i = 0; i < weapons.size(); i++)
-        {
-            weapons.set(i,null);
-        }
-        
-        for (int j = 0; j < shields.size(); j++)
-        {
-            shields.set(j,null);
-        }
-        
     } 
     
     // Método getRow()
@@ -69,7 +60,7 @@ public class Player {
     
     public int getRow()
     {
-        return row;
+        return this.row;
     }
     
     // Método getCol()
@@ -77,7 +68,7 @@ public class Player {
     
     public int getCol()
     {
-        return col;
+        return this.col;
     }
     
     // Método getNumber()
@@ -85,7 +76,7 @@ public class Player {
     
     public char getNumber()
     {
-        return number;
+        return this.number;
     }
     
     // Método setPos
@@ -104,13 +95,7 @@ public class Player {
     
     public boolean dead(){
         
-        boolean isDead = false;
-        
-        if (health <= 0){
-            isDead = true;
-        } 
-        
-        return isDead;
+        return health <= 0;
     }
     
     
@@ -200,20 +185,8 @@ public class Player {
     
     public Weapon newWeapon()
     {
-        
-        float power = Dice.weaponPower();
-        int uses = Dice.usesLeft(); 
-        Weapon newWeapon = new Weapon(power,uses);
-        
-        for (int i = 0; i < weapons.size(); i++)
-        {
-            if (weapons.get(i) == null){
-                weapons.set(i, newWeapon);
-                break;
-            }
-        }
-        
-        System.out.println(newWeapon.toString());
+        Weapon newWeapon = new Weapon(Dice.weaponPower(),Dice.usesLeft());
+        weapons.add(newWeapon);
         return newWeapon; // idea
         
     }
@@ -223,20 +196,8 @@ public class Player {
     
     public Shield newShield()
     {
-        
-        float protection = Dice.shieldPower();
-        int uses = Dice.usesLeft();
-        Shield newShield = new Shield(protection,uses);
-        
-        for (int i = 0; i < shields.size(); i++)
-        {
-            if (shields.get(i) == null){
-                shields.set(i,newShield);
-                break;
-            }
-        }
-        
-        System.out.println(newShield.toString());
+        Shield newShield = new Shield(Dice.shieldPower(),Dice.usesLeft());
+        shields.add(newShield);
         return newShield; // idea
         
     }
@@ -277,7 +238,7 @@ public class Player {
     // sus armas
     
     public float attack(){
-        return strength + sumWeapons();
+        return this.strength + sumWeapons();
     }
     
     // Método defensiveEnergy()
@@ -286,7 +247,7 @@ public class Player {
     
     public float defensiveEnergy()
     {
-        return intelligence + sumShields();
+        return this.intelligence + sumShields();
     }
     
     public boolean manageHit(float receivedAttack)
@@ -313,7 +274,7 @@ public class Player {
     // Resetea el contador de hits consecutivos a cero
     
     public void resetHits(){
-        consecutiveHits = 0;
+        this.consecutiveHits = 0;
     }
     
     // Método gotWounded()
@@ -321,15 +282,14 @@ public class Player {
     // salud del jugador
     
     public void gotWounded(){
-        health--;
-        System.out.println(""+name+" got wounded, -1 HP");
+        this.health--;
     }  
     
     // Método incConsecutiveHits
     // Incrementa de uno en uno el contador de hits consecutivos del jugador
     
     public void incConsecutiveHits(){
-        consecutiveHits++;
+        this.consecutiveHits++;
     }
     
     

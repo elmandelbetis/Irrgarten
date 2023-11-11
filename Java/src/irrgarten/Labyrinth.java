@@ -15,17 +15,14 @@ public class Labyrinth {
     private static final char MONSTER_CHAR = 'M';
     private static final char COMBAT_CHAR = 'C';
     private static final char EXIT_CHAR = 'E';
-    private static int ROW = 0; // para uso en P3
-    private static int COL = 1; // para uso en P3
+    private static final int ROW = 0; // para uso en P3
+    private static final int COL = 1; // para uso en P3
     
-    private final int nRows;
-    private final int nCols;
-    private final int exitRow;
-    private final int exitCol;
+    private int nRows, nCols, exitRow, exitCol;
     
-    public ArrayList<ArrayList<Monster>> monsters; 
-    public ArrayList<ArrayList<Player>> players;  
-    public ArrayList<ArrayList<Character>> labyrinth;
+    public Monster[][] monsters; 
+    public Player[][] players;  
+    public char[][] labyrinth;
     
     
     
@@ -43,9 +40,17 @@ public class Labyrinth {
         this.exitRow = exitRow;
         this.exitCol = exitCol;
         
-        this.monsters = new ArrayList<ArrayList<Monster>>();
-        this.players = new ArrayList<ArrayList<Player>>();
-        this.labyrinth = new ArrayList<ArrayList<Character>>();
+        this.monsters = new Monster[nRows][nCols];
+        this.players = new Player[nRows][nCols];
+        this.labyrinth = new char[nRows][nCols];
+        
+        for (int i = 0; i < nRows; i++){
+            for (int j = 0; j < nCols; j++){
+                labyrinth[i][j] = EMPTY_CHAR;
+            }
+        }
+        
+        labyrinth[exitRow][exitCol] = EXIT_CHAR;
         
     }
 
@@ -61,9 +66,9 @@ public class Labyrinth {
         
         for (int i = 0; i < nRows; i++){
             for (int j = 0; j < nCols; j++){
-                if (labyrinth.get(i).get(j) == EXIT_CHAR)
+                if (labyrinth[i][j] == EXIT_CHAR)
                 {
-                    if(players.get(i).get(j) != null)
+                    if(players[i][j] != null)
                     {
                         haveAWinner = true;
                     }
@@ -80,10 +85,16 @@ public class Labyrinth {
     @Override
     public String toString()
     {
-        return "Tamaño del laberinto: "+nRows+"x"+nCols+"\n"
-                + "Casilla de salida: "+exitRow+","+exitCol+"\n"
-                + "Número de monstruos: "+monsters.size()+"\n"
-                + "Número de jugadores: "+players.size()+"\n";
+        String estado = "";
+        
+        for (int i=0; i < nRows; i++){
+            for (int j=0; j < nCols; j++){
+                estado += labyrinth[i][j];
+            }
+        }
+        
+        estado +="\n";
+        return estado;
     }
     
     // Método posOK()
@@ -91,15 +102,7 @@ public class Labyrinth {
     // es real y se encuentra en el tablero
     
     private boolean posOK(int row, int col){
-        
-        boolean posOK = false;
-        
-        if (row >= 0 && row <= nRows && col >= 0 && col <= nCols)
-        {
-            posOK = true;
-        }
-        
-        return posOK;
+        return (row >= 0) && (row <= nRows) && (col >= 0) && (col <= nCols);
     }
     
     // Método addMonster()
@@ -111,10 +114,10 @@ public class Labyrinth {
     {   
         boolean posOK = posOK(row, col);
         
-        if (labyrinth.get(row).get(col) == EMPTY_CHAR && posOK)
+        if (labyrinth[row][col] == EMPTY_CHAR && posOK)
         {   
-            labyrinth.get(row).set(col,MONSTER_CHAR);
-            monsters.get(row).set(col,monster);
+            labyrinth[row][col] = MONSTER_CHAR;
+            monsters[row][col] = monster;
             monster.setPos(row, col);
             
         }
@@ -125,8 +128,8 @@ public class Labyrinth {
         for (int i = 0; i < players.size(); i++)
         {
             Player p = players.get(i);
-            int[] pos = randomEmptyPos();            
-            putPlayer2D(-1,-1, pos[ROW], pos[COL], p); 
+            ArrayList<Integer> pos = randomEmptyPos();            
+            putPlayer2D(-1,-1, pos.get(ROW), pos.get(COL), p); 
             
         }
     }
@@ -135,15 +138,13 @@ public class Labyrinth {
     // Si la casilla pasada como parámetro está vacía, devuelve "true"
     
     private boolean emptyPos(int row, int col)
-    {   
-        boolean isEmpty = false;
-        
-        if (labyrinth.get(row).get(col) == EMPTY_CHAR)
+    {           
+        if (labyrinth[row][col] == EMPTY_CHAR)
         {
-            isEmpty = true;
+            return true;
         }
         
-        return isEmpty;
+        return false;
     }
     
     // Método monsterPos()
@@ -151,15 +152,13 @@ public class Labyrinth {
     // en ella, devolvemos "true". "False" en caso contrario
     
     private boolean monsterPos(int row, int col)
-    {
-        boolean monsterThere = false;
-        
-        if (labyrinth.get(row).get(col) == MONSTER_CHAR)
+    {        
+        if (labyrinth[row][col] == MONSTER_CHAR)
         {
-            monsterThere = true;
+            return true;
         }
         
-        return monsterThere;
+        return false;
     }
     
     // Método exitPos()
@@ -168,13 +167,11 @@ public class Labyrinth {
     
     private boolean exitPos(int row, int col)
     {
-        boolean exitPos = false;
-        
-        if (labyrinth.get(row).get(col) == EXIT_CHAR){
-            exitPos = true;
+             if (labyrinth[row][col] == EXIT_CHAR){
+            return true;
         }
         
-        return exitPos;
+        return false;
     }
     
     // Método exitPos()
@@ -183,14 +180,12 @@ public class Labyrinth {
     // jugador como un monstruo)
     
     private boolean combatPos(int row, int col)
-    {
-        boolean combatPos = false;
-        
-        if (labyrinth.get(row).get(col) == COMBAT_CHAR){
-            combatPos = true;
+    {        
+        if (labyrinth[row][col] == COMBAT_CHAR){
+            return true;
         }
         
-        return combatPos;
+        return false;
     }
     
     // Método canStepOn()
@@ -198,20 +193,17 @@ public class Labyrinth {
     // o con una casilla vacía, monstruo o es la casilla de salida
     
     private boolean canStepOn(int row, int col)
-    {   
-        boolean canStepOn = false;
-        
+    {           
         if (posOK(row,col))
         {
-            if (emptyPos(row, col) || monsterPos(row, col) 
-                || exitPos(row, col))
+            if (emptyPos(row, col) || monsterPos(row, col) || exitPos(row, col))
             {
-                canStepOn = true;
+                return true;
             }
         
         }
         
-        return canStepOn;
+        return false;
     }
     
     // Método updateOldPos()
@@ -225,11 +217,11 @@ public class Labyrinth {
         if (posOK(row, col))
         {
             if (combatPos(row, col)){
-                labyrinth.get(row).set(col, MONSTER_CHAR);
+                labyrinth[row][col] = MONSTER_CHAR;
             }
             else
             {
-                labyrinth.get(row).set(col, EMPTY_CHAR);
+                labyrinth[row][col] = EMPTY_CHAR;
             }
         }
     }
@@ -239,30 +231,30 @@ public class Labyrinth {
     // que se va a mover un jugador en función de la dirección de movimiento
     // que tome
     
-    private int[] dir2Pos(int row, int col, Directions direction)
+    private ArrayList<Integer> dir2Pos(int row, int col, Directions direction)
     {
         
-        int newPos[] = new int[2];
+        
         
         switch (direction)
         {
             case UP:
-                newPos[0] = row-1;
-                newPos[1] = col;
+                row--;
                 break;
             case DOWN:
-                newPos[0] = row+1;
-                newPos[1] = col;
+                row++;
                 break;
             case LEFT:
-                newPos[0] = row;
-                newPos[1] = col-1;
+                col--;
                 break;
             case RIGHT:
-                newPos[0] = row;
-                newPos[1] = col+1;
+                col++;
                 break;
         }
+        
+        ArrayList<Integer> newPos = new ArrayList<>();
+        newPos.add(row);
+        newPos.add(col);
         
         return newPos;
     }
@@ -273,22 +265,23 @@ public class Labyrinth {
     // se cumpla la restricción y una vez hecho, la devuelve. De lo contrario
     // se producirá un bucle infinito
     
-    private int[] randomEmptyPos()
+    private ArrayList<Integer> randomEmptyPos()
     {
-        int randomPos[]= new int[2];
+        ArrayList<Integer> randomPos= new ArrayList<>();
         
         int randomRow;
         int randomCol;
         
         do{
             
-            randomRow = Dice.nextInt(nRows);
-            randomCol = Dice.nextInt(nCols);
+            randomRow = Dice.randomPos(nRows);
+            randomCol = Dice.randomPos(nCols);
             
-            randomPos[0] = randomRow;
-            randomPos[1] = randomCol;
+            randomPos.add(randomRow);
+            randomPos.add(randomCol);
             
-        } while(!emptyPos(randomRow,randomCol));
+        } while((posOK(randomRow, randomCol)) 
+                && (emptyPos(randomRow,randomCol)));
         
         return randomPos;
     }
@@ -298,8 +291,8 @@ public class Labyrinth {
         int oldRow = player.getRow();
         int oldCol = player.getCol();
         
-        int[] newPos = dir2Pos(oldRow, oldCol, direction);
-        Monster monster = putPlayer2D(oldRow, oldCol, newPos[ROW], newPos[COL], player);
+        ArrayList<Integer> newPos = dir2Pos(oldRow, oldCol, direction);
+        Monster monster = putPlayer2D(oldRow, oldCol, newPos.get(ROW), newPos.get(COL), player);
         
         return monster;
     }
@@ -307,19 +300,31 @@ public class Labyrinth {
     public void addBlock(Orientation orientation, int startRow, int startCol,
             int length)
     {
-        /*int row = getRow();
-        int col = getCol();
-        if (orientation == Orientation.VERTICAL){
-            
+        int incRow, incCol;
+        
+        if (orientation == Orientation.VERTICAL)
+        {
+             incRow = 1;
+             incCol = 0;
+        } else {
+            incRow = 0;
+            incCol = 1;
         }
         
-        row = startRow;
-        col = startCol;*/
+        int row = startRow, col = startCol;
+        
+        while ((posOK(row, col)) && (emptyPos(row,col)) && (length > 0))
+        {
+            labyrinth[row][col] = BLOCK_CHAR;
+            length -= 1;
+            row += incRow;
+            col += incCol;
+        }
     }
     
     public ArrayList<Directions> validMoves(int row, int col)
     {
-        ArrayList<Directions> output = new ArrayList <Directions>();
+        ArrayList<Directions> output = new ArrayList <>();
         
         if(canStepOn(row+1,col)){
             output.add(Directions.DOWN);
@@ -347,12 +352,12 @@ public class Labyrinth {
         {
             if (posOK(oldRow, oldCol))
             {
-                Player p = players.get(oldRow).get(oldCol);
+                Player p = players[oldRow][oldCol];
                 
                 if (p == player)
                 {
                     updateOldPos(oldRow,oldCol);
-                    players.get(oldRow).set(oldCol, null);
+                    players[oldRow][oldCol] = null;
                 }
             }
             
@@ -360,14 +365,14 @@ public class Labyrinth {
             
             if (monsterPos)
             {
-                labyrinth.get(row).set(col, COMBAT_CHAR);
-                output = monsters.get(row).get(col);
+                labyrinth[row][col] = COMBAT_CHAR;
+                output = monsters[row][col];
             } else {
                 char number = player.getNumber();
-                labyrinth.get(row).set(col,number);
+                labyrinth[row][col] = number;
             }
             
-            players.get(row).set(col,player);
+            players[row][col] = player;
             player.setPos(row, col);
             
         }

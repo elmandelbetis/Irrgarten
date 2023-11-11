@@ -157,10 +157,10 @@ public class Dice {
         
         else{
             
-            float prob = (float) usesLeft / MAX_USES;
+            float probDiscard = (float) usesLeft / MAX_USES;
             float randomValue = generator.nextFloat()*(float) 1.01;
             
-            if (randomValue >= prob){
+            if (randomValue <= probDiscard){
                 discard = true;
             }
         }
