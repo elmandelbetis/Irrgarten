@@ -42,7 +42,7 @@ public class Dice {
     // Devuelve un valor aleatorio de posición de fila o columna en el tablero
     public static int randomPos(int max){
         
-        int pos = generator.nextInt(max+1); //devuelve un valor entre 0 y max
+        int pos = generator.nextInt(max); //devuelve un valor entre 0 y max
         return pos;
         
     }

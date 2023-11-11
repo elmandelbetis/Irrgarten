@@ -89,8 +89,9 @@ public class Labyrinth {
         
         for (int i=0; i < nRows; i++){
             for (int j=0; j < nCols; j++){
-                estado += labyrinth[i][j];
+                estado += " ["+labyrinth[i][j]+"] ";
             }
+            estado += "\n";
         }
         
         estado +="\n";
@@ -111,10 +112,8 @@ public class Labyrinth {
     // en el contenedor de monstruos e indicamos al monstruo dónde se encuentra
     
     public void addMonster(int row, int col, Monster monster)
-    {   
-        boolean posOK = posOK(row, col);
-        
-        if (labyrinth[row][col] == EMPTY_CHAR && posOK)
+    {           
+        if (labyrinth[row][col] == EMPTY_CHAR && posOK(row, col))
         {   
             labyrinth[row][col] = MONSTER_CHAR;
             monsters[row][col] = monster;
@@ -139,12 +138,7 @@ public class Labyrinth {
     
     private boolean emptyPos(int row, int col)
     {           
-        if (labyrinth[row][col] == EMPTY_CHAR)
-        {
-            return true;
-        }
-        
-        return false;
+        return labyrinth[row][col] == EMPTY_CHAR;
     }
     
     // Método monsterPos()
@@ -153,12 +147,7 @@ public class Labyrinth {
     
     private boolean monsterPos(int row, int col)
     {        
-        if (labyrinth[row][col] == MONSTER_CHAR)
-        {
-            return true;
-        }
-        
-        return false;
+        return labyrinth[row][col] == MONSTER_CHAR;
     }
     
     // Método exitPos()
@@ -167,11 +156,7 @@ public class Labyrinth {
     
     private boolean exitPos(int row, int col)
     {
-             if (labyrinth[row][col] == EXIT_CHAR){
-            return true;
-        }
-        
-        return false;
+        return labyrinth[row][col] == EXIT_CHAR;
     }
     
     // Método exitPos()
@@ -181,11 +166,7 @@ public class Labyrinth {
     
     private boolean combatPos(int row, int col)
     {        
-        if (labyrinth[row][col] == COMBAT_CHAR){
-            return true;
-        }
-        
-        return false;
+        return labyrinth[row][col] == COMBAT_CHAR;
     }
     
     // Método canStepOn()
@@ -380,6 +361,15 @@ public class Labyrinth {
         return output;
     }
     
+    public int getRows()
+    {
+        return nRows;
+    }
+    
+    public int getCols()
+    {
+        return nCols;
+    }
       
     
 }

@@ -95,6 +95,19 @@ public class Game {
     
     private void configureLabyrinth()
     {
+        int tamTotal = labyrinth.getRows() * labyrinth.getCols();
+        
+        // TODO Añadir bloques
+        
+        int nMonstruos = tamTotal / 5;
+        
+        for (int i = 0; i <= nMonstruos; i++){
+            Monster monstruo = new Monster("#"+(i+1),Dice.randomIntelligence(),Dice.randomStrength());
+            monsters.add(monstruo);
+            labyrinth.addMonster(Dice.randomPos(labyrinth.getRows()), 
+                              Dice.randomPos(labyrinth.getCols()), monstruo);
+        }
+        
         
 
     }

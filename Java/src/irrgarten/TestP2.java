@@ -7,7 +7,7 @@ public class TestP2 {
         
         // Prueba clase Game (métodos de la Práctica 2)
         
-        System.out.println("\nPRUEBA CLASE GAME (HASTA PRÁCTICA 2)");
+        System.out.println("\nPRUEBA CLASE GAME (HASTA PRACTICA 2)");
         
         Game juego = new Game(5);
         
