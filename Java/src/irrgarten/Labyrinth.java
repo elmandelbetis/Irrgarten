@@ -122,7 +122,7 @@ public class Labyrinth {
         }
     }
     
-    private void spreadPlayers(ArrayList<Player> players)
+    public void spreadPlayers(ArrayList<Player> players)
     {
         for (int i = 0; i < players.size(); i++)
         {
@@ -214,9 +214,7 @@ public class Labyrinth {
     
     private ArrayList<Integer> dir2Pos(int row, int col, Directions direction)
     {
-        
-        
-        
+       
         switch (direction)
         {
             case UP:
@@ -257,12 +255,10 @@ public class Labyrinth {
             
             randomRow = Dice.randomPos(nRows);
             randomCol = Dice.randomPos(nCols);
-            
-            randomPos.add(randomRow);
-            randomPos.add(randomCol);
-            
-        } while((posOK(randomRow, randomCol)) 
-                && (emptyPos(randomRow,randomCol)));
+        } while(!(emptyPos(randomRow,randomCol)));
+        
+        randomPos.add(randomRow);
+        randomPos.add(randomCol);
         
         return randomPos;
     }

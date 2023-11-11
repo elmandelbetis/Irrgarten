@@ -31,7 +31,7 @@ public class Game {
         this.log = "";
         
         for (int i = 0; i <= nplayers; i++){
-            players.add(new Player((char) i,Dice.randomIntelligence(),Dice.randomStrength()));
+            players.add(new Player((char)(i+48),Dice.randomIntelligence(),Dice.randomStrength()));
         }
         
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
@@ -102,12 +102,13 @@ public class Game {
         int nMonstruos = tamTotal / 5;
         
         for (int i = 0; i <= nMonstruos; i++){
-            Monster monstruo = new Monster("#"+(i+1),Dice.randomIntelligence(),Dice.randomStrength());
+            Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());
             monsters.add(monstruo);
             labyrinth.addMonster(Dice.randomPos(labyrinth.getRows()), 
                               Dice.randomPos(labyrinth.getCols()), monstruo);
         }
         
+        labyrinth.spreadPlayers(players);
         
 
     }
