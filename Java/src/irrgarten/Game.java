@@ -32,6 +32,11 @@ public class Game {
         
         for (int i = 0; i <= nplayers; i++){
             players.add(new Player((char)(i+48),Dice.randomIntelligence(),Dice.randomStrength()));
+            /**
+             * El número mágico 48 se añade dado que al castear i a char, su valor se vuelve el 0,1,2,3...
+             * en formato ASCII, lo que añade caracteres o nulos o headers. Para añadir caracteres
+             * numéricos, se realiza esta conversión.
+             */
         }
         
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
@@ -216,7 +221,7 @@ public class Game {
     
     private void logNoMonster()
     {
-        log+="Jugador "+currentPlayerIndex+", acabas de caer en una celda vacía o no es posible moverse.\n"; // no debería hacerse con un if?
+        log+="Jugador "+currentPlayerIndex+", acabas de caer en una celda vacía.\n";
     }
     
     private void logRounds(int rounds, int max)

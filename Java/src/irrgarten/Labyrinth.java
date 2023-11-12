@@ -15,9 +15,8 @@ public class Labyrinth {
     private static final char MONSTER_CHAR = 'M';
     private static final char COMBAT_CHAR = 'C';
     private static final char EXIT_CHAR = 'E';
-    private static final int ROW = 0; // para uso en P3
-    private static final int COL = 1; // para uso en P3
-    
+    private static final int ROW = 0; 
+    private static final int COL = 1;     
     private int nRows, nCols, exitRow, exitCol;
     
     public Monster[][] monsters; 
@@ -214,21 +213,22 @@ public class Labyrinth {
     
     private ArrayList<Integer> dir2Pos(int row, int col, Directions direction)
     {
-       
-        switch (direction)
-        {
-            case UP:
-                row--;
-                break;
-            case DOWN:
-                row++;
-                break;
-            case LEFT:
-                col--;
-                break;
-            case RIGHT:
-                col++;
-                break;
+        if (posOK(row,col)){
+            switch (direction)
+            {
+                case UP:
+                    row--;
+                    break;
+                case DOWN:
+                    row++;
+                    break;
+                case LEFT:
+                    col--;
+                    break;
+                case RIGHT:
+                    col++;
+                    break;
+            }
         }
         
         ArrayList<Integer> newPos = new ArrayList<>();

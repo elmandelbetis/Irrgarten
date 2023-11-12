@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Game game = new Game(0);
+        Game game = new Game(1);
         TextUI view = new TextUI();
         Controller controlador = new Controller(game, view);
         
