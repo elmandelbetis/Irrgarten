@@ -27,6 +27,14 @@ module Irrgarten
         # Devuelve un valor aleatorio de posición de fila o columna en el 
         # tablero
 
+        def MAX_ATTACK
+            @@MAX_ATTACK
+        end
+
+        def MAX_USES
+            @@MAX_USES
+        end
+
         def random_pos(max)
             @@generator.rand(max + 1)
         end
@@ -35,8 +43,8 @@ module Irrgarten
         # Devuelve el number ID del jugador que empieza la partida, siendo el
         # primero el 0 y el último "nplayers"
 
-        def who_starts(nplayers)
-            @@generator.rand(nplayers + 1)
+        def who_starts(n_players)
+            @@generator.rand(n_players + 1)
         end
 
         # Métodos randomIntelligence y randomStrength
@@ -61,7 +69,7 @@ module Irrgarten
             resurrect = false
             prob_resurrect = @@generator.rand(0.0..1.0)
 
-            if (prob_resurrect <= @@RESURRECT_PROB)
+            if prob_resurrect <= @@RESURRECT_PROB
                 resurrect = true
             end
             resurrect
@@ -73,17 +81,17 @@ module Irrgarten
         # jugador al ganar un combate
 
         def weapons_reward
-            @@generator.rand(0..@@WEAPONS_REWARD)
+            @@generator.rand(0..@@WEAPONS_REWARD).to_i
         end
 
      
         def shields_reward
-            @@generator.rand(0..@@SHIELDS_REWARD)
+            @@generator.rand(0..@@SHIELDS_REWARD).to_i
         end
 
      
         def health_reward
-            @@generator.rand(0..@@HEALTH_REWARD)
+            @@generator.rand(0..@@HEALTH_REWARD).to_i
         end
 
         # Métodos Power
@@ -91,12 +99,12 @@ module Irrgarten
         # de instancia al que esté llamando cada uno
       
         def weapon_power
-            @@generator.rand(0.0..@@MAX_ATTACK)
+            @@generator.rand(0.0..@@MAX_ATTACK).to_f
         end
 
     
         def shield_power
-            @@generator.rand(0.0..@@MAX_SHIELD)
+            @@generator.rand(0.0..@@MAX_SHIELD).to_f
         end
 
         # Método usesLeft
@@ -104,14 +112,14 @@ module Irrgarten
         # escudo, comprendido entre 0 y el máximo de usos permitidos por item
 
         def uses_left
-            @@generator.rand(0..@@MAX_USES)
+            @@generator.rand(0..@@MAX_USES).to_i
         end
 
         # Método intensity
         # Devuelve la cantidad de competencia aplicada entre 0 y "competence"
 
         def intensity(competence)
-            @@generator.rand(0.0..competence)
+            @@generator.rand(0..competence).to_f
         end
 
 
@@ -129,7 +137,7 @@ module Irrgarten
                 discard = true
             else
                 prob_discard = 1.0 / (usesLeft + 1)
-                random_value = @@generator.rand(0.0..1.1)
+                random_value = @@generator.rand(0.0..1.1).to_f
 
                 if random_value <= prob_discard
                     discard = true

@@ -27,7 +27,7 @@ module UI
       print "Where? "
       got_input = false
       while (!got_input)
-        c = read_char
+        c = get.chomp
         case c
           when "\e[W"
             puts "UP ARROW"
@@ -58,12 +58,12 @@ module UI
 
     def show_game(game_state)
 
-      game_state.get_labyrinth
-      game_state.get_players
-      game_state.get_monsters
-      game_state.get_currentPlayer
-      game_state.get_winner
-      game_state.get_log
+      puts game_state.get_labyrinth
+      puts game_state.get_players
+      puts game_state.get_monsters
+      puts game_state.get_currentPlayer
+      puts game_state.get_winner
+      puts game_state.get_log
 
     end
 

@@ -27,18 +27,27 @@ module  Irrgarten
         end
 
         def dead
-
-            is_dead = false
-
-            if @health <= 0
-                is_dead = true
-            end
-
-            is_dead
+            @health <= 0
         end 
 
         def attack
-            Irrgarten::Dice.intensity(strength)
+            Dice.intensity(strength)
+        end
+
+        def defend(received_attack)
+
+            is_dead = dead
+
+            unless is_dead
+                defensive_energy = Dice.intensity(intelligence)
+                if defensive_energy < received_attack
+                    got_wounded
+                    is_dead = dead
+                end
+            end
+
+            is_dead
+
         end
 
         def set_pos(row, col)
@@ -51,14 +60,11 @@ module  Irrgarten
             I #{intelligence}, Pos: #{row},#{col}"
         end 
 
-        def gotWounded
+        def got_wounded
             health -= 1
-            puts "Monster #{name} got wounded, -1 HP"
         end
 
-        def defend(receivedAttack)
-            #próximas prácticas
-        end 
+
         
 
     end

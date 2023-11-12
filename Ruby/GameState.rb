@@ -21,13 +21,13 @@ module Irrgarten
 
         #Constructor
 
-        def initialize(labyrinth, players, monsters, currentPlayer, winner,
+        def initialize(labyrinth, players, monsters, current_player, winner,
                        log)
             
-            @labyrinthv = labyrinthv
+            @labyrinth = labyrinth
             @players = players
             @monsters = monsters
-            @currentPlayer = currentPlayer
+            @current_player = current_player
             @winner = winner
             @log = log
 

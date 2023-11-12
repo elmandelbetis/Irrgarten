@@ -1,4 +1,4 @@
-#encoding:utf-8
+#encoding:UTF-8
 
 ####################################### 
 # Álvaro Maldonado Medina             #      
@@ -30,9 +30,9 @@ def main
     end
 
 
-    dado = Irrgarten::Dice.new()
-    n_decimales = 3     # nº máximo de decimales en coma flotante a mostrar
-    iteraciones = 100   # nº de iteraciones que se nos pide en el guion por 
+    dado = Dice.new
+    n_decimales = 3
+    iteraciones = 100   # nº de iteraciones que se nos pide en el guion por
                         # método de la clase Dice
 
 

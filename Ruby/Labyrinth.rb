@@ -20,14 +20,6 @@ module Irrgarten
 
     
     class Labyrinth
-        
-
-        attr_accessor :n_rows
-        attr_accessor :n_cols
-        attr_accessor :exit_row
-        attr_accessor :exit_col
-
-        attr_reader :monsters, :players, :labyrinth
 
         @@BLOCK_CHAR = 'X'
         @@EMPTY_CHAR = '-'
@@ -37,6 +29,9 @@ module Irrgarten
         @@ROW = 0
         @@COL = 1
 
+        attr_accessor :n_rows, :n_cols, :exit_row, :exit_col
+        attr_reader :monsters, :players, :labyrinth
+
         def initialize (n_rows, n_cols, exit_row, exit_col)
 
             @n_rows = n_rows
@@ -44,16 +39,18 @@ module Irrgarten
             @exit_row = exit_row
             @exit_col = exit_col
 
-            @monsters = Matrix.new(n_rows) { Array.new(n_cols) {nil} }
-            @players = Matrix.new(n_rows) { Array.new(n_cols) {nil} }
-            @labyrinth = Matrix.new(n_rows) { Array.new(n_cols){nil} }
-
-
+            @monsters = Array.new(n_rows) { Array.new(n_cols) {nil} }
+            @players = Array.new(n_rows) { Array.new(n_cols) {nil} }
+            @labyrinth = Array.new(n_rows) { Array.new(n_cols){nil} }
 
         end
 
         def spread_players(players)
-            # próxima práctica
+            players.size.each { |i|
+                p = players[i]
+                pos = Array.new(random_empty_pos)
+                put_player_2D(-1,-1,@@ROW,@@COL,p)
+            }
         end
 
         def have_a_winner
@@ -67,20 +64,20 @@ module Irrgarten
 
         def to_string
             estado = ""
-            for i in 0..@n_rows-1
-                for j in 0..n_cols-1
+            (0..@n_rows - 1).each { |i|
+                (0..n_cols - 1).each { |j|
                     estado << @labyrinth[i][j] #append a string
-                end
+                }
                 estado << "\n"
-            end
+            }
+            estado << "\n"
+
             estado
         end
 
         def add_monster(row, col, monster)
 
-            is_pos_ok = pos_ok(row,col)
-
-            if @labyrinth[row][col] == @@EMPTY_CHAR && is_pos_ok
+            if @labyrinth[row][col] == @@EMPTY_CHAR && pos_ok(row,col)
                 
                 @labyrinth[row][col] = @@MONSTER_CHAR
                 @monsters[row][col] = monster
@@ -91,85 +88,76 @@ module Irrgarten
                     
         end
 
-        def put_player(directions, player)
-            # próxima práctica
+        def put_player(direction, player)
+            old_row = player[row]
+            old_col = player[col]
+
+            new_pos = dir_2_pos(old_row, old_col, direction)
+            put_player_2D(old_row, old_col, new_pos[0], new_pos[1], player)
         end
 
         def add_block(orientation, start_row, start_col, length)
-            # próxima práctica
+
+            if orientation == Orientation.VERTICAL
+                inc_row = 1
+                inc_col = 0
+            else
+                inc_row = 0
+                inc_col = 1
+            end
+
+            row = start_row
+            col = start_col
+
+            while pos_ok(row,col) && empty_pos(row,col) && length > 0
+                labyrinth[row][col] = @@BLOCK_CHAR
+                length -= 1
+                row += inc_row
+                col += inc_col
+            end
+
         end
 
         def valid_moves(row, col)
-            # próxima práctica
+            output = Array.new
+
+            output << Directions::DOWN if can_step_on(row + 1, col)
+            output << Directions::UP if can_step_on(row - 1, col)
+            output << Directions::RIGHT if can_step_on(row, col + 1)
+            output << Directions::LEFT if can_step_on(row, col - 1)
+
+            output
         end
 
         private
-
         def pos_ok(row, col)
-            pos_ok = false
-
-            if row >= 0 && row <= @n_rows && @col >= 0 && col <= @n_cols
-                pos_ok = true
-            end
-            pos_ok
+            true if row >= 0 && row <= @n_rows && @col >= 0 && col <= @n_cols
         end
         
         def empty_pos(row, col)
-
-            is_empty = false
-
-            if labyrinth[row][col] == @@EMPTY_CHAR
-                is_empty = true
-            end
-
-            is_empty
-
+            true if labyrinth[row][col] == @@EMPTY_CHAR
         end
 
         def monster_pos(row, col)
-            
-            monster_there = false
-
-            if labyrinth[row][col] == @@MONSTER_CHAR
-                monster_there = true
-            end
-
-            monster_there
-
+            true if labyrinth[row][col] == @@MONSTER_CHAR
         end
 
         def exit_pos(row, col)
-
-            exit_pos = false
-
-            if labyrinth[row][col] == @@EXIT_CHAR
-                exit_pos = true
-            end
-
-            exit_pos
-
+            true if labyrinth[row][col] == @@EXIT_CHAR
         end
 
         def combat_pos(row, col)
-
-            combat_pos = false
-
-            if labyrinth[row][col] == @@COMBAT_CHAR
-                combat_pos = true
-            end
-
-            combat_pos
-
+            true if labyrinth[row][col] == @@COMBAT_CHAR
         end
 
         def can_step_on(row, col)
 
             can_step_on = false
 
-            if pos_ok(row,col) == true
+            if pos_ok(row, col)
 
-                if (empty_pos(row,col) == true || monster_pos(row,col) == true ||
-                     exit_pos(row, col) == true)
+                if empty_pos(row, col) || monster_pos(row, col) ||
+                  exit_pos(row, col)
                     
                     can_step_on = true
                 
@@ -215,7 +203,7 @@ module Irrgarten
 
         end
 
-        def random_empty_pos(n_rows, n_cols)    #realmente no tendría que poner parámetros pero no se me ocurre otra cosa
+        def random_empty_pos   #realmente no tendría que poner parámetros pero no se me ocurre otra cosa
 
             random_empty_pos = Array.new(2)
             random_row = Dice.random_pos(n_rows)
@@ -235,8 +223,46 @@ module Irrgarten
 
         end
 
-        def put_player_2D(old_row, old_col, row, col)
-            #próxima práctica
+        def put_player_2D(old_row, old_col, row, col, player)
+
+            output = nil
+
+            if can_step_on(row, col)
+                if pos_ok(old_row, old_col)
+                    p = players[old_row][old_col]
+
+                    if p == player
+                        update_old_pos(old_row, old_col)
+                        @players[old_row][old_col] = nil
+                    end
+
+                end
+
+                monster_pos = monster_pos(row, col)
+                if monster_pos
+                    @labyrinth[row][col] = @@COMBAT_CHAR
+                    output = monsters[row][col]
+                else
+                    number = player.get_number
+                    @labyrinth[row][col] = number
+                end
+
+                @players[row][col] = player
+                player.set_pos(row, col)
+
+            end
+
+            output
+
+        end
+
+        public
+        def n_rows
+            @n_rows
+        end
+
+        def n_cols
+            @n_cols
         end
 
 
