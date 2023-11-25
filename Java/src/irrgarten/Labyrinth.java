@@ -74,7 +74,7 @@ public class Labyrinth {
         
         for (int i=0; i < nRows; i++){
             for (int j=0; j < nCols; j++){
-                estado += " ["+labyrinth[i][j]+"] ";
+                estado += " ["+labyrinth[i][j]+"]";
             }
             estado += "\n";
         }

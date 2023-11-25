@@ -102,15 +102,26 @@ public class Game {
     private void configureLabyrinth()
     {
         int tamTotal = labyrinth.getRows() * labyrinth.getCols();
+        int diagonal = 10;
+        int fin_muro2 = 11, col_ini = 1, fil_ini = 8;
         
         // TODO Añadir bloques
         
         int nMonstruos = tamTotal / 5;
         
         labyrinth.addBlock(Orientation.HORIZONTAL, 1, 0, 2);
-        labyrinth.addBlock(Orientation.VERTICAL, 2, 1, 2);
+        labyrinth.addBlock(Orientation.VERTICAL, 2, 1, 4);
+        labyrinth.addBlock(Orientation.VERTICAL, 0, 7, 5);
+        for (int i = diagonal; i > 0; i-=2){
+            labyrinth.addBlock(Orientation.HORIZONTAL, i, i + 1, 1);
+        }
         
-        
+        for (int i = 0; i < fin_muro2; i++){
+            labyrinth.addBlock(Orientation.HORIZONTAL, fil_ini, col_ini, 1);
+            col_ini++;
+            fil_ini--;
+        }
+              
         for (int i = 0; i <= nMonstruos; i++){
             Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());
             monsters.add(monstruo);
