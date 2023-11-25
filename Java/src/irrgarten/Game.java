@@ -25,7 +25,7 @@ public class Game {
     public Game(int nplayers)
     {
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
-        this.labyrinth = new Labyrinth(10, 10, 2, 0); // sample dado por el profesor
+        this.labyrinth = new Labyrinth(10,10,2,0); // sample dado por el profesor
         this.players = new ArrayList<>();
         this.monsters = new ArrayList<>();
         this.log = "";
@@ -41,7 +41,8 @@ public class Game {
         
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
         this.currentPlayer = players.get(currentPlayerIndex);
-        this.configureLabyrinth();
+        configureLabyrinth();
+        
         
     }
     
@@ -221,7 +222,8 @@ public class Game {
     
     private void logNoMonster()
     {
-        log+="Jugador "+currentPlayerIndex+", acabas de caer en una celda vacía.\n";
+        log+="Jugador "+currentPlayerIndex+", acabas de caer en una celda vacía"
+                + ", o en la casilla de salida\n";
     }
     
     private void logRounds(int rounds, int max)

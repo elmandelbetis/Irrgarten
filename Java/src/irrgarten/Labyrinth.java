@@ -29,7 +29,7 @@ public class Labyrinth {
     
     public Labyrinth()
     {
-        this(1,1,0,0);
+        this(0,0,0,0);
     }
        
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
@@ -39,9 +39,9 @@ public class Labyrinth {
         this.exitRow = exitRow;
         this.exitCol = exitCol;
         
-        this.monsters = new Monster[nRows][nCols];
-        this.players = new Player[nRows][nCols];
-        this.labyrinth = new char[nRows][nCols];
+        this.monsters = new Monster[nRows+1][nCols+1];
+        this.players = new Player[nRows+1][nCols+1];
+        this.labyrinth = new char[nRows+1][nCols+1];
         
         for (int i = 0; i < nRows; i++){
             for (int j = 0; j < nCols; j++){
@@ -61,21 +61,7 @@ public class Labyrinth {
     
     public boolean haveAWinner()
     {
-        boolean haveAWinner = false;
-        
-        for (int i = 0; i < nRows; i++){
-            for (int j = 0; j < nCols; j++){
-                if (labyrinth[i][j] == EXIT_CHAR)
-                {
-                    if(players[i][j] != null)
-                    {
-                        haveAWinner = true;
-                    }
-                }
-            }
-        }
-        
-        return haveAWinner;
+        return players[exitRow][exitCol] != null;
     }
     
     // Método toString()

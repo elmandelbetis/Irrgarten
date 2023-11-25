@@ -8,13 +8,16 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Game game = new Game(1);
+        Game game = new Game(0);
         TextUI view = new TextUI();
         Controller controlador = new Controller(game, view);
         
         view.showGame(game.getGameState());
         controlador.play();
         
+        if(game.finished()){
+            System.out.println("Juego finalizado.");
+        }
         
         
     }
