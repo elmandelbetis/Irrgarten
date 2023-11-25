@@ -4,9 +4,11 @@ module Main
 	require_relative "controller.rb"
 	require_relative "textUI.rb"
 
-  game = Irrgarten::Game.new(0)
+  game = Irrgarten::Game.new(1)
+
   view = UI::TextUI.new
   controller = Control::Controller.new(game,view)
+
 
   view.show_game(game.get_game_state)
   controller.play

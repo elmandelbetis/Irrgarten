@@ -29,8 +29,9 @@ module Irrgarten
             @number = number
             @intelligence = intelligence
             @strength = strength
-            @name = "Player#"+number
+            @name = "Player#"+number.to_s
             @health = @@INITIAL_HEALTH
+            @consecutive_hits = 0
 
 
             @weapons = Array.new {Weapon}

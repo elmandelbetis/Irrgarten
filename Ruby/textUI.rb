@@ -1,6 +1,6 @@
 
 require 'io/console'
-require_relative 'directions'
+require_relative 'Directions'
 
 module UI
 
