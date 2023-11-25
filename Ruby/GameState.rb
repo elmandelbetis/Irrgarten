@@ -48,7 +48,7 @@ module Irrgarten
             @monsters
         end
 
-        def get_currentPlayer
+        def get_current_player
             @currentPlayer
         end
 

@@ -27,21 +27,21 @@ module UI
       print "Where? "
       got_input = false
       while (!got_input)
-        c = get.chomp
+        c = gets.chomp
         case c
-          when "\e[W"
+          when "\e[w"
             puts "UP ARROW"
             output = Irrgarten::Directions::UP
             got_input = true
-          when "\e[S"
+          when "\e[s"
             puts "DOWN ARROW"
             output = Irrgarten::Directions::DOWN
             got_input = true
-          when "\e[D"
+          when "\e[d"
             puts "RIGHT ARROW"
             output = Irrgarten::Directions::RIGHT
             got_input = true
-          when "\e[A"
+          when "\e[a"
             puts "LEFT ARROW"
             output = Irrgarten::Directions::LEFT
             got_input = true
@@ -57,13 +57,11 @@ module UI
     end
 
     def show_game(game_state)
-
+      puts "====================================="
       puts game_state.get_labyrinth
-      puts game_state.get_players
-      puts game_state.get_monsters
-      puts game_state.get_currentPlayer
-      puts game_state.get_winner
-      puts game_state.get_log
+      puts "Jugador actual: " << game_state.get_current_player.to_s
+      puts "Hay ganador?: " << game_state.get_winner.to_s
+      puts game_state.get_log.to_s
 
     end
 

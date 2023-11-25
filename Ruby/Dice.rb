@@ -21,12 +21,6 @@ module Irrgarten
         @@MAX_ATTACK = 3
         @@MAX_SHIELD = 2
 
-        @@generator = Random.new
-
-        # Método randomPos
-        # Devuelve un valor aleatorio de posición de fila o columna en el 
-        # tablero
-
         def self.MAX_ATTACK
             @@MAX_ATTACK
         end
@@ -39,9 +33,13 @@ module Irrgarten
             @@MAX_USES
         end
 
+        # Método randomPos
+        # Devuelve un valor aleatorio de posición de fila o columna en el
+        # tablero
+
         def self.random_pos(max)
             if max >= 0
-                @@generator.rand(max)
+                Random.rand(max)
             else
                 -1
             end
@@ -52,19 +50,23 @@ module Irrgarten
         # primero el 0 y el último "nplayers"
 
         def self.who_starts(n_players)
-            @@generator.rand(n_players + 1)
+            if n_players >= 0
+                Random.rand(n_players)
+            else
+                -1
+            end
         end
 
         # Métodos randomIntelligence y randomStrength
         # Devuelve un valor de inteligencia o fuerza contenido entre 0-9.9
 
         def self.random_intelligence
-            @@generator.rand(@@MAX_INTELLIGENCE)
+            Random.rand * @@MAX_INTELLIGENCE
         end
 
 
         def self.random_strength
-            @@generator.rand(@@MAX_STRENGTH)
+            Random.rand * @@MAX_STRENGTH
         end
 
         # Método resurrectPlayer
@@ -74,14 +76,7 @@ module Irrgarten
         # no resucita el jugador
 
         def self.resurrect_player
-            resurrect = false
-            prob_resurrect = @@generator.rand(0.0..1.0)
-
-            if prob_resurrect <= @@RESURRECT_PROB
-                resurrect = true
-            end
-            resurrect
-
+            Random.rand < @@RESURRECT_PROB
         end 
 
         # Métodos Reward
@@ -89,17 +84,16 @@ module Irrgarten
         # jugador al ganar un combate
 
         def self.weapons_reward
-            @@generator.rand(0..@@WEAPONS_REWARD).to_i
+            Random.rand(@@WEAPONS_REWARD + 1).to_i
         end
 
-     
         def self.shields_reward
-            @@generator.rand(0..@@SHIELDS_REWARD).to_i
+            Random.rand(@@SHIELDS_REWARD + 1).to_i
         end
 
      
         def self.health_reward
-            @@generator.rand(0..@@HEALTH_REWARD).to_i
+            Random.rand * @@MAX_SHIELD
         end
 
         # Métodos Power
@@ -107,12 +101,12 @@ module Irrgarten
         # de instancia al que esté llamando cada uno
       
         def self.weapon_power
-            @@generator.rand(0.0..@@MAX_ATTACK).to_f
+            Random.rand * @@MAX_ATTACK
         end
 
     
         def self.shield_power
-            @@generator.rand(0.0..@@MAX_SHIELD).to_f
+            Random.rand * @@MAX_SHIELD
         end
 
         # Método usesLeft
@@ -120,14 +114,14 @@ module Irrgarten
         # escudo, comprendido entre 0 y el máximo de usos permitidos por item
 
         def self.uses_left
-            @@generator.rand(0..@@MAX_USES).to_i
+            Random.rand(@@MAX_USES + 1)
         end
 
         # Método intensity
         # Devuelve la cantidad de competencia aplicada entre 0 y "competence"
 
         def self.intensity(competence)
-            @@generator.rand(0..competence).to_f
+            Random.rand * competence
         end
 
 
@@ -145,7 +139,7 @@ module Irrgarten
                 discard = true
             else
                 prob_discard = 1.0 / (usesLeft + 1)
-                random_value = @@generator.rand(0.0..1.1).to_f
+                random_value = Random.rand(1.1).to_f
 
                 if random_value <= prob_discard
                     discard = true
