@@ -103,10 +103,7 @@ public class Game {
     {
         int tamTotal = labyrinth.getRows() * labyrinth.getCols();
         int diagonal = 10;
-        int fin_muro2 = 11, col_ini = 1, fil_ini = 8;
-        
-        // TODO Añadir bloques
-        
+        int fin_muro2 = 11, col_ini = 1, fil_ini = 8;        
         int nMonstruos = tamTotal / 5;
         
         labyrinth.addBlock(Orientation.HORIZONTAL, 1, 0, 2);

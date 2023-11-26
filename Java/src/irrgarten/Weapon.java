@@ -6,7 +6,7 @@
 
 package irrgarten;
 
-public class Weapon {
+public class Weapon extends CombatElement{
     
     private float power;
     private int uses;
@@ -14,26 +14,7 @@ public class Weapon {
     // Constructores
         
     public Weapon(float power, int uses){
-        this.power = power;
-        this.uses = uses;
-    }
-    
-    //Consultores y modificadores (get y set)
-    
-    public int getUses(){
-        return uses;
-    }
-    
-    public float getPower(){
-        return power;
-    }
-    
-    public void setPower(float power){
-        this.power = power;
-    }
-    
-    public void setUses(int uses){
-        this.uses = uses;
+        super(power, uses);
     }
     
     // Método "attack"
@@ -41,15 +22,7 @@ public class Weapon {
     // de "uses" sea mayor que 0.
     
     public float attack(){
-        
-        if (uses > 0){
-            uses--;
-            return power;
-        }
-        else{
-            return 0;
-        }
-            
+        return super.produceEffect();          
     }
     
     // Método "to_string" de la clase Weapon, devuelve una cadena con el valor
@@ -57,13 +30,13 @@ public class Weapon {
     
     @Override
     public String toString(){
-        return "W["+power+", "+uses+"]";
+        return "W["+power+", "+uses;
     }
     
     // Llamada a la clase Dice, que determina en este caso si hay que descartar
     // el arma
     
     public boolean discard(){
-        return Dice.discardElement(getUses());
+        return super.discard();
     }
 }

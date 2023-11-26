@@ -6,6 +6,7 @@
 
 package irrgarten;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Dice {
@@ -52,7 +53,7 @@ public class Dice {
     // primero el 0 y el último "nplayers"
     
     public static int whoStarts(int nplayers){
-        int player = generator.nextInt(nplayers + 1);
+        int player = generator.nextInt(nplayers+1);
         return player;
     }
     
@@ -80,16 +81,9 @@ public class Dice {
     
     public static boolean resurrectPlayer(){
         
-        boolean resurrect = false;
-        float prob_res = generator.nextFloat()*1;
+        float prob_res = generator.nextFloat()*1f;
         
-        if (prob_res < RESURRECT_PROB){
-            resurrect = true;
-            return resurrect;
-        }
-        else{
-            return resurrect;
-        }
+        return prob_res < RESURRECT_PROB;
     }
     
     
@@ -177,6 +171,18 @@ public class Dice {
     
     public static int getMaxUses(){
         return MAX_USES;
+    }
+    
+    public static Directions nextStep(Directions preference, ArrayList<Directions> validMoves, float intelligence){
+        float prob = generator.nextFloat()*1f;
+        
+        if (prob <= intelligence){
+                return preference;
+        }
+        else{
+            int anotherDirection = generator.nextInt(validMoves.size());
+            return validMoves.get(anotherDirection);
+        }
     }
     
     

@@ -7,7 +7,7 @@
 package irrgarten;
 
 
-public class Shield {
+public class Shield extends CombatElement{
     
     private float protection;
     private int uses;
@@ -16,44 +16,15 @@ public class Shield {
     //Constructores 
     
     public Shield(float protection, int uses){
-        this.protection = protection;
-        this.uses = uses;
+        super(protection, uses);
     }
-    
-    
-    //Métodos de consulta y modificadores (get y set)
-    
-    
-    public float getProtection(){
-        return protection;
-    }
-    
-    public int getUses(){
-        return uses;
-    }
-    
-    public void setProtection(float protection){
-        this.protection = protection;
-    }
-    
-    public void setUses(int uses){
-        this.uses = uses;
-    }
-    
     
     // Método "protect"
     // Devuelve el valor de protección de un escudo siempre y cuando el nº de
     // usos restantes sea mayor que 0
     
     public float protect(){
-        
-        if (uses>0){
-            uses--;
-            return protection;
-        }
-        else{
-            return 0;
-        }
+        return super.produceEffect();
     }
     
     // Método to_string, muestra una cadena con los valores de protección del
@@ -61,13 +32,13 @@ public class Shield {
     
     @Override
     public String toString(){
-        return "S["+protection+", "+uses+"]";
+        return "S["+ super.toString();
     }
     
     // Llamada a la clase Dice y su método discardElement, que determina en 
     // este caso si hay que descartar el escudo
     
     public boolean discard(){
-        return Dice.discardElement(getUses());
+        return super.discard();
     }
 }
