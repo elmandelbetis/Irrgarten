@@ -10,11 +10,11 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 ## *Status actual de las prácticas*
 
-P1: Terminada
-P2: Terminada
-P3: Terminada exitosamente en Java, con severos bugs aún en Ruby
-P4: Empezada en Java
-P5: ...
+- P1: [Terminada]
+- P2: [Terminada]
+- P3: Terminada exitosamente en Java, con severos bugs aún en Ruby
+- P4: Empezada en Java
+- P5: ...
 
 ### **Bugs en Java**
 
