@@ -39,21 +39,36 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 Lista y descripción de los archivos:
 
-- [Main.java](Java/src/main/Main.java): programa principal donde se inicia el juego en torno a una instancia de la clase Game, un TextUI y un controlador.
+- [Main.java](Java/src/main/Main.java): programa principal donde se inicia el juego en torno a una instancia de la clase Game, un TextUI y un controlador (usado para depurar).
+
+- [Irrgarten.java](Java/src/main/Irrgarten.java): programa principal donde se inicia el juego en torno a una instancia de la clase Game, un TextUI y un controlador (ejecutable por el usuario).
+
 - [TextUI.java](Java/src/UI/TextUI.java): vista textual del estado del juego
+
 - [Controller.java](Java/src/controller/Controller.java): controlador para los jugadores, usando las teclas WASD.
-- [TestP1.java](Java/src/irrgarten/TestP1.java): test de la Práctica 1.
-- [TestP2.java](Java/src/irrgarten/TestP2.java): test (propio) de la Práctica 2.
+
+- [TestP1.java](Java/test/TestP1.java): test de la Práctica 1.
+
 - [Directions.java](Java/src/irrgarten/Directions.java): tipo enumerado para las direcciones posibles de movimiento para los jugadores en partida
+
 - [GameCharacter.java](Java/src/irrgarten/GameCharacter.java): tipo enumerado para denominar a jugadores o monstruos en el juego.
+
 - [Orientation.java](Java/src/irrgarten/Orientation.java): tipo enumerado para distinguir la orientación vertical u horizontal en situaciones como, por ejemplo, la configuración de las paredes dentro del laberinto.
+
 - [Weapon.java](Java/src/irrgarten/Weapon.java): clase Arma. Crea objetos tipo Arma para el jugador y contiene y gestiona los métodos necesarios para que el jugador pueda atacar en el juego.
+
 - [Shield.java](Java/src/irrgarten/Shield.java): clase Escudo. Crea objetos tipo Escudo para el jugador y contiene y gestiona los métodos necesarios para que el jugador pueda defenderse en el juego.
+
 - [Dice.java](Java/src/irrgarten/Dice.java): clase que contiene métodos relacionados con las decisiones aleatorias dentro del juego.
+
 - [GameState.java](Java/src/irrgarten/GameState.java): clase que contiene un constructor y getters para mostrar el estado en terminal de una serie de instancias.
+
 - [Monster.java](Java/src/irrgarten/Monster.java): clase que crea y gestiona a los monstruos del juego.
+
 - [Player.java](Java/src/irrgarten/Player.java): igual que la clase [Monster](Java/src/irrgarten/Monster.java), pero en este caso con los jugadores.
+
 - [Labyrinth.java](Java/src/irrgarten/Labyrinth.java): clase que contiene la espina dorsal del juego, el laberinto donde se va a desarrollar la acción. Crea el laberinto, lo rellena, gestiona las casillas turno a turno, etc.
+
 - [Game.java](Java/src/irrgarten/Game.java): clase que contiene y gestiona la lógica del juego en una partida (crearla, comenzarla, terminarla, etc).
 
 ### **Irrgarten: Ruby Edition**
