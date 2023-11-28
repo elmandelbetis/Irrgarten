@@ -19,9 +19,13 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 ### **Bugs en Java**
 
 - Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0) [NO SOLUCIONADO]
+  
 - Cuando juegan varios jugadores, solo juega uno. [SOLUCIONADO]
+  
 - Al empezar la P4, ya no se muestra el nº del jugador en el tablero [SOLUCIONADO]
+
 - A la espera de crear e implementar la clase FuzzyPlayer de la P4, el jugador que está muerto y resucita ya no es capaz de moverse por el tablero [SOLUCIONADO]
+
 - Parece ser que tras empezar la P4 y establecer las herencias Player -> LabyrinthCharacter y Monster -> LabyrinthCharacter, los monstruos ganan absolutamente todos los combates que juegan los jugadores al caer en sus casillas. [SOLUCIONADO]
 
 
