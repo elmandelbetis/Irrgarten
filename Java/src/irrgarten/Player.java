@@ -29,13 +29,6 @@ public class Player extends LabyrinthCharacter{
         weapons = new ArrayList<>();
         shields = new ArrayList<>();
         
-        /** Se añaden un arma y un escudo básicos para intentar amenizar el inicio 
-         * del juego dado que la mayoría de veces el jugador no es capaz de ganar
-         * "con las manos vacías" a los monstruos, y tampoco quiero que muera
-         * todo el rato
-         */
-
-        
     }
     
     public Player(Player other){    //constructor de copia
