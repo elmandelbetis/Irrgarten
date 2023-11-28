@@ -67,6 +67,8 @@ Lista y descripción de los archivos:
 
 - [Player.java](Java/src/irrgarten/Player.java): igual que la clase [Monster](Java/src/irrgarten/Monster.java), pero en este caso con los jugadores.
 
+- [FuzzyPlayer.java]((Java/src/irrgarten/FuzzyPlayer.java)): jugadores que se mueven, atacan y defienden utilizando el azar y no de forma tan determinista como los jugadores existentes hasta ahora. Heredera de la clase [Player](Java/src/irrgarten/Player.java).
+
 - [Labyrinth.java](Java/src/irrgarten/Labyrinth.java): clase que contiene la espina dorsal del juego, el laberinto donde se va a desarrollar la acción. Crea el laberinto, lo rellena, gestiona las casillas turno a turno, etc.
 
 - [Game.java](Java/src/irrgarten/Game.java): clase que contiene y gestiona la lógica del juego en una partida (crearla, comenzarla, terminarla, etc).
