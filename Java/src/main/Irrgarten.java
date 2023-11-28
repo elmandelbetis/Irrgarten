@@ -1,20 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package main;
 
-/**
- *
- * @author alvaro
- */
+import UI.TextUI;
+import controller.Controller;
+import irrgarten.Game;
+
 public class Irrgarten {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Game game = new Game(0,'G');
+        TextUI view = new TextUI();
+        Controller controlador = new Controller(game, view);
+        
+        view.showGame(game.getGameState());
+        controlador.play();
+        
+        if(game.finished()){
+            System.out.println("Juego finalizado.");
+        }
+        
+        
     }
     
 }

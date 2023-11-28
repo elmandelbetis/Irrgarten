@@ -14,7 +14,7 @@ public class Game {
     private Labyrinth labyrinth;
     
     //  Constructor
-    public Game(int nplayers)
+    public Game(int nplayers, char mode)    //parámetro extra alternar entre Debug y modo Usuario
     {
         this.players = new ArrayList<>();
         this.monsters = new ArrayList<>();
@@ -32,9 +32,15 @@ public class Game {
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
         this.currentPlayer = players.get(currentPlayerIndex);
         
-        this.labyrinth = new Labyrinth(5,5,2,0);        
-        configureLabyrinth();
-        labyrinth.spreadPlayers(players);
+        if (mode == 'D'){
+            this.labyrinth = new Labyrinth(5,5,2,0);        
+            configureLabyrinthDebug();
+            labyrinth.spreadPlayers(players);            
+        } else {
+            this.labyrinth = new Labyrinth(10,10,10,0);        
+            configureLabyrinth();
+            labyrinth.spreadPlayers(players);
+        }
         
     }
     
@@ -91,6 +97,23 @@ public class Game {
     }
     
     private void configureLabyrinth()
+    {
+        int tamTotal = labyrinth.getRows() * labyrinth.getCols();       
+        int nMonstruos = tamTotal / 5;
+        
+        // TODO Añadir Bloques
+        
+        //Inicializa y añade los monstruos
+        for (int i = 0; i < nMonstruos; i++){
+            Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());       
+            monsters.add(monstruo);
+            labyrinth.addMonster(Dice.randomPos(labyrinth.getRows()), 
+                              Dice.randomPos(labyrinth.getCols()), monstruo);
+        }
+            
+    }
+    
+    private void configureLabyrinthDebug()
     {
         int tamTotal = labyrinth.getRows() * labyrinth.getCols();
         int diagonal = 10;
