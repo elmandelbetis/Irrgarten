@@ -13,9 +13,7 @@ public class Player extends LabyrinthCharacter{
     private static final int MAX_WEAPONS = 2, MAX_SHIELDS = 3;
     private static final int INITIAL_HEALTH = 10, HITS2LOSE = 3;
     
-    private String name;
     private char number;
-    private float intelligence, strength, health;
     private int consecutiveHits = 0;
     
     private ArrayList <Weapon> weapons; 
@@ -24,24 +22,28 @@ public class Player extends LabyrinthCharacter{
     
     // Constructores de la clase
     
-    public Player(){        // constructor vacío
-        this('\0', 0f,0f);
-    }
-    
-    public Player(char number, float intelligence, float strength){ // constructor principal, hijo de LabyrinthCharacter
+    public Player(char number, float intelligence, float strength){ 
         
         super("Player #"+number, intelligence, strength, INITIAL_HEALTH);
-        
+        this.number = number;
         weapons = new ArrayList<>();
         shields = new ArrayList<>();
+        
+        /** Se añaden un arma y un escudo básicos para intentar amenizar el inicio 
+         * del juego dado que la mayoría de veces el jugador no es capaz de ganar
+         * "con las manos vacías" a los monstruos, y tampoco quiero que muera
+         * todo el rato
+         */
+
         
     }
     
     public Player(Player other){    //constructor de copia
         
-        super(other);        
-        this.weapons = new ArrayList<>(other.weapons); // idea
-        this.shields = new ArrayList<>(other.shields);
+        super(other);    
+        this.number = other.number;
+        this.weapons = other.weapons; 
+        this.shields = other.shields;
     }
     
     // Método resurrect()
@@ -53,7 +55,7 @@ public class Player extends LabyrinthCharacter{
     {   
         weapons.clear();    // reseteo de armas
         shields.clear();    // reseteo de escudos
-        this.health = INITIAL_HEALTH;
+        super.setHealth(INITIAL_HEALTH);
         resetHits();
     } 
     
@@ -92,24 +94,13 @@ public class Player extends LabyrinthCharacter{
         super.setPos(row, col);
     }
     
-    // Método dead()
-    // Booleano que devuelve "true" si el nivel de salud es 0 o menos (el
-    // jugador está muerto) o si por el contrario tiene algo de salud y sigue 
-    // vivo
-    
-    @Override
-    public boolean dead(){
-        return super.dead();
-    }
-    
-    
     public Directions move(Directions direction, ArrayList<Directions> validMoves)
     {   
         
         int size = validMoves.size();
         boolean contained = validMoves.contains(direction);
         
-        if (size > 0 && (!contained)){
+        if ((size > 0) && (!contained)){
             return validMoves.get(0);
         }
         else{
@@ -139,7 +130,8 @@ public class Player extends LabyrinthCharacter{
         }
         
         int extraHealth = Dice.healthReward();
-        health += extraHealth;
+        float playerHealth = super.getHealth(); // idea
+        super.setHealth(playerHealth += extraHealth);
         
     }
     
@@ -149,7 +141,11 @@ public class Player extends LabyrinthCharacter{
     @Override
     public String toString()
     {
+        System.out.println("=============================================");
+        System.out.println("Armas del jugador #"+number+": "+weapons);
+        System.out.println("Escudos del jugador #"+number+": "+shields+"\n");
         return super.toString();
+        
     }
     
     // Método receiveWeapon()
@@ -157,7 +153,7 @@ public class Player extends LabyrinthCharacter{
     
     public void receiveWeapon(Weapon w)
     {    
-        for (int i = weapons.size()-1; i <= 0; i--){
+        for (int i = weapons.size(); i <= 0; i--){
             boolean discard = weapons.get(i).discard();
             if (discard)
                 weapons.remove(weapons.get(i));
@@ -171,7 +167,7 @@ public class Player extends LabyrinthCharacter{
     
     public void receiveShields(Shield s)
     {
-        for(int i = shields.size()-1; i <= 0; i--){
+        for(int i = shields.size(); i <= 0; i--){
             boolean discard = shields.get(i).discard();
             if(discard)
                 shields.remove(shields.get(i));
@@ -188,17 +184,9 @@ public class Player extends LabyrinthCharacter{
     
     public Weapon newWeapon()
     {
-        float power = Dice.weaponPower();
-        int uses = Dice.usesLeft();
-        
         Weapon newWeapon = new Weapon(Dice.weaponPower(),Dice.usesLeft());
-        
-        do{
-            weapons.add(newWeapon);
-        }while ((power < 1.0f) && (uses < 1));
-        
-        return newWeapon; // idea
-        
+        weapons.add(newWeapon);
+        return newWeapon;
     }
     
     // Método newShield()
@@ -206,16 +194,9 @@ public class Player extends LabyrinthCharacter{
     
     public Shield newShield()
     {
-        float protection = Dice.shieldPower();
-        int uses = Dice.usesLeft();
-        
-        Shield newShield = new Shield(protection, uses);
-
-        do{
-            shields.add(newShield);
-        }while ((protection < 1.0f) && (uses < 1));
-        
-        return newShield; // idea
+        Shield newShield = new Shield(Dice.shieldPower(), Dice.usesLeft());
+        shields.add(newShield);
+        return newShield;
         
     }
     
@@ -225,7 +206,7 @@ public class Player extends LabyrinthCharacter{
     
     protected float sumWeapons()   // idea
     {
-        float sum = 0.0f;
+        float sum = 0f;
         
         for (int i = 0; i < weapons.size(); i++){
             sum += weapons.get(i).attack();
@@ -239,9 +220,9 @@ public class Player extends LabyrinthCharacter{
     // Devuelve la suma total de todos los escudos, llamando a sus métodos
     // protect()
     
-    protected float sumShields()   // idea
+    protected float sumShields() 
     {
-        float sum = 0.0f;
+        float sum = 0f;
         
         for (int i = 0; i < shields.size(); i++){
             sum += shields.get(i).protect();
@@ -256,7 +237,7 @@ public class Player extends LabyrinthCharacter{
     
     @Override
     public float attack(){
-        return this.strength + sumWeapons();
+        return super.getStrength() + sumWeapons();
     }
     
     // Método defensiveEnergy()
@@ -265,21 +246,21 @@ public class Player extends LabyrinthCharacter{
     
     protected float defensiveEnergy()
     {
-        return this.intelligence + sumShields();
+        return super.getIntelligence() + sumShields();
     }
     
     public boolean manageHit(float receivedAttack)
     {
         float defense = defensiveEnergy();
         if (defense < receivedAttack) {
-            gotWounded();
+            super.gotWounded();
             incConsecutiveHits();
         }
         else {
             resetHits();
         }
-        
-        if (((consecutiveHits == HITS2LOSE) || (dead() ))) {
+       
+        if ((consecutiveHits == HITS2LOSE) || (super.dead() )) {
             resetHits();
             return true;
         }
@@ -294,15 +275,6 @@ public class Player extends LabyrinthCharacter{
     public void resetHits(){
         this.consecutiveHits = 0;
     }
-    
-    // Método gotWounded()
-    // Al igual que en la clase Monster, reduce en 1 unidad el contador de 
-    // salud del jugador
-    
-    @Override
-    public void gotWounded(){
-        super.gotWounded();
-    }  
     
     // Método incConsecutiveHits
     // Incrementa de uno en uno el contador de hits consecutivos del jugador

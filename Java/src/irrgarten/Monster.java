@@ -9,15 +9,9 @@ package irrgarten;
 public class Monster extends LabyrinthCharacter{
     
     private static final int INITIAL_HEALTH = 5;
+   
     
-    
-    // Constructores de la clase
-    
-    public Monster()
-    {
-        this("",0f,0f);
-    }
-    
+    // Constructor de la clase
     public Monster(String name, float intelligence, float strength)
     {
         super("Monster "+name, intelligence, strength, INITIAL_HEALTH);
@@ -36,14 +30,14 @@ public class Monster extends LabyrinthCharacter{
     @Override
      public boolean defend(float receivedAttack)
     {
-        boolean isDead = dead();
+        boolean isDead = super.dead();
         
         if (!isDead){
             float defensiveEnergy = Dice.intensity(super.getIntelligence());
             
             if(defensiveEnergy < receivedAttack){
                 super.gotWounded();
-                isDead = dead();
+                isDead = super.dead();
             }
         }
         

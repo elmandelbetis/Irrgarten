@@ -19,11 +19,6 @@ public class GameState {
     
     // Constructor
     
-    public GameState()
-    {
-        this("","","",0,false,"");
-    }
-    
     public GameState(String labyrinth, String players, String monsters, 
                      int currentPlayer, boolean winner, String log){
         

@@ -19,14 +19,13 @@ public class TestP1 {
         
         
         Dice dado = new Dice();
-        int n_decimales = 3;        //preguntar cómo truncar decimales
         int ITERACIONES = 100;
         String salto_linea = "\n";
 
         // PRUEBA DE LA CLASE WEAPON
 
         System.out.println("PRUEBA CLASE WEAPON");
-        Weapon arma = new Weapon(Dice.getMaxAttack(),Dice.getMaxUses());
+        Weapon arma = new Weapon(Dice.weaponPower(), Dice.usesLeft());
         System.out.println(arma.toString());
         arma.attack();
         System.out.println("Ataque realizado");
@@ -37,7 +36,7 @@ public class TestP1 {
         // PRUEBA CLASE SHIELD
         
         System.out.println("PRUEBA CLASE SHIELD");
-        Shield escudo = new Shield(Dice.getMaxShield(),Dice.getMaxUses());
+        Shield escudo = new Shield(Dice.shieldPower(),Dice.usesLeft());
         System.out.println(escudo.toString()); 
         System.out.println("Escudo realizado");
         escudo.protect();

@@ -24,13 +24,7 @@ public class Labyrinth {
     public char[][] labyrinth;
     
     
-    
-    // Constructores de la clase
-    
-    public Labyrinth()
-    {
-        this(0,0,0,0);
-    }
+    // Constructor de la clase
        
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
      
@@ -79,9 +73,12 @@ public class Labyrinth {
             estado += "\n";
         }
         
-        estado +="\nTamaño del laberinto: "+getRows()+"x"+getCols()+"\nCasilla "
-                + "de salida: ["+exitRow+","+exitCol+"]";
+        estado +="\n";
+        estado +="Tamaño del laberinto: "+getRows()+"x"+getCols()+"\n"
+                + "Casilla de salida: ["+exitRow+","+exitCol+"]";
         return estado;
+        
+        
     }
     
     // Método posOK()
@@ -99,13 +96,14 @@ public class Labyrinth {
     
     public void addMonster(int row, int col, Monster monster)
     {           
-        if (labyrinth[row][col] == EMPTY_CHAR && posOK(row, col))
-        {   
-            labyrinth[row][col] = MONSTER_CHAR;
-            monsters[row][col] = monster;
-            monster.setPos(row, col);
-            
+        while(!emptyPos(row,col)){
+            row = Dice.randomPos(getRows());
+            col = Dice.randomPos(getCols());
         }
+        
+        labyrinth[row][col] = MONSTER_CHAR;
+        monsters[row][col] = monster;
+        monster.setPos(row, col);
     }
     
     public void spreadPlayers(ArrayList<Player> players)
@@ -114,8 +112,7 @@ public class Labyrinth {
         {
             Player p = players.get(i);
             ArrayList<Integer> pos = randomEmptyPos();            
-            putPlayer2D(-1,-1, pos.get(ROW), pos.get(COL), p); 
-            
+            putPlayer2D(-1,-1, pos.get(ROW), pos.get(COL), p);     
         }
     }
     
@@ -182,13 +179,10 @@ public class Labyrinth {
     {
         if (posOK(row, col))
         {
-            if (combatPos(row, col)){
+            if (combatPos(row, col))
                 labyrinth[row][col] = MONSTER_CHAR;
-            }
             else
-            {
                 labyrinth[row][col] = EMPTY_CHAR;
-            }
         }
     }
     
@@ -238,7 +232,6 @@ public class Labyrinth {
         int randomCol;
         
         do{
-            
             randomRow = Dice.randomPos(nRows);
             randomCol = Dice.randomPos(nCols);
         } while(!(emptyPos(randomRow,randomCol)));

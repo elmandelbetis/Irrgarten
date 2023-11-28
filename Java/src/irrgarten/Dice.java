@@ -18,29 +18,15 @@ public class Dice {
     private static final int SHIELDS_REWARD = 3;
     private static final int HEALTH_REWARD = 5;
     
-    private static final float MAX_INTELLIGENCE = (float) 10.0;
-    private static final float MAX_STRENGTH = (float) 10.0;
-    private static final float RESURRECT_PROB = (float) 0.3;
+    private static final float MAX_INTELLIGENCE = 10f;
+    private static final float MAX_STRENGTH = 10f;
+    private static final float RESURRECT_PROB = 0.3f;
     
     private static final Random generator = new Random();
     
-    // Método nextInt 
-    // Devuelve un valor aleatorio entero entre 0 y el parámetro dado
-    
-    public static int nextInt(int num){
-        return generator.nextInt(num+1); // Ponemos (num+1) para contener a num
-                                         // en el intervalo
-    }
-    
-    // Método nextFloat
-    // Devuelve un valor en coma flotante entre 0 y el parámetro dado
-    
-    public static float nextFloat(){
-        return generator.nextFloat();
-    }
-    
     // Método randomPos
     // Devuelve un valor aleatorio de posición de fila o columna en el tablero
+    
     public static int randomPos(int max){
         
         int pos = generator.nextInt(max); //devuelve un valor entre 0 y max
@@ -53,8 +39,7 @@ public class Dice {
     // primero el 0 y el último "nplayers"
     
     public static int whoStarts(int nplayers){
-        int player = generator.nextInt(nplayers+1);
-        return player;
+        return generator.nextInt(nplayers+1);
     }
     
     
@@ -62,28 +47,15 @@ public class Dice {
     // Devuelve un valor de inteligencia o fuerza contenido entre 0-9.9 (float)
     
     public static float randomIntelligence(){
-        float intelligence = generator.nextFloat()*MAX_INTELLIGENCE; 
-        return intelligence;
+        return generator.nextFloat()*MAX_INTELLIGENCE; 
     }
     
     public static float randomStrength(){
-        float strength = generator.nextFloat()*MAX_STRENGTH; 
-        return strength;
-    }
+        return generator.nextFloat()*MAX_STRENGTH; 
+    }   
     
-    
-    // Método resurrectPlayer
-    // Devuelve un valor booleano llamado "resurrect" que funciona de la 
-    // siguiente manera: si el valor de probabilidad aleatoria "prob_res" es 
-    // menor o igual a RESURRECT_PROB (0.3), se resucita al jugador. Si no,
-    // no resucita el jugador
-    
-    
-    public static boolean resurrectPlayer(){
-        
-        float prob_res = generator.nextFloat()*1f;
-        
-        return prob_res < RESURRECT_PROB;
+    public static boolean resurrectPlayer(){        
+        return (generator.nextFloat()*1f) <= RESURRECT_PROB;
     }
     
     
@@ -92,40 +64,40 @@ public class Dice {
     // jugador al ganar un combate
     
     public static int weaponsReward(){
-        int nweapons = generator.nextInt(WEAPONS_REWARD + 1);
-        return nweapons;
+        return generator.nextInt(WEAPONS_REWARD + 1);
     }
     
     public static int shieldsReward(){
-        int nshields = generator.nextInt(SHIELDS_REWARD + 1);
-        return nshields;
+        return generator.nextInt(SHIELDS_REWARD + 1);
     }
     
     public static int healthReward(){
-        int hp_units = generator.nextInt(HEALTH_REWARD + 1);
-        return hp_units;
+        return generator.nextInt(HEALTH_REWARD + 1);
     }
     
     // Métodos Power
-    // Devuelven un valor entre 0 y el máximo al que pueda optar del atributo
+    // Devuelven un valor entre 1 y el máximo al que pueda optar del atributo
     // de instancia al que esté llamando cada uno
     
     public static float weaponPower(){
-        int weaponPower = generator.nextInt(MAX_ATTACK + 1);
+        int minPower = 1;
+        int weaponPower = minPower + generator.nextInt((MAX_ATTACK));
         return weaponPower;
     }
     
     public static float shieldPower(){
-        int shieldPower = generator.nextInt(MAX_SHIELD + 1);
+        int minShield = 1;
+        int shieldPower = minShield + generator.nextInt((MAX_SHIELD));
         return shieldPower;
     }
     
     // Método usesLeft
     // Devuelve el nº de usos que se le asigna aleatoriamente a un arma o
-    // escudo, comprendido entre 0 y el máximo de usos permitidos por item
+    // escudo, comprendido entre 1 y el máximo de usos permitidos por item
     
     public static int usesLeft(){
-        int uses = generator.nextInt(MAX_USES + 1);
+        int minimoUses = 1;
+        int uses = minimoUses + generator.nextInt(MAX_USES + 1); 
         return uses;
     }
     
@@ -133,8 +105,7 @@ public class Dice {
     // Devuelve la cantidad de competencia aplicada entre 0 y "competence"
     
     public static float intensity(float competence){
-        float intensity = generator.nextFloat()*competence;
-        return intensity;
+        return generator.nextFloat()*competence;
     }
     
     // Método discardElement
@@ -159,18 +130,6 @@ public class Dice {
             }
         }
         return discard;
-    }
-    
-    public static int getMaxAttack(){
-        return MAX_ATTACK;
-    }
-    
-    public static int getMaxShield(){
-        return MAX_SHIELD;
-    }
-    
-    public static int getMaxUses(){
-        return MAX_USES;
     }
     
     public static Directions nextStep(Directions preference, ArrayList<Directions> validMoves, float intelligence){

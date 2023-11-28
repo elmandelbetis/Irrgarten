@@ -30,7 +30,7 @@ public class Weapon extends CombatElement{
     
     @Override
     public String toString(){
-        return "W["+power+", "+uses;
+        return " W"+super.toString();
     }
     
     // Llamada a la clase Dice, que determina en este caso si hay que descartar

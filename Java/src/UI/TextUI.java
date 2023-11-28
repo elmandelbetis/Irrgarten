@@ -25,27 +25,27 @@ public class TextUI {
             char c = readChar();
             switch(c) {
                 case 'w':
-                    System.out.print(" UP\n");
+                    System.out.print(" UP\n\n");
                     direction = Directions.UP;
                     gotInput = true;
                     break;
                 case 's':
-                    System.out.print(" DOWN\n");
+                    System.out.print(" DOWN\n\n");
                     direction = Directions.DOWN;
                     gotInput = true;
                     break;
                 case 'd':
-                    System.out.print("RIGHT\n");
+                    System.out.print("RIGHT\n\n");
                     direction = Directions.RIGHT;
                     gotInput = true;
                     break;
                 case 'a':
-                    System.out.print(" LEFT\n");
+                    System.out.print(" LEFT\n\n");
                     direction = Directions.LEFT;
                     gotInput = true;    
                     break;
             }
-        }    
+        }   
         return direction;
     }
     

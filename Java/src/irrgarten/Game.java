@@ -13,19 +13,9 @@ public class Game {
     private ArrayList<Monster> monsters;
     private Labyrinth labyrinth;
     
-    
-
-    //  Constructor vacío
-    public Game()
-    {
-        this(0);
-    }
-    
     //  Constructor
     public Game(int nplayers)
     {
-        this.currentPlayerIndex = Dice.whoStarts(nplayers);
-        this.labyrinth = new Labyrinth(10,10,2,0); // sample dado por el profesor
         this.players = new ArrayList<>();
         this.monsters = new ArrayList<>();
         this.log = "";
@@ -41,8 +31,10 @@ public class Game {
         
         this.currentPlayerIndex = Dice.whoStarts(nplayers);
         this.currentPlayer = players.get(currentPlayerIndex);
-        configureLabyrinth();
         
+        this.labyrinth = new Labyrinth(5,5,2,0);        
+        configureLabyrinth();
+        labyrinth.spreadPlayers(players);
         
     }
     
@@ -96,7 +88,6 @@ public class Game {
                 finished(),log);  
         
         return gameState;
-    
     }
     
     private void configureLabyrinth()
@@ -107,8 +98,7 @@ public class Game {
         int nMonstruos = tamTotal / 5;
         
         labyrinth.addBlock(Orientation.HORIZONTAL, 1, 0, 2);
-        labyrinth.addBlock(Orientation.VERTICAL, 2, 1, 4);
-        labyrinth.addBlock(Orientation.VERTICAL, 0, 7, 5);
+        labyrinth.addBlock(Orientation.VERTICAL, 2, 1, 2);
         for (int i = diagonal; i > 0; i-=2){
             labyrinth.addBlock(Orientation.HORIZONTAL, i, i + 1, 1);
         }
@@ -118,26 +108,21 @@ public class Game {
             col_ini++;
             fil_ini--;
         }
-              
-        for (int i = 0; i <= nMonstruos; i++){
-            Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());
+        
+        //Inicializa y añade los monstruos
+        for (int i = 0; i < nMonstruos; i++){
+            Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());       
             monsters.add(monstruo);
             labyrinth.addMonster(Dice.randomPos(labyrinth.getRows()), 
                               Dice.randomPos(labyrinth.getCols()), monstruo);
         }
-        
-        labyrinth.spreadPlayers(players);
-    
+            
     }
     
     private void nextPlayer()
     {
-        if (this.currentPlayerIndex == players.size()){
-            currentPlayerIndex -= currentPlayerIndex;
-        }
-        else{
-            currentPlayerIndex++;
-        }
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        currentPlayer = players.get(currentPlayerIndex);
     }
     
     private Directions actualDirection(Directions preferredDirection)
@@ -185,17 +170,18 @@ public class Game {
         if (winner == GameCharacter.PLAYER)
         {
             currentPlayer.receiveReward();
-            logPlayerWon();
-        } else {
-            logMonsterWon();
-        }
+            this.logPlayerWon();
+        } 
+        else
+            this.logMonsterWon();
     }
     
     private void manageResurrection()
     {
         boolean resurrect = Dice.resurrectPlayer();
+        
         if (resurrect){
-            this.currentPlayer.resurrect();
+            currentPlayer.resurrect();
             this.logResurrected();
         }
         else{

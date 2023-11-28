@@ -32,7 +32,7 @@ public class Shield extends CombatElement{
     
     @Override
     public String toString(){
-        return "S["+ super.toString();
+        return " S"+ super.toString();
     }
     
     // Llamada a la clase Dice y su método discardElement, que determina en 
