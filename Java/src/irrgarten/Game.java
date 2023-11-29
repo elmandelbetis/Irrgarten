@@ -134,7 +134,8 @@ public class Game {
         
         //Inicializa y añade los monstruos
         for (int i = 0; i < nMonstruos; i++){
-            Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());       
+            //Monster monstruo = new Monster("#"+(i),Dice.randomIntelligence(),Dice.randomStrength());       
+            Monster monstruo = new Monster("#"+(i),30,30);            
             monsters.add(monstruo);
             labyrinth.addMonster(Dice.randomPos(labyrinth.getRows()), 
                               Dice.randomPos(labyrinth.getCols()), monstruo);
@@ -204,8 +205,14 @@ public class Game {
         boolean resurrect = Dice.resurrectPlayer();
         
         if (resurrect){
-            currentPlayer.resurrect();
-            this.logResurrected();
+            int row = currentPlayer.getRow();
+            int col = currentPlayer.getCol();
+            FuzzyPlayer fuzzyPlayer = new FuzzyPlayer(currentPlayer);
+            this.currentPlayer = fuzzyPlayer;
+            players.set(this.currentPlayerIndex, currentPlayer);
+            
+            labyrinth.placeFuzzyPlayer(fuzzyPlayer, row, col);
+            fuzzyPlayer.resurrect();
         }
         else{
             this.logPlayerSkipTurn();

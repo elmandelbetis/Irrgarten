@@ -9,6 +9,7 @@ public class FuzzyPlayer extends Player{
     }
     
     // TODO Añadir resto de métodos del diagrama de clases
+    @Override
     public Directions move(Directions direction, ArrayList<Directions> validMoves)
     {
         super.move(direction, validMoves);

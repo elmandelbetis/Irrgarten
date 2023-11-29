@@ -8,7 +8,7 @@ public class Irrgarten {
 
     public static void main(String[] args) {
         
-        Game game = new Game(0,'G');
+        Game game = new Game(2,'G');
         TextUI view = new TextUI();
         Controller controlador = new Controller(game, view);
         
