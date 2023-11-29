@@ -348,8 +348,9 @@ public class Labyrinth {
     
     public void placeFuzzyPlayer(FuzzyPlayer fuzzyPlayer, int row, int col){
         if (posOK(row,col)){
-            fuzzyPlayer.setPos(row, col);
             labyrinth[row][col] = EMPTY_CHAR;
+            fuzzyPlayer.setPos(row, col);
+            
         }
     }
       
