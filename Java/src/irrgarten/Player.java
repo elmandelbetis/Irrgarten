@@ -18,6 +18,9 @@ public class Player extends LabyrinthCharacter{
     
     private ArrayList <Weapon> weapons; 
     private ArrayList <Shield> shields;
+    
+    private ShieldCardDeck shieldCardDeck;
+    private WeaponCardDeck weaponCardDeck;
 
     
     // Constructores de la clase
@@ -29,6 +32,9 @@ public class Player extends LabyrinthCharacter{
         weapons = new ArrayList<>();
         shields = new ArrayList<>();
         
+        shieldCardDeck = new ShieldCardDeck();
+        weaponCardDeck = new WeaponCardDeck();
+        
     }
     
     public Player(Player other){    //constructor de copia
@@ -37,6 +43,9 @@ public class Player extends LabyrinthCharacter{
         this.number = other.number;
         this.weapons = other.weapons; 
         this.shields = other.shields;
+        
+        this.shieldCardDeck = other.shieldCardDeck;
+        this.weaponCardDeck = other.weaponCardDeck;
     }
     
     // Método resurrect()
@@ -113,13 +122,15 @@ public class Player extends LabyrinthCharacter{
         int sReward = Dice.shieldsReward();
         
         for (int i = 0; i < wReward; i++){
-            Weapon wnew = newWeapon();
-            receiveWeapon(wnew);
+            //Weapon wnew = weaponCardDeck.nextCard();      idea que NO funciona
+            Weapon wNew = newWeapon();
+            receiveWeapon(wNew);
         }
         
         for (int i = 0; i < sReward; i++){
-            Shield snew = newShield();
-            receiveShields(snew);   
+            //Shield snew = shieldCardDeck.nextCard();      idea que NO funciona
+            Shield sNew = newShield();
+            receiveShields(sNew);   
         }
         
         int extraHealth = Dice.healthReward();

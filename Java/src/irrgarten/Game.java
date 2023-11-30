@@ -37,7 +37,7 @@ public class Game {
             configureLabyrinthDebug();
             labyrinth.spreadPlayers(players);            
         } else {
-            this.labyrinth = new Labyrinth(10,10,10,0);        
+            this.labyrinth = new Labyrinth(10,10,9,0);        
             configureLabyrinth();
             labyrinth.spreadPlayers(players);
         }
@@ -101,7 +101,12 @@ public class Game {
         int tamTotal = labyrinth.getRows() * labyrinth.getCols();       
         int nMonstruos = tamTotal / 5;
         
-        // TODO Añadir Bloques
+        // Generación aleatoria de bloques por el mapa
+        int nBloques = 20;
+        for (int i = 0; i < nBloques; i++){
+            labyrinth.addBlock(Orientation.HORIZONTAL, Dice.randomPos(labyrinth.getRows()),
+                      Dice.randomPos(labyrinth.getCols()), 1);
+        }
         
         //Inicializa y añade los monstruos
         for (int i = 0; i < nMonstruos; i++){
