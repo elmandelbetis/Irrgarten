@@ -1,17 +1,16 @@
 package irrgarten;
 
-public class WeaponCardDeck extends CardDeck {
+public class WeaponCardDeck extends CardDeck<Weapon> {
+    
+    private static final int MAX_WEAPON_CARDS = 2;
     
     @Override
     protected void addCards()
     {
-        int maxCards = 2;
-        
-        for (int i = 0; i < maxCards; i++){
+        for (int i = 0; i < MAX_WEAPON_CARDS; i++){
             Weapon weaponCard = new Weapon(Dice.weaponPower(), Dice.usesLeft());
             super.addCard(weaponCard);
         }
-    
     }
     
 }

@@ -122,20 +122,20 @@ public class Player extends LabyrinthCharacter{
         int sReward = Dice.shieldsReward();
         
         for (int i = 0; i < wReward; i++){
-            //Weapon wnew = weaponCardDeck.nextCard();      idea que NO funciona
-            Weapon wNew = newWeapon();
-            receiveWeapon(wNew);
+            Weapon wnew = weaponCardDeck.nextCard();      //idea que NO funciona
+            //Weapon wNew = newWeapon();
+            this.receiveWeapon(wnew);
         }
         
         for (int i = 0; i < sReward; i++){
-            //Shield snew = shieldCardDeck.nextCard();      idea que NO funciona
-            Shield sNew = newShield();
-            receiveShields(sNew);   
+            Shield snew = shieldCardDeck.nextCard();      //idea que NO funciona
+            //Shield sNew = newShield();
+            receiveShields(snew);   
         }
         
         int extraHealth = Dice.healthReward();
-        float playerHealth = super.getHealth(); // idea
-        super.setHealth(playerHealth += extraHealth);
+        float playerHealth = getHealth(); 
+        setHealth(playerHealth + extraHealth);
         
     }
     
@@ -157,7 +157,7 @@ public class Player extends LabyrinthCharacter{
     
     public void receiveWeapon(Weapon w)
     {    
-        for (int i = weapons.size(); i <= 0; i--){
+        for (int i = weapons.size()-1; i >= 0; i--){
             boolean discard = weapons.get(i).discard();
             if (discard)
                 weapons.remove(weapons.get(i));
@@ -171,7 +171,7 @@ public class Player extends LabyrinthCharacter{
     
     public void receiveShields(Shield s)
     {
-        for(int i = shields.size(); i <= 0; i--){
+        for(int i = shields.size()-1; i >= 0; i--){
             boolean discard = shields.get(i).discard();
             if(discard)
                 shields.remove(shields.get(i));

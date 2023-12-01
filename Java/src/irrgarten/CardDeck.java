@@ -10,26 +10,25 @@ public abstract class CardDeck<T> {
     
     public CardDeck()
     {
-        cardDeck = new ArrayList<>();
-        addCards();
+        cardDeck = new ArrayList<T>();
     }
     
     protected abstract void addCards();    
     
     protected void addCard(T card)
     {
-        cardDeck.add(card);
-        Collections.shuffle(cardDeck);  // barajado de las cartas
+        this.cardDeck.add(card);
     }
     
     public T nextCard()
     {
         if (cardDeck.isEmpty()){
             addCards();
+            Collections.shuffle(cardDeck);
         }
         
         T selectedCard = cardDeck.get(0);
-        cardDeck.remove(selectedCard);
+        cardDeck.remove(0);
         
         return selectedCard;
                
