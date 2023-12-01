@@ -27,21 +27,21 @@ module UI
       print "Where? "
       got_input = false
       while (!got_input)
-        c = gets.chomp
+        c = read_char
         case c
-          when "\e[w"
+          when "w"
             puts "UP ARROW"
             output = Irrgarten::Directions::UP
             got_input = true
-          when "\e[s"
+          when "s"
             puts "DOWN ARROW"
             output = Irrgarten::Directions::DOWN
             got_input = true
-          when "\e[d"
+          when "d"
             puts "RIGHT ARROW"
             output = Irrgarten::Directions::RIGHT
             got_input = true
-          when "\e[a"
+          when "a"
             puts "LEFT ARROW"
             output = Irrgarten::Directions::LEFT
             got_input = true
@@ -62,6 +62,7 @@ module UI
       puts "Jugador actual: " << game_state.get_current_player.to_s
       puts "Hay ganador?: " << game_state.get_winner.to_s
       puts game_state.get_log.to_s
+      puts game_state.get_players.to_s
 
     end
 

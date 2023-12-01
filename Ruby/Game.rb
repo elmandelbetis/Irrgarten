@@ -27,13 +27,14 @@ module Irrgarten
 		def initialize(nplayers)
 
 			@current_player_index = Dice.who_starts(nplayers)
-			@labyrinth = Labyrinth.new(10,10,2,0)
-			@players = Array.new(nplayers)
+			@labyrinth = Labyrinth.new(5,5,2,0)
+			@players = Array.new
 			@log = ""
 
-			for i in 0..nplayers - 1
-				@players[i] = Player.new(i, Dice.random_intelligence, Dice.random_strength)
-			end
+			nplayers.times { |i|
+				@players.append(Player.new(i, Dice.random_intelligence, Dice.random_strength))
+			}
+
 
 			@current_player_index = Dice.who_starts(nplayers)
 			@current_player = @players[@current_player_index]
@@ -108,8 +109,6 @@ module Irrgarten
 
 				@labyrinth.add_block(Orientation::HORIZONTAL, 1, 0 , 2)
 				@labyrinth.add_block(Orientation::VERTICAL, 2, 1, 2)
-
-				@labyrinth.spread_players(@players)
 
 			end
 

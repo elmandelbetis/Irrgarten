@@ -32,6 +32,8 @@ module Irrgarten
             @name = "Player#"+number.to_s
             @health = @@INITIAL_HEALTH
             @consecutive_hits = 0
+            @row = -1
+            @col = -1
 
 
             @weapons = Array.new {Weapon}
@@ -63,7 +65,7 @@ module Irrgarten
             @number
         end
 
-        def pos(row, col)
+        def set_pos(row, col)
             @row = row
             @col = col
         end

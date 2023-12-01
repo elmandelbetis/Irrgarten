@@ -47,7 +47,6 @@ module Irrgarten
 
         def spread_players(players)
             players.each do |i|
-                pos = Array.new
                 pos = random_empty_pos
                 put_player_2D(-1,-1,pos[@@ROW],pos[@@COL],i)
             end
@@ -128,7 +127,11 @@ module Irrgarten
 
         private
         def pos_ok(row, col)
-            (row >= 0) && (row <= @n_rows) && (col >= 0) && (col <= @n_cols)
+            puts row
+            puts col
+            puts @n_rows
+            puts @n_cols
+            (row >= 0) && (row < @n_rows) && (col >= 0) && (col < @n_cols)
         end
 
         def empty_pos(row, col)
@@ -166,16 +169,7 @@ module Irrgarten
         end
 
         def can_step_on(row, col)
-            if pos_ok(row, col)
-                if empty_pos(row, col) || monster_pos(row, col) ||
-                  exit_pos(row, col)
-                    true
-                end
-            
-            end
-
-            false
-
+            (pos_ok(row,col) and (empty_pos(row,col) or monster_pos(row,col) or exit_pos(row, col)))
         end
 
         def update_old_pos(row, col)
@@ -190,20 +184,21 @@ module Irrgarten
         end
 
         def dir_2_pos(row, col, direction)
-            new_pos = Array.new
+
+            new_row=row
+            new_col=col
 
             case direction
             when Directions::UP
-                new_pos.push(row-=1)
+                new_row=new_row-1
             when Directions::DOWN
-                new_pos.push(row+=1)
+                new_row=new_row+1
             when Directions::LEFT
-                new_pos.push(col-=1)
+                new_col=new_col-1
             when Directions::RIGHT
-                new_pos.push(col+=1)
+                new_col=new_col+1
             end
-
-            new_pos                        
+            [new_row, new_col]
 
         end
 
@@ -227,7 +222,7 @@ module Irrgarten
             output = nil
 
             if can_step_on(row, col)
-                if pos_ok(old_row, old_col)
+                if pos_ok(row, col)
                     p = @players[old_row][old_col]
 
                     if p == player
