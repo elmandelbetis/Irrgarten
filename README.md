@@ -12,7 +12,7 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 - P1: [Terminada]
 - P2: [Terminada]
-- P3: Terminada exitosamente en Java, con severos bugs aún en Ruby
+- P3: [Terminada]
 - P4: Empezada en Java
 - P5: ...
 
@@ -33,7 +33,15 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 (A la espera de empezar la P4 en Ruby)
 
-- [Véase la issue abierta]
+- Al mover un jugador, no se actualiza bien la posición del laberinto en la que estaba colocado previo a su movimiento
+  
+- Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto 
+
+- El game_state no muestra el turno del jugador actual
+
+- Los jugadores, sus armas y escudos aparecen como una lista de direcciones de memoria en lugar de un String
+
+- Puede ser que los combates no se estén realizando correctamente
 
 ### **Irrgarten: Java Edition**
 
