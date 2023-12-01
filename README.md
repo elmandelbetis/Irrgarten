@@ -18,7 +18,7 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 ### **Bugs en Java**
 
-- Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0) [NO SOLUCIONADO]
+- Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0) [
   
 - Cuando juegan varios jugadores, solo juega uno. [SOLUCIONADO]
   
