@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Interfaz de usuario de texto para el juego 
  */
 
-public class TextUI {
+public class TextUI implements UI{
     
     private static Scanner in = new Scanner(System.in);
     

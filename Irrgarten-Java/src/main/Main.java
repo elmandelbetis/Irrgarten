@@ -5,7 +5,9 @@
 
 package main;
 
+import UI.GUI;
 import UI.TextUI;
+import UI.UI;
 import controller.Controller;
 import irrgarten.Game;
 
@@ -22,7 +24,7 @@ public class Main {
          */
         
         Game game = new Game(0,'D');    // Creación del juego
-        TextUI view = new TextUI(); // Creación de la vista textual
+        GUI view = new GUI(); // Creación de la vista textual
         Controller controlador = new Controller(game, view);    // Creación del controlador
         
         /**

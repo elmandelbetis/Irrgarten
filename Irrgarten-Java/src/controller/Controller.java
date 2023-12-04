@@ -5,9 +5,10 @@
 
 package controller;
 
+import UI.GUI;
 import irrgarten.Directions;
 import irrgarten.Game;
-import UI.TextUI;
+import UI.UI;
 
 /**
  * El controlador maneja la lógica del juego, coordinando las interacciones y
@@ -21,7 +22,7 @@ public class Controller {
     //*****************************************************************
     
     private Game game;  // Instancia del juego
-    private TextUI view;    // Instancia de TextUI
+    private GUI view;    // Instancia de TextUI
     
     
     /**
@@ -30,7 +31,7 @@ public class Controller {
      * @param view  Interfaz de usuario de texto
      */
     
-    public Controller(Game game, TextUI view) {
+    public Controller(Game game, GUI view) {
         this.game = game;
         this.view = view;
     }
