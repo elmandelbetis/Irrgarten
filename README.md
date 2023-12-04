@@ -13,8 +13,8 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 - P1: [Terminada]
 - P2: [Terminada]
 - P3: [Terminada]
-- P4: Terminada en Java
-- P5: ...
+- P4: [Terminada en Java]
+- P5: [Comenzada] (sólo se realiza en Java)
 
 ### **Bugs en Java**
 
