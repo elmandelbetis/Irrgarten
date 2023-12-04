@@ -9,27 +9,24 @@
 
 module Irrgarten
 
-    class GameState
-        
-        attr_accessor :labyrinth
-        attr_accessor :players
-        attr_accessor :monsters
-        attr_accessor :currentPlayer
-        attr_accessor :winner
-        attr_accessor :log
+    require_relative 'Player.rb'
+    require_relative 'Labyrinth.rb'
+    require_relative 'Monster.rb'
+    require_relative 'Game.rb'
 
+    class GameState
 
         #Constructor
 
         def initialize(labyrinth, players, monsters, current_player, winner,
                        log)
             
-            @labyrinth = labyrinth
-            @players = players
-            @monsters = monsters
-            @current_player = current_player
-            @winner = winner
-            @log = log
+            @labyrinth = labyrinth.to_s
+            @players = players.to_s
+            @monsters = monsters.to_s
+            @current_player = current_player.to_s
+            @winner = winner.to_s
+            @log = log.to_s
 
 
         end
@@ -37,7 +34,7 @@ module Irrgarten
         # Consultores
 
         def get_labyrinth
-            @labyrinth
+            @labyrinth.to_s
         end
 
         def get_players
@@ -49,15 +46,15 @@ module Irrgarten
         end
 
         def get_current_player
-            @currentPlayer
+            @current_player.to_s
         end
 
         def get_winner
-            @winner
+            @winner.to_s
         end
 
         def get_log
-            @log
+            @log.to_s
         end
 
     end

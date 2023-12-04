@@ -55,13 +55,12 @@ module  Irrgarten
             @col = col
         end 
 
-        def to_string
-            puts "Monster: #{name}, H: #{@health}, S: #{strength},
-            I #{intelligence}, Pos: #{row},#{col}"
+        def to_s
+            "#{@name}, H: #{@health}, S: #{@strength}, I #{@intelligence}, Pos: #{@row},#{@col}"
         end 
 
         def got_wounded
-            health -= 1
+            @health -= 1
         end
 
 

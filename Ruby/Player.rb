@@ -112,9 +112,8 @@ module Irrgarten
             @health += extra_health
         end
 
-        def to_string
-            puts "#{name}, H: #{health}, I: #{intelligence}, S: #{strength},
-            Pos: #{row},#{col}"
+        def to_s
+            "#{@name.to_s}, H: #{@health.to_s}, I: #{@intelligence.to_s}, S: #{@strength.to_s}, Pos: [#{@row},#{@col}]"
         end
 
         private

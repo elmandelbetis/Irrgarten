@@ -127,10 +127,6 @@ module Irrgarten
 
         private
         def pos_ok(row, col)
-            puts row
-            puts col
-            puts @n_rows
-            puts @n_cols
             (row >= 0) && (row < @n_rows) && (col >= 0) && (col < @n_cols)
         end
 

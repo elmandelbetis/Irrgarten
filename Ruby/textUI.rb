@@ -1,6 +1,7 @@
 
 require 'io/console'
 require_relative 'Directions'
+require_relative 'GameState'
 
 module UI
 
@@ -59,10 +60,11 @@ module UI
     def show_game(game_state)
       puts "====================================="
       puts game_state.get_labyrinth
-      puts "Jugador actual: " << game_state.get_current_player.to_s
-      puts "Hay ganador?: " << game_state.get_winner.to_s
-      puts game_state.get_log.to_s
-      puts game_state.get_players.to_s
+      puts game_state.get_players
+      puts game_state.get_monsters
+      puts "Jugador actual: " << game_state.get_current_player
+      puts "Hay ganador?: " << game_state.get_winner
+      puts game_state.get_log
 
     end
 

@@ -78,12 +78,23 @@ module Irrgarten
 
 		def get_game_state
 
+			players_string = ""
+
+			@players.each do |i|
+				players_string += i.to_s + ", "
+			end
+
+			monsters_string = ""
+
+			@monsters.each do |i|
+				monsters_string += i.to_s + ", "
+			end
+
 			estado = GameState.new(@labyrinth.to_s,
-										@players,
-										@monsters,
-										@current_player_index + 1,
-										@labyrinth.have_a_winner,
-										@log)
+														 players_string, monsters_string,
+										@current_player_index.to_s,
+										@labyrinth.have_a_winner.to_s,
+										@log.to_s)
 			estado
 		end
 
@@ -191,7 +202,7 @@ module Irrgarten
 		end
 
 		def log_no_monsters
-			@log += "Jugador ##{@current_player_index}, acabas de caer en una celda vacía.\n"
+			@log += "Jugador ##{@current_player_index}, acabas de caer en una celda vacía o la de salida.\n"
 		end
 
 		def log_rounds(rounds, max)
