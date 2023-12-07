@@ -14,12 +14,12 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 - P2: [Terminada]
 - P3: [Terminada]
 - P4: [Terminada en Java]
-- P5: [Comenzada] (sólo se realiza en Java)
+- P5: [TERMINADA] (sólo se realiza en Java)
 
 ### **Bugs en Java**
 
-- Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0) [
-  
+- Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0)
+    
 - Cuando juegan varios jugadores, solo juega uno. [SOLUCIONADO]
   
 - Al empezar la P4, ya no se muestra el nº del jugador en el tablero [SOLUCIONADO]
