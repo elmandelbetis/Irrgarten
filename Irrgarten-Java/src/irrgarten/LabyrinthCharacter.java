@@ -139,7 +139,7 @@ public abstract class LabyrinthCharacter {
     @Override
     public String toString(){
         return name+", H: "+health+", I: "+intelligence+
-                ", S: "+strength+", Pos: ["+row+","+col+"] ";
+                ", S: "+strength+", Pos: ["+row+","+col+"]\n";
     }
     
     /**

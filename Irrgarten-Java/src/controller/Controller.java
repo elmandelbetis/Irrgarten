@@ -5,7 +5,6 @@
 
 package controller;
 
-import UI.GUI;
 import irrgarten.Directions;
 import irrgarten.Game;
 import UI.UI;
@@ -22,7 +21,7 @@ public class Controller {
     //*****************************************************************
     
     private Game game;  // Instancia del juego
-    private GUI view;    // Instancia de TextUI
+    private UI view;    // Instancia de TextUI
     
     
     /**
@@ -31,7 +30,7 @@ public class Controller {
      * @param view  Interfaz de usuario de texto
      */
     
-    public Controller(Game game, GUI view) {
+    public Controller(Game game, UI view) {
         this.game = game;
         this.view = view;
     }
