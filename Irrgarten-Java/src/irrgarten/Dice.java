@@ -167,22 +167,20 @@ public class Dice {
      */
     
     public static boolean discardElement(int usesLeft){
-        boolean discard = false;
         
-        if (usesLeft == 0){
-            discard = true;
+        switch (usesLeft) {
+            case 0:
+                return true;
+            case MAX_USES:
+                return false;
+            default:
+                float probDiscard = (float) usesLeft / MAX_USES;
+                float randomValue = generator.nextFloat()*(float) 1.01;
+                if (randomValue <= probDiscard){
+                    return true;
+                }   break;
         }
-        
-        else{
-            
-            float probDiscard = (float) usesLeft / MAX_USES;
-            float randomValue = generator.nextFloat()*(float) 1.01;
-            
-            if (randomValue <= probDiscard){
-                discard = true;
-            }
-        }
-        return discard;
+        return true;
     }
     
     /**
