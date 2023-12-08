@@ -71,11 +71,11 @@ Lista y descripción de los archivos:
 
 - [Orientation.java](Irrgarten-Java/src/irrgarten/Orientation.java): tipo enumerado para distinguir la orientación vertical u horizontal en situaciones como, por ejemplo, la configuración de las paredes dentro del laberinto.
 
--[CardDeck<T>.java](Irrgarten-Java/src/irrgarten/CardDeck.java): clase asbtracta paramétrica dedicada a ser la clase padre y gestionar las barajas aleatorias de recompensa de combate para escudos y armas del jugador.
+- [CardDeck<T>.java](Irrgarten-Java/src/irrgarten/CardDeck.java): clase asbtracta paramétrica dedicada a ser la clase padre y gestionar las barajas aleatorias de recompensa de combate para escudos y armas del jugador.
 
--[WeaponCardDeck.java](Irrgarten-Java/src/irrgarten/WeaponCardDeck.java): clase hija de CardDeck<Weapon>, y se encarga de crear y gestionar el barajado de cartas de tipo Weapon para las recompensas de combate del jugador.
+- [WeaponCardDeck.java](Irrgarten-Java/src/irrgarten/WeaponCardDeck.java): clase hija de CardDeck<Weapon>, y se encarga de crear y gestionar el barajado de cartas de tipo Weapon para las recompensas de combate del jugador.
 
--[ShieldCardDeck.java](Irrgarten-Java/src/irrgarten/ShieldCardDeck.java): clase hija de CardDeck<Shield>, y se encarga de crear y gestionar el barajado de cartas de tipo Shield para las recompensas de combate del jugador.
+- [ShieldCardDeck.java](Irrgarten-Java/src/irrgarten/ShieldCardDeck.java): clase hija de CardDeck<Shield>, y se encarga de crear y gestionar el barajado de cartas de tipo Shield para las recompensas de combate del jugador.
 
 - [Weapon.java](Irrgarten-Java/src/irrgarten/Weapon.java): clase Arma. Crea objetos tipo Arma para el jugador y contiene y gestiona los métodos necesarios para que el jugador pueda atacar en el juego.
 
