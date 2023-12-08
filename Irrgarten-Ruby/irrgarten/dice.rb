@@ -32,7 +32,7 @@ module Irrgarten
 	 end
 
 	 def self.resurrect_player
-		true if @@generator.rand(0.to_f..1.to_f) <= @@RESURRECT_PROB
+		@@generator.rand(0.to_f..1.to_f) <= @@RESURRECT_PROB
 	 end
 
 	 def self.weapons_reward
@@ -64,8 +64,8 @@ module Irrgarten
 	 end
 
 	 def self.discard_element(uses_left)
-		return false if uses_left == @@MAX_USES
-		return true if uses_left == 0
+		false if uses_left == @@MAX_USES
+		true if uses_left == 0
 
 		prob = 1.0 / (uses_left + 1)
 		random = @@generator.rand(uses_left + 1)

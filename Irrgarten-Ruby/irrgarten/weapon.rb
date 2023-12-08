@@ -5,15 +5,13 @@ module Irrgarten
 
   class Weapon
 
-	 attr_accessor :power, :uses
-
 	 def initialize(power,uses)
 		@power = power
 		@uses = uses
 	 end
 
 	 def attack
-		if uses > 0
+		if @uses > 0
 		  @power.to_f
 		else
 		  0

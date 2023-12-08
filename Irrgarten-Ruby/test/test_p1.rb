@@ -141,7 +141,7 @@ puts "Método discardElement"
 
 usos = 10
 
-for i in 0..15
+for i in 0..9
   print "Descartado?: "
   puts Irrgarten::Dice.discard_element(usos)
   usos-=1

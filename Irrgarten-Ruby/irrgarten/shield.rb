@@ -5,15 +5,13 @@ module Irrgarten
 
   class Shield
 
-    attr_accessor :protection, :uses
-
     def initialize(protection, uses)
       @protection = protection
       @uses = uses
     end
 
     def protect
-      if uses > 0
+      if @uses > 0
         @protection
       else
         0
