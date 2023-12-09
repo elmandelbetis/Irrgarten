@@ -20,8 +20,23 @@ module Irrgarten
 	 end
 
 	 def defend(received_attack)
-		####################
-	 end
+
+		is_dead = dead
+
+		unless is_dead
+
+		  defensive_energy = Dice.intensity(@intelligence)
+
+		  if defensive_energy < received_attack
+			 got_wounded
+			 is_dead = dead
+		  end
+
+		end
+
+		is_dead
+
+		end
 
 	 def set_pos(row, col)
 		@row = row
@@ -32,6 +47,7 @@ module Irrgarten
 		"#{@name}: [S: #{@strength}, H: #{@health}"
 	 end
 
+	 private
 	 def got_wounded
 		@health-=1
 	 end

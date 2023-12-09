@@ -14,15 +14,15 @@ module Irrgarten
 	 end
 
 	 def labyrinth
-		@labyrinth
+		@labyrinth.to_s
 	 end
 
 	 def players
-		@players
+		@players.to_s
 	 end
 
 	 def monsters
-		@monsters
+		@monsters.to_s
 	 end
 
 	 def current_player
@@ -34,7 +34,7 @@ module Irrgarten
 	 end
 
 	 def log
-		@log
+		@log.to_s
 	 end
 
   end	#class

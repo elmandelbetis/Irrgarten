@@ -17,16 +17,15 @@ module Irrgarten
 
 	 @@MAX_ROUNDS = 10
 
-	 ## TODO ##
-
 	 def initialize(nplayers)
 		@players = []
 		@monsters = []
 		@log = ""
 
-		(0..nplayers).each { |i|
-			@players << Player.new(i.chr, Dice.random_intelligence.round(3), Dice.random_strength.round(3))
-		}
+		nplayers.times do |i|
+		  @players << Player.new(i, Dice.random_intelligence.round(3), Dice.random_strength.round(3))
+		end
+
 
 		@current_player_index = Dice.who_starts(nplayers)
 		@current_player = @players[@current_player_index]
@@ -42,11 +41,41 @@ module Irrgarten
 	 end
 
 	 def next_step(preferred_direction)
-		####################
+		@log = ""
+		dead = @current_player.dead
+
+		if !dead
+		  direction = actual_direction(preferred_direction)
+
+		  if direction != preferred_direction
+			 log_player_no_orders
+		  end
+
+		  monster = @labyrinth.put_player(direction, @current_player)
+
+		  if monster == nil
+			 log_no_monster
+		  else
+			 winner = combat(monster)
+			 manage_reward(winner)
+		  end
+
+		else
+		  manage_resurrection
+		end
+
+		end_game = finished
+
+		unless end_game
+		  next_player
+		end
+
+		end_game
+
 	 end
 
 	 def get_game_state
-		game_state = GameState.new(@labyrinth.to_s, @players.to_s, @monsters.to_s, @current_player_index, finished, log)
+		GameState.new(@labyrinth.to_s, @players.to_s, @monsters.to_s, @current_player_index, finished, log)
 	 end
 
 	 private
@@ -54,11 +83,19 @@ module Irrgarten
 		tam_total = @labyrinth.rows * @labyrinth.cols
 		n_monstruos = tam_total / 5
 
+		# Inicialización y añadido de bloques al laberinto
+		@labyrinth.add_block(Orientation::HORIZONTAL, 1,0,2)
+		@labyrinth.add_block(Orientation::VERTICAL, 2,1,3)
+
 		# Inicialización y añadido de monstros al laberinto
-		(0..n_monstruos).each{ |i|
+		(0..n_monstruos).each do |i|
 		  monstruo = Monster.new("##{i}", Dice.random_intelligence.round(3), Dice.random_strength.round(3))
+		  @monsters << monstruo
 		  @labyrinth.add_monster(Dice.random_pos(@labyrinth.rows), Dice.random_pos(@labyrinth.cols), monstruo)
-		}
+		end
+
+
+
 
 	 end
 
@@ -68,19 +105,58 @@ module Irrgarten
 	 end
 
 	 def actual_direction(preferred_direction)
-		####################
+		current_row = @current_player.row
+		current_col = @current_player.col
+
+		valid_moves = @labyrinth.valid_moves(current_row,current_col)
+		output = @current_player.move(preferred_direction, valid_moves)
+
+		output
+
 	 end
 
 	 def combat(monster)
-		####################
+		rounds = 0
+		winner = GameCharacter::PLAYER
+		player_attack = @current_player.attack
+		lose = monster.defend(player_attack)
+
+		while (!lose) && (rounds < @@MAX_ROUNDS)
+		  winner = GameCharacter::MONSTER
+		  rounds += 1
+		  monster_attack = monster.attack
+		  lose = @current_player.defend(monster_attack)
+
+		  unless lose
+			 player_attack = @current_player.attack
+			 winner = GameCharacter::PLAYER
+			 lose = monster.defend(player_attack)
+		  end
+
+		end
+
+		log_rounds(rounds, @@MAX_ROUNDS)
+		return winner
+
 	 end
 
 	 def manage_reward(winner)
-		####################
+		if winner == GameCharacter::PLAYER
+		  @current_player.receive_reward
+		  log_player_won
+		else
+		  log_monster_won
+		end
 	 end
 
 	 def manage_resurrection
-		####################
+		resurrect = Dice.resurrect_player
+		if resurrect
+		  @current_player.resurrect
+		  log_resurrected
+		else
+		  log_player_skip_turn
+		end
 	 end
 
 	 def log_player_won

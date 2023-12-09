@@ -11,7 +11,7 @@ module Irrgarten
 
 	 @@MAX_WEAPONS = 2
 	 @@MAX_SHIELDS = 3
-	 @@INIIAL_HEALTH = 10
+	 @@INITIAL_HEALTH = 10
 	 @@HITS2LOSE = 3
 
 	 attr_reader :row, :col, :number
@@ -38,7 +38,7 @@ module Irrgarten
 	 def resurrect
 		@weapons.clear
 		@shields.clear
-		@health = @@INIIAL_HEALTH.to_f
+		@health = @@INITIAL_HEALTH.to_f
 		@consecutive_hits = 0
 	 end
 
@@ -50,7 +50,7 @@ module Irrgarten
 		@col
 	 end
 
-	 def number
+	 def get_number
 		@number
 	 end
 
@@ -64,7 +64,15 @@ module Irrgarten
 	 end
 
 	 def move(direction, valid_moves)
-		####################
+		size = valid_moves.size
+		contained = valid_moves.include?(direction)
+
+		if size > 0 && !contained
+		  return valid_moves[0]
+		else
+		  return direction
+		end
+
 	 end
 
 	 def attack
@@ -76,7 +84,22 @@ module Irrgarten
 	 end
 
 	 def receive_reward
-		####################
+		w_reward = Dice.weapons_reward
+		s_reward = Dice.shields_reward
+
+		(0..w_reward).each do |i|
+		  wnew = new_weapon
+		  receive_weapon(wnew)
+		end
+
+		(0..s_reward).each do |i|
+		  snew = new_shield
+		  receive_shield(snew)
+		end
+
+		extra_health = Dice.health_reward
+		@health += extra_health
+
 	 end
 
 	 def to_s
@@ -85,11 +108,34 @@ module Irrgarten
 
 	 private
 	 def receive_weapon(w)
-		####################
+		@weapons.each do |i|
+		  discard = i.discard
+		  if discard
+			 @weapons.delete(i)
+		  end
+		end
+
+		size = @weapons.size
+		if size < @@MAX_WEAPONS
+		  @weapons << w
+		end
+
 	 end
 
+
 	 def receive_shield(s)
-		####################
+		@shields.each do |i|
+		  discard = i.discard
+		  if discard
+			 @shields.delete(i)
+		  end
+		end
+
+		size = @shields.size
+		if size < @@MAX_SHIELDS
+		  @shields << s
+		end
+
 	 end
 
 	 def new_weapon
@@ -101,17 +147,21 @@ module Irrgarten
 	 end
 
 	 def sum_weapons
-		sum = 0
-		(0..@weapons.length).each { |i|
-		  sum += @weapons[i].attack.to_f
-		}
+		sum = 0.0
+		@weapons.each do |x|
+		  sum += x.attack
+		end
+
+		sum
 	 end
 
 	 def sum_shields
-		sum = 0
-		(0..@shields.length).each { |i|
-		  sum += @shields[i].protect.to_f
-		}
+		sum = 0.0
+		@shields.each do |x|
+		  sum += x.protected
+		end
+
+		sum
 	 end
 
 	 def defensive_energy
@@ -119,7 +169,21 @@ module Irrgarten
 	 end
 
 	 def manage_hit(received_attack)
-		####################
+		defense = defensive_energy
+		if defense < received_attack
+		  got_wounded
+		  inc_consecutive_hits
+		else
+		  reset_hits
+		end
+
+		if @consecutive_hits == @@HITS2LOSE || dead
+		  reset_hits
+		  return true
+		else
+		  return false
+		end
+
 	 end
 
 	 def reset_hits
