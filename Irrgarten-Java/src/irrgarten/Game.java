@@ -293,6 +293,7 @@ public class Game {
             
             labyrinth.placeFuzzyPlayer(fuzzyPlayer, row, col);
             fuzzyPlayer.resurrect();
+            this.logResurrected();
         }
         else{
             this.logPlayerSkipTurn();
@@ -337,7 +338,7 @@ public class Game {
     
     private void logRounds(int rounds, int max)
     {
-        log+="Ronda actual: "+rounds+"/"+max+"\n";
+        log+="Se han producido "+rounds+" de "+max+" rondas de combate.\n";
     }
 
     

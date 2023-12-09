@@ -149,6 +149,7 @@ module Irrgarten
 		####################
 	 end
 
+	 public
 	 def rows
 		@n_rows
 	 end
