@@ -33,15 +33,17 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 (A la espera de empezar la P4 en Ruby)
 
-- Al mover un jugador, no se actualiza bien la posición del laberinto en la que estaba colocado previo a su movimiento
+- Al mover un jugador, no se actualiza bien la posición del laberinto en la que estaba colocado previo a su movimiento [SOLUCIONADO]
   
 - Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto 
 
-- El game_state no muestra el turno del jugador actual
+- El game_state no muestra el turno del jugador actual [SOLUCIONADO]
 
-- Los jugadores, sus armas y escudos aparecen como una lista de direcciones de memoria en lugar de un String
+- Los jugadores, sus atributos, armas y escudos aparecen como una lista de direcciones de memoria en lugar de un String normal como en la parte de Java
 
-- Puede ser que los combates no se estén realizando correctamente
+- Los combates provocaban un crasheo provocado por un Nil-Class error de los métodos sum_weapons y sum_shields  [SOLUCIONADO]
+
+- Los bloques no sirven de nada, el jugador pasa por encima de ellos como si fueran simples casillas vacías [SOLUCIONADO]
 
 ### **Irrgarten: Java Edition**
 
