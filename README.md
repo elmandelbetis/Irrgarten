@@ -8,6 +8,7 @@ También se dispone de una casilla de salida, que resulta ser el objetivo final 
 
 El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
+
 ## *Status actual de las prácticas*
 
 - P1: [TERMINADA]
@@ -16,7 +17,8 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 - P4: [Terminada en Java]
 - P5: [TERMINADA] (sólo se realiza en Java)
 
-### **Bugs en Java**
+
+## *Bugs en Java*
 
 - Al generar una instancia de juego de 1 solo jugador en el programa principal, debería ser del estilo: new Game(1). Sin embargo, sólo funciona poniendo new Game(0)
     
@@ -29,7 +31,7 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 - Parece ser que tras empezar la P4 y establecer las herencias Player -> LabyrinthCharacter y Monster -> LabyrinthCharacter, los monstruos ganan absolutamente todos los combates que juegan los jugadores al caer en sus casillas. [SOLUCIONADO]
 
 
-### **Bugs en Ruby**
+## *Bugs en Ruby*
 
 (A la espera de empezar la P4 en Ruby)
 
@@ -51,7 +53,8 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 - Los bloques no sirven de nada, el jugador pasa por encima de ellos como si fueran simples casillas vacías [SOLUCIONADO]
 
-### **Irrgarten: Java Edition**
+
+## *Irrgarten: Java Edition*
 
 Lista y descripción de los archivos:
 
@@ -105,7 +108,8 @@ Lista y descripción de los archivos:
 
 - [Game.java](Irrgarten-Java/src/irrgarten/Game.java): clase que contiene y gestiona la lógica del juego en una partida (crearla, comenzarla, terminarla, etc).
 
-### **Irrgarten: Ruby Edition**
+
+## *Irrgarten: Ruby Edition*
 
 (parte del proyecto que me está dando un problema tras otro sin parar, seguimos en proceso)
 
