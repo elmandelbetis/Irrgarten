@@ -35,7 +35,13 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 - Al mover un jugador, no se actualiza bien la posición del laberinto en la que estaba colocado previo a su movimiento [SOLUCIONADO]
   
-- Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto 
+- Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto
+
+- Algunas veces al iniciar un juego algún jugador aparece fuera del laberinto con posición asociada [row][col] nulas, lo que lleva a un instant crash al intentar moverlo
+
+- Los monstruos se generan encima de los bloques y los solapan [SOLUCIONADO]
+
+- Los jugadores no pueden moverse por la última fila del laberinto ya que crashea [SOLUCIONADO]
 
 - El game_state no muestra el turno del jugador actual [SOLUCIONADO]
 
