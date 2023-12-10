@@ -1,11 +1,11 @@
 #encoding:utf-8
 
-module Irrgarten
+require_relative 'dice'
+require_relative 'shield'
+require_relative 'weapon'
+require_relative 'directions'
 
-  require_relative 'dice'
-  require_relative 'shield'
-  require_relative 'weapon'
-  require_relative 'directions'
+module Irrgarten
 
   class Player
 
@@ -158,7 +158,7 @@ module Irrgarten
 	 def sum_shields
 		sum = 0.0
 		@shields.each do |x|
-		  sum += x.protected
+		  sum += x.protect
 		end
 
 		sum

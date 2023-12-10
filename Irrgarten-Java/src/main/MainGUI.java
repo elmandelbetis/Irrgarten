@@ -19,7 +19,7 @@ public class MainGUI {
          * @brief Creación del juego, la vista y el controlador
          */
         
-        Game game = new Game(0,'U');    // modo User, juego normal
+        Game game = new Game(1,'U');    // modo User, juego normal
         GraphicalUI vista = new GraphicalUI(); 
         Controller controller = new Controller(game, vista);   
         

@@ -73,6 +73,18 @@ module Irrgarten
 		random <= prob
 	 end
 
+	 def self.next_step(preference, valid_moves, intelligence)
+		prob = @@generator.rand(1.0)
+
+		if prob <= intelligence
+		  return preference
+		else
+		  another_direction = @@generator.rand(valid_moves.size)
+		  return valid_moves[another_direction]
+		end
+
+	 end
+
   end #class
 end #module
 

@@ -4,7 +4,7 @@ require_relative "../UI/textUI"
 
 module Main
 
-  game = Irrgarten::Game.new(1)
+  game = Irrgarten::Game.new(2)
 
   view = UI::TextUI.new
   controller = Control::Controller.new(game,view)

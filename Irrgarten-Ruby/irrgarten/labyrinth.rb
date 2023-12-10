@@ -7,17 +7,15 @@
 #######################################
 
 require 'matrix'
+require_relative 'monster'
+require_relative 'player'
+require_relative 'dice'
+require_relative 'shield'
+require_relative 'weapon'
+require_relative 'directions'
+require_relative 'orientation'
 
 module Irrgarten
-
-  require_relative 'monster'
-  require_relative 'player'
-  require_relative 'dice'
-  require_relative 'shield'
-  require_relative 'weapon'
-  require_relative 'directions'
-  require_relative 'orientation'
-
 
   class Labyrinth
 
@@ -57,8 +55,23 @@ module Irrgarten
 	 end
 
 	 def to_s
-		@labyrinth.to_a.map {|row| row.join(" ")}.join("\n")
+		estado = ""
+
+		(0...@n_rows).each do |i|
+		  (0...@n_cols).each do |j|
+			 estado += " [#{@labyrinth[i][j]}]"
+		  end
+		  estado += "\n"
+		end
+
+		estado += "===============================================================\n"
+		estado += "Tamaño del laberinto: #{@n_rows}x#{@n_cols}\n"
+		estado += "Casilla de salida: [#{@exit_row},#{@exit_col}]\n"
+		estado += "===============================================================\n"
+
+		estado
 	 end
+
 
 	 def add_monster(row, col, monster)
 
@@ -68,8 +81,9 @@ module Irrgarten
 			 @labyrinth[row][col] = @@MONSTER_CHAR
 			 @monsters[row][col] = monster
 
-			 monster.set_pos(row,col)
-			 #update_old_pos(row,col)
+			 if @labyrinth[row][col] != @@BLOCK_CHAR
+				monster.set_pos(row,col)
+			 end
 
 		  end
 		end
@@ -135,7 +149,7 @@ module Irrgarten
 
 	 private
 	 def pos_ok(row, col)
-		(row >= 0) && (row < @n_rows) && (col >= 0) && (col < @n_cols)
+		(row >= 0) && (row <= @n_rows) && (col >= 0) && (col <= @n_cols)
 	 end
 
 	 def empty_pos(row, col)
@@ -156,7 +170,7 @@ module Irrgarten
 
 	 def can_step_on(row, col)
 		if @labyrinth[row][col] != @@BLOCK_CHAR
-		  (pos_ok(row,col) and (empty_pos(row,col) or monster_pos(row,col) or exit_pos(row, col)))
+		  pos_ok(row,col) and ((empty_pos(row,col) or monster_pos(row,col) or exit_pos(row, col)))
 		end
 	 end
 
@@ -193,9 +207,14 @@ module Irrgarten
 	 def random_empty_pos
 		resultado = Array.new
 
+		row = Dice.random_pos(@n_rows)
+		col = Dice.random_pos(@n_cols)
+
 		loop do
-		  resultado[@@ROW] = Dice.random_pos(@n_rows)
-		  resultado[@@COL] = Dice.random_pos(@n_cols)
+		  if pos_ok(row,col)
+			 resultado[@@ROW] = row
+			 resultado[@@COL] = col
+		  end
 
 		  if empty_pos(resultado[@@ROW], resultado[@@COL]) && @labyrinth[@@ROW, @@COL] != @@BLOCK_CHAR
 			 break

@@ -1,15 +1,17 @@
 #encoding:utf-8
 
+require_relative 'player'
+require_relative 'game_state'
+require_relative 'game_character'
+require_relative 'directions'
+require_relative 'orientation'
+require_relative 'labyrinth'
+require_relative 'dice'
+require_relative 'monster'
+
 module Irrgarten
 
-  require_relative 'player'
-  require_relative 'game_state'
-  require_relative 'game_character'
-  require_relative 'directions'
-  require_relative 'orientation'
-  require_relative 'labyrinth'
-  require_relative 'dice'
-  require_relative 'monster'
+
 
   class Game
 
@@ -30,7 +32,7 @@ module Irrgarten
 		@current_player_index = Dice.who_starts(nplayers)
 		@current_player = @players[@current_player_index]
 
-		@labyrinth = Labyrinth.new(5,5,2,0)
+		@labyrinth = Labyrinth.new(7,7,2,0)
 		configure_labyrinth
 		@labyrinth.spread_players(@players)
 
@@ -85,7 +87,8 @@ module Irrgarten
 
 		# Inicialización y añadido de bloques al laberinto
 		@labyrinth.add_block(Orientation::HORIZONTAL, 1,0,2)
-		@labyrinth.add_block(Orientation::VERTICAL, 2,1,3)
+		@labyrinth.add_block(Orientation::VERTICAL, 2,1,2)
+		@labyrinth.add_block(Orientation::HORIZONTAL, @labyrinth.rows, 0, @labyrinth.cols+1)
 
 		# Inicialización y añadido de monstros al laberinto
 		(0..n_monstruos).each do |i|
@@ -184,7 +187,7 @@ module Irrgarten
 	 end
 
 	 def log_rounds(rounds, max)
-		@log += "Se han producido ##{rounds} de ##{max} rondas de combate.\n"
+		@log += "Se han producido #{rounds} de #{max} rondas de combate.\n"
 	 end
 
   end	#class
