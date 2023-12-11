@@ -4,28 +4,26 @@ require_relative 'dice'
 require_relative 'shield'
 require_relative 'weapon'
 require_relative 'directions'
+require_relative 'labyrinth_character'
 
 module Irrgarten
 
-  class Player
+  class Player < LabyrinthCharacter
 
 	 @@MAX_WEAPONS = 2
 	 @@MAX_SHIELDS = 3
 	 @@INITIAL_HEALTH = 10
 	 @@HITS2LOSE = 3
 
-	 attr_reader :row, :col, :number
+	 attr_reader :consecutive_hits, :number, :weapons, :shields
 
 	 def initialize(number, intelligence, strength)
-		@number = number
-		@intelligence = intelligence.to_f
-		@strength = strength.to_f
+		super("Player ##{number}", intelligence.to_f, strength.to_f, @@INITIAL_HEALTH)
 
 		#Inicialización del resto de atributos con valores por defecto
-		@row = nil
-		@col = nil
-		@name = "Player##{@number}"
-		@health = @@INITIAL_HEALTH
+		@number = number
+		@row = 0
+		@col = 0
 		@consecutive_hits = 0
 
 		#Arrays de armas y escudos
@@ -34,6 +32,14 @@ module Irrgarten
 
 	 end
 
+	 def other_player(other)
+		other_lab_character(other)
+		@number = other.number
+		@consecutive_hits = 0
+
+		@shields = other.shields
+		@weapons = other.weapons
+	 end
 
 	 def resurrect
 		@weapons.clear
@@ -43,11 +49,11 @@ module Irrgarten
 	 end
 
 	 def row
-		@row
+		super
 	 end
 
 	 def col
-		@col
+		super
 	 end
 
 	 def get_number
@@ -55,12 +61,11 @@ module Irrgarten
 	 end
 
 	 def set_pos(row, col)
-		@row = row
-		@col = col
+		super
 	 end
 
 	 def dead
-		@health == 0
+		super
 	 end
 
 	 def move(direction, valid_moves)
@@ -103,7 +108,7 @@ module Irrgarten
 	 end
 
 	 def to_s
-		"#{@name}, S: #{@strength}, I: #{@intelligence}, H: #{@health}, Weapons: #{@weapons}, Shields: #{@shields}"
+		super+"\nArmas: #{@weapons.to_s}\nEscudos: #{@shields.to_s}"
 	 end
 
 	 private
@@ -191,7 +196,7 @@ module Irrgarten
 	 end
 
 	 def got_wounded
-		@health -= 1
+		super
 	 end
 
 	 def inc_consecutive_hits

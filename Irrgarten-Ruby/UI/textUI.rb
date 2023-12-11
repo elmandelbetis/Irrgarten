@@ -46,6 +46,22 @@ module UI
             puts "LEFT ARROW"
             output = Irrgarten::Directions::LEFT
             got_input = true
+          when "W"
+            puts "UP ARROW"
+            output = Irrgarten::Directions::UP
+            got_input = true
+          when "S"
+            puts "DOWN ARROW"
+            output = Irrgarten::Directions::DOWN
+            got_input = true
+          when "D"
+            puts "RIGHT ARROW"
+            output = Irrgarten::Directions::RIGHT
+            got_input = true
+          when "A"
+            puts "LEFT ARROW"
+            output = Irrgarten::Directions::LEFT
+            got_input = true
           when "\u0003"
             puts "CONTROL-C"
             got_input = true

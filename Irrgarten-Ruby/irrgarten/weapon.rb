@@ -1,8 +1,11 @@
 #encoding:utf-8
+
+require_relative 'dice'
+require_relative 'combat_element'
+
+
 module Irrgarten
 
-  require_relative 'dice'
-  require_relative 'combat_element'
 
   class Weapon < CombatElement
 

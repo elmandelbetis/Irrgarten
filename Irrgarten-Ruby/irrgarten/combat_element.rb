@@ -1,8 +1,6 @@
 #encoding:utf-8
 
 require_relative 'dice'
-require_relative 'weapon' #por si acaso
-require_relative 'shield'
 
 module Irrgarten
 
@@ -16,12 +14,12 @@ module Irrgarten
     end
 
     protected def produce_effect
+      out = 0
       if @uses > 0
         @uses -= 1
-        @effect
-      else
-        0
+        out = @effect
       end
+      out
     end
 
     def discard

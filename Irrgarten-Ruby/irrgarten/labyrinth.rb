@@ -81,7 +81,7 @@ module Irrgarten
 			 @labyrinth[row][col] = @@MONSTER_CHAR
 			 @monsters[row][col] = monster
 
-			 if @labyrinth[row][col] != @@BLOCK_CHAR
+			 if (@labyrinth[row][col] != @@BLOCK_CHAR) && (@labyrinth[row][col] != @@EXIT_CHAR)
 				monster.set_pos(row,col)
 			 end
 
