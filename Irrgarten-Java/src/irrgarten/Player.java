@@ -205,10 +205,10 @@ public class Player extends LabyrinthCharacter{
     @Override
     public String toString()
     {
-        System.out.println("=============================================");
-        System.out.println("Armas del jugador #"+number+": "+weapons);
-        System.out.println("Escudos del jugador #"+number+": "+shields+"\n");
-        return super.toString();
+        return "\n=============================================\n"
+                + "Armas del jugador #"+number+": "+weapons+"\n"
+                + "Escudos del jugador #"+number+": "+shields+"\n"
+                +super.toString();
         
     }
     
