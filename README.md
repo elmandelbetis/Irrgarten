@@ -14,8 +14,10 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 - P1: [TERMINADA]
 - P2: [TERMINADA]
 - P3: [TERMINADA]
-- P4: [Terminada en Java]
+- P4: [TERMINADA]
 - P5: [TERMINADA] (sólo se realiza en Java)
+
+[PROYECTO FINALIZADO]
 
 
 ## *Bugs en Java*
@@ -33,13 +35,9 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 ## *Bugs en Ruby*
 
-(A la espera de empezar la P4 en Ruby)
-
 - Al mover un jugador, no se actualiza bien la posición del laberinto en la que estaba colocado previo a su movimiento [SOLUCIONADO]
   
-- Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto
-
-- Algunas veces al iniciar un juego algún jugador aparece fuera del laberinto con posición asociada [row][col] nulas, lo que lleva a un instant crash al intentar moverlo
+- Al iniciar un juego, a veces aparecen unos jugadores solapados con otros en la misma posición del laberinto [SOLUCIONADO]
 
 - Los monstruos se generan encima de los bloques y los solapan [SOLUCIONADO]
 
@@ -47,11 +45,17 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 - El game_state no muestra el turno del jugador actual [SOLUCIONADO]
 
-- Los jugadores, sus atributos, armas y escudos aparecen como una lista de direcciones de memoria en lugar de un String normal como en la parte de Java
-
 - Los combates provocaban un crasheo provocado por un Nil-Class error de los métodos sum_weapons y sum_shields  [SOLUCIONADO]
 
 - Los bloques no sirven de nada, el jugador pasa por encima de ellos como si fueran simples casillas vacías [SOLUCIONADO]
+
+- Los jugadores, sus atributos, armas y escudos aparecen como una lista de direcciones de memoria en lugar de un String normal como en la parte de Java
+
+- Los FuzzyPlayer se instancian correctamente, pero por algún motivo extraño no se cambia bien el nombre de "Player #..." a "FuzzyPlayer #..."
+
+- Los monstruos se generan y se añaden al laberinto encima de la casilla de salida en ocasiones
+
+- Algunas veces al iniciar un juego algún jugador aparece fuera del laberinto con posición asociada [row][col] nulas, lo que lleva a un instant crash al intentar moverlo [SOLUCIONADO A MEDIAS] --> El jugador que se instancie "erróneamente" aparece por defecto en la casilla [0,0], pero no aparece su número hasta que se decida moverlo por el mapa.
 
 
 ## *Irrgarten: Java Edition*
@@ -111,38 +115,42 @@ Lista y descripción de los archivos:
 
 ## *Irrgarten: Ruby Edition*
 
-(parte del proyecto que me está dando un problema tras otro sin parar, seguimos en proceso)
+La descripción de los archivos viene a ser la misma que en la parte de Java pues el proyecto es igual para ambos lenguajes. Sin embargo, dadas las limitaciones de Ruby, no es posible crear las clases CardDeck (y sus respectivas hijas ShieldCardDeck y WeaponCardDeck), así como definir interfaces gráficas como ocurre en Java en la Práctica 5.
 
 Lista de los archivos:
 
-- [Main.rb]
+- [main.rb](Irrgarten-Ruby/main/main.rb): programa main para ejecutar el juego.
 
-- [textUI.rb]
+- [textUI.rb](Irrgarten-Ruby/UI/textUI.rb): vista textual (en terminal) del estado del juego.
 
-- [controller.rb]
+- [controller.rb](Irrgarten-Ruby/controller/controller.rb): controlador WASD para los jugadores en partida.
 
-- [Directions.rb]
+- [directions.rb](Irrgarten-Ruby/irrgarten/directions.rb): módulo encargado de crear y gestionar las variables de tipo Dirección para los jugadores, haciendo las veces de enumerado.
 
-- [GameCharacter.rb]
+- [game_character.rb](Irrgarten-Ruby/irrgarten/game_character.rb): módulo encargado de crear y gestionar las variables de tipo Personaje en el juego, haciendo las veces de enumerado.
 
-- [Orientation.rb]
+- [orientation.rb](Irrgarten-Ruby/irrgarten/orientation.rb): módulo que hace las veces de enumerado, encargado de crear y gestionar lo relacionado a las variables de tipo Orientación para, por ejemplo, la creación y colocado de bloques en el mapa.
 
-- [Weapon.rb]
+- [weapon.rb](Irrgarten-Ruby/irrgarten/weapon.rb): clase Arma, heredera de [combat_element](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, las armas de cada jugador en los combates a lo largo de la partida.
 
-- [Shield.rb]
+- [shield.rb](Irrgarten-Ruby/irrgarten/shield.rb): clase Escudo, heredera de [combat_element](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, los escudos de cada jugador en los combates a lo largo de la partida.
 
-- [Dice.rb]
+- [dice.rb](Irrgarten-Ruby/irrgarten/dice.rb): clase Dado, encargada de gestionar las decisiones aleatorias durante el juego.
 
-- [Monster.rb]
+- [monster.rb](Irrgarten-Ruby/irrgarten/monster.rb): clase Monstruo, heredera de [labyrinth_character](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los monstruos en la partida.
 
-- [Player.rb]
+- [player.rb](Irrgarten-Ruby/irrgarten/player.rb): clase Jugador, heredera de [combat_element](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los jugadores en la partida.
 
-- [GameState.rb]
+- [game_state.rb](Irrgarten-Ruby/irrgarten/game_state.rb): clase encarga de crear y mostrar el estado de la partida mediante Strings turno a turno.
 
-- [Game.rb]
+- [game.rb](Irrgarten-Ruby/irrgarten/game.rb): clase Juego. Crea el juego y gestiona los métodos relacionados a la ejecución de este.
 
-- [Labyrinth.rb]
+- [labyrinth.rb](Irrgarten-Ruby/irrgarten/labyrinth.rb): clase Laberinto. Crea el esqueleto de la partida, el laberinto donde va a desarrolarse la acción.
 
-- [TestP1]
+- [labyrinth_character.rb](Irrgarten-Ruby/irrgarten/labyrinth_character.rb): clase encargada de gestionar los métodos más básicos de tanto jugadores como monstruos. En Java es abstracta, pero en Ruby no, pues no existe dicho tipo de clase en este lenguaje.
 
-TODO: remodularizar proyecto en Ruby y establecer los links correctamente para los archivos
+- [combat_element.rb](Irrgarten-Ruby/irrgarten/combat_element.rb): clase encargada de gestionar los métodos más básicos de tanto armas como escudos. En Java es abstracta, pero en Ruby no, pues no existe dicho tipo de clase en este lenguaje.
+
+- [fuzzy_player.rb](Irrgarten-Ruby/irrgarten/fuzzy_player.rb): clase encargada de crear a los "jugadores fantasma" cuando muere un jugador durante la partida, y de sustituirlos al resucitar. Heredera de la clase [player](Irrgarten-Ruby/irrgarten/player.rb).
+
+- [testP1](Irrgarten-Ruby/test/test_p1.rb): test de la Práctica 1.
