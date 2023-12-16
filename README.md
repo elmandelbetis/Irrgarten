@@ -104,7 +104,7 @@ Lista y descripción de los archivos:
 
 - [`Player.java`](Irrgarten-Java/src/irrgarten/Player.java): igual que la clase [`Monster`](Irrgarten-Java/src/irrgarten/Monster.java), pero en este caso con los jugadores.
 
-- [FuzzyPlayer.java](Irrgarten-Java/src/irrgarten/FuzzyPlayer.java): jugadores "fantasma" que sustituyen a los originales una vez están muertos y resucitan. Funcionan de forma más aleatoria. Clase heredera de la clase [Player](Irrgarten-Java/src/irrgarten/Player.java)
+- [`FuzzyPlayer.java`](Irrgarten-Java/src/irrgarten/FuzzyPlayer.java): jugadores "fantasma" que sustituyen a los originales una vez están muertos y resucitan. Funcionan de forma más aleatoria. Clase heredera de la clase [`Player`](Irrgarten-Java/src/irrgarten/Player.java)
   
 - [`Labyrinth.java`](Irrgarten-Java/src/irrgarten/Labyrinth.java): clase que contiene la espina dorsal del juego, el laberinto donde se va a desarrollar la acción. Crea el laberinto, lo rellena, gestiona las casillas turno a turno, etc.
 
@@ -131,15 +131,15 @@ Lista de los archivos:
 
 - [`orientation.rb`](Irrgarten-Ruby/irrgarten/orientation.rb): módulo que hace las veces de enumerado, encargado de crear y gestionar lo relacionado a las variables de tipo Orientación para, por ejemplo, la creación y colocado de bloques en el mapa.
 
-- [`weapon.rb`](Irrgarten-Ruby/irrgarten/weapon.rb): clase Arma, heredera de [combat_element](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, las armas de cada jugador en los combates a lo largo de la partida.
+- [`weapon.rb`](Irrgarten-Ruby/irrgarten/weapon.rb): clase Arma, heredera de [`combat_element`](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, las armas de cada jugador en los combates a lo largo de la partida.
 
-- [`shield.rb`](Irrgarten-Ruby/irrgarten/shield.rb): clase Escudo, heredera de [combat_element](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, los escudos de cada jugador en los combates a lo largo de la partida.
+- [`shield.rb`](Irrgarten-Ruby/irrgarten/shield.rb): clase Escudo, heredera de [`combat_element`](Irrgarten-Ruby/irrgarten/combat_element.rb). Crea y gestiona, a partir del padre, los escudos de cada jugador en los combates a lo largo de la partida.
 
 - [`dice.rb`](Irrgarten-Ruby/irrgarten/dice.rb): clase Dado, encargada de gestionar las decisiones aleatorias durante el juego.
 
-- [`monster.rb`](Irrgarten-Ruby/irrgarten/monster.rb): clase Monstruo, heredera de [labyrinth_character](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los monstruos en la partida.
+- [`monster.rb`](Irrgarten-Ruby/irrgarten/monster.rb): clase Monstruo, heredera de [`labyrinth_character`](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los monstruos en la partida.
 
-- [`player.rb`](Irrgarten-Ruby/irrgarten/player.rb): clase Jugador, heredera de [combat_element](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los jugadores en la partida.
+- [`player.rb`](Irrgarten-Ruby/irrgarten/player.rb): clase Jugador, heredera de [`combat_element`](Irrgarten-Ruby/irrgarten/labyrinth_character.rb). Crea y gestiona a los jugadores en la partida.
 
 - [`game_state.rb`](Irrgarten-Ruby/irrgarten/game_state.rb): clase encarga de crear y mostrar el estado de la partida mediante Strings turno a turno.
 
