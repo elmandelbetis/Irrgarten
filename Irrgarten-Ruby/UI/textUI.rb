@@ -74,12 +74,12 @@ module UI
     end
 
     def show_game(game_state)
-      puts game_state.labyrinth.to_s
+      puts game_state.labyrinth
       puts "Lista de jugadores: #{game_state.players}"
       puts "Lista de monstruos: #{game_state.monsters}"
-      puts "Jugador actual: #{game_state.current_player}"
+      puts "Jugador actual: #{game_state.current_player.to_s}"
       if game_state.winner
-        puts "Hay algún ganador?: Sí, el jugador #{game_state.current_player} ha ganado la partida"
+        puts "Hay algún ganador?: Sí, el jugador #{game_state.current_player.to_s} ha ganado la partida"
       else
         puts "Hay algún ganador?: No"
       end

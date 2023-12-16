@@ -11,8 +11,6 @@ require_relative 'monster'
 
 module Irrgarten
 
-
-
   class Game
 
 	 attr_reader :current_player_index, :log, :current_player, :labyrinth
@@ -77,7 +75,7 @@ module Irrgarten
 	 end
 
 	 def get_game_state
-		GameState.new(@labyrinth.to_s, @players.to_s, @monsters.to_s, @current_player_index, finished, log)
+		GameState.new(@labyrinth, @players, @monsters, @current_player_index, finished, @log)
 	 end
 
 	 private
@@ -87,19 +85,19 @@ module Irrgarten
 
 		# Inicialización y añadido de bloques al laberinto
 		@labyrinth.add_block(Orientation::HORIZONTAL, 1,0,2)
-		@labyrinth.add_block(Orientation::VERTICAL, 2,1,2)
+		@labyrinth.add_block(Orientation::VERTICAL, 2,1,3)
 		@labyrinth.add_block(Orientation::HORIZONTAL, @labyrinth.rows, 0, @labyrinth.cols+1)
 
-		# Inicialización y añadido de monstros al laberinto
+		(0..5).each { |i|
+		  @labyrinth.add_block(Orientation::HORIZONTAL, Dice.random_pos(@labyrinth.rows), Dice.random_pos(@labyrinth.cols), 1)
+		}
+
+		#Inicialización y posicionamiento de los monstruos
 		(0..n_monstruos).each do |i|
 		  monstruo = Monster.new("##{i}", Dice.random_intelligence.round(3), Dice.random_strength.round(3))
 		  @monsters << monstruo
 		  @labyrinth.add_monster(Dice.random_pos(@labyrinth.rows), Dice.random_pos(@labyrinth.cols), monstruo)
 		end
-
-
-
-
 	 end
 
 	 def next_player
@@ -155,7 +153,14 @@ module Irrgarten
 	 def manage_resurrection
 		resurrect = Dice.resurrect_player
 		if resurrect
-		  @current_player.resurrect
+		  row = @current_player.row
+		  col = @current_player.col
+		  fuzzy_player = FuzzyPlayer.new(@current_player)
+		  @current_player.set_name("FuzzyPlayer#{@current_player_index}")
+		  @current_player = fuzzy_player
+		  @players[@current_player_index] = @current_player
+		  @labyrinth.place_fuzzy_player(fuzzy_player, row, col)
+		  fuzzy_player.resurrect
 		  log_resurrected
 		else
 		  log_player_skip_turn

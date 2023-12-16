@@ -108,7 +108,11 @@ module Irrgarten
 	 end
 
 	 def to_s
-		super+"\nArmas: #{@weapons.to_s}\nEscudos: #{@shields.to_s}"
+		"Player" << super << "\nArmas: #{@weapons.to_s}\nEscudos: #{@shields.to_s}"
+	 end
+
+	 def name
+		@name
 	 end
 
 	 private

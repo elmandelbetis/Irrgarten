@@ -14,6 +14,7 @@ require_relative 'shield'
 require_relative 'weapon'
 require_relative 'directions'
 require_relative 'orientation'
+require_relative 'fuzzy_player'
 
 module Irrgarten
 
@@ -153,7 +154,7 @@ module Irrgarten
 	 end
 
 	 def empty_pos(row, col)
-		!(monster_pos(row,col)) || exit_pos(row,col) || combat_pos(row,col)
+		@labyrinth[row][col] == @@EMPTY_CHAR
 	 end
 
 	 def monster_pos(row, col)
@@ -265,5 +266,13 @@ module Irrgarten
 	 def n_cols
 		@n_cols
 	 end
+
+	 def place_fuzzy_player(fuzzy_player, row, col)
+		if pos_ok(row,col)
+		  @labyrinth[row][col] = @@EMPTY_CHAR
+		  fuzzy_player.set_pos(row,col)
+		end
+	 end
+
   end
 end

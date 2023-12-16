@@ -60,7 +60,7 @@ module Irrgarten
     end
 
     def to_s
-      "#{@name.to_s}, H: #{@health.to_s}, I: #{@intelligence}, S: #{@strength}, Pos: [#{@row},#{col}]\n"
+      "#{@name}, H: #{@health}, I: #{@intelligence}, S: #{@strength}, Pos: [#{@row},#{@col}]\n"
     end
 
     protected def got_wounded
@@ -73,6 +73,10 @@ module Irrgarten
 
     def defend(attack)
       #abstract method
+    end
+
+    def set_name(name)
+      @name = name
     end
 
 

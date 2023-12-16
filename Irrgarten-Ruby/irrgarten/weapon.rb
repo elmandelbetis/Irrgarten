@@ -6,7 +6,6 @@ require_relative 'combat_element'
 
 module Irrgarten
 
-
   class Weapon < CombatElement
 
 	 def initialize(power,uses)
