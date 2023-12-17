@@ -151,6 +151,6 @@ Lista de los archivos:
 
 - [`combat_element.rb`](Irrgarten-Ruby/irrgarten/combat_element.rb): clase encargada de gestionar los métodos más básicos de tanto armas como escudos. En Java es abstracta, pero en Ruby no, pues no existe dicho tipo de clase en este lenguaje.
 
-- [`fuzzy_player.rb`](Irrgarten-Ruby/irrgarten/fuzzy_player.rb): clase encargada de crear a los "jugadores fantasma" cuando muere un jugador durante la partida, y de sustituirlos al resucitar. Heredera de la clase [player](Irrgarten-Ruby/irrgarten/player.rb).
+- [`fuzzy_player.rb`](Irrgarten-Ruby/irrgarten/fuzzy_player.rb): clase encargada de crear a los "jugadores fantasma" cuando muere un jugador durante la partida, y de sustituirlos al resucitar. Heredera de la clase [`player`](Irrgarten-Ruby/irrgarten/player.rb).
 
 - [`testP1`](Irrgarten-Ruby/test/test_p1.rb): test de la Práctica 1.
