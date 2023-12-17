@@ -53,7 +53,7 @@ El juego es programado de forma independiente en dos lenguajes: Java y Ruby.
 
 - Los FuzzyPlayer se instancian correctamente, pero por algún motivo extraño no se cambia bien el nombre de "Player #..." a "FuzzyPlayer #..."
 
-- Los monstruos se generan y se añaden al laberinto encima de la casilla de salida en ocasiones
+- Los monstruos se generan y se añaden al laberinto encima de la casilla de salida en ocasiones [SOLUCIONADO]
 
 - Algunas veces al iniciar un juego algún jugador aparece fuera del laberinto con posición asociada [row][col] nulas, lo que lleva a un instant crash al intentar moverlo [SOLUCIONADO A MEDIAS] --> El jugador que se instancie "erróneamente" aparece por defecto en la casilla [0,0], pero no aparece su número hasta que se decida moverlo por el mapa.
 
