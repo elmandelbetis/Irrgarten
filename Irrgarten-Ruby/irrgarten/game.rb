@@ -17,6 +17,7 @@ module Irrgarten
 
 	 @@MAX_ROUNDS = 10
 
+	 # Constructor
 	 def initialize(nplayers)
 		@players = []
 		@monsters = []
@@ -36,10 +37,12 @@ module Irrgarten
 
 	 end
 
+	 # Determina si el juego ha terminado a partir del método have_a_winner de la clase Laberinto
 	 def finished
 		@labyrinth.have_a_winner
 	 end
 
+	 # Calcula el siguiente paso a seguir por el juego en función de los eventos
 	 def next_step(preferred_direction)
 		@log = ""
 		dead = @current_player.dead
@@ -74,11 +77,13 @@ module Irrgarten
 
 	 end
 
+	 # Devuelve el estado actual del juego en la terminal
 	 def get_game_state
 		GameState.new(@labyrinth, @players, @monsters, @current_player_index, finished, @log)
 	 end
 
 	 private
+	 # Configura el laberinto para iniciar las partidas
 	 def configure_labyrinth
 		tam_total = @labyrinth.rows * @labyrinth.cols
 		n_monstruos = tam_total / 5
@@ -100,11 +105,13 @@ module Irrgarten
 		end
 	 end
 
+	 # Calcula el próximo jugador del que será turno en partida
 	 def next_player
 		@current_player_index = (@current_player_index + 1) % @players.size
 		@current_player = @players[@current_player_index]
 	 end
 
+	 # Calcula la dirección actual de movimiento en función de una preferida por el jugador
 	 def actual_direction(preferred_direction)
 		current_row = @current_player.row
 		current_col = @current_player.col
@@ -116,6 +123,7 @@ module Irrgarten
 
 	 end
 
+	 # Gestiona los combates entre jugadores y monstruos
 	 def combat(monster)
 		rounds = 0
 		winner = GameCharacter::PLAYER
@@ -141,6 +149,7 @@ module Irrgarten
 
 	 end
 
+	 # Gestiona las recompensas a los jugadores por ganar combates
 	 def manage_reward(winner)
 		if winner == GameCharacter::PLAYER
 		  @current_player.receive_reward
@@ -150,6 +159,7 @@ module Irrgarten
 		end
 	 end
 
+	 # Gestiona la resurrección de jugadores
 	 def manage_resurrection
 		resurrect = Dice.resurrect_player
 		if resurrect
@@ -166,6 +176,9 @@ module Irrgarten
 		  log_player_skip_turn
 		end
 	 end
+
+	 # MÉTODOS LOG
+	 # Muestran mensajes de eventos en la partida
 
 	 def log_player_won
 		@log += "Jugador ##{@current_player_index}, has ganado el combate!!\n"

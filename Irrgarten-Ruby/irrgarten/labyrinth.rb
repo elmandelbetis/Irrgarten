@@ -30,6 +30,7 @@ module Irrgarten
 	 @@ROW = 0
 	 @@COL = 1
 
+	 # Constructor
 	 def initialize (n_rows, n_cols, exit_row, exit_col)
 
 		@n_rows = n_rows
@@ -43,7 +44,7 @@ module Irrgarten
 		@labyrinth[exit_row][exit_col] = @@EXIT_CHAR
 	 end
 
-
+	 # Método encargado de esparcir los jugadores por el mapa al comenzar la partida
 	 def spread_players(players)
 		players.each do |i|
 		  pos = random_empty_pos
@@ -51,10 +52,12 @@ module Irrgarten
 		end
 	 end
 
+	 # Método encargado de chivar si hay un ganador
 	 def have_a_winner
 		@players[@exit_row][@exit_col] != nil
 	 end
 
+	 # To_String
 	 def to_s
 		estado = ""
 
@@ -73,7 +76,7 @@ module Irrgarten
 		estado
 	 end
 
-
+	 # Método encargado de añadir y setear un monstruo en una posición del laberinto
 	 def add_monster(row, col, monster)
 
 		if pos_ok(row,col)
@@ -91,6 +94,7 @@ module Irrgarten
 
 	 end
 
+	 # Método encargado de mover a un jugador y devolver un posible monstruo si la posición es M
 	 def put_player(direction, player)
 		old_row = player.row
 		old_col = player.col
@@ -99,6 +103,7 @@ module Irrgarten
 		put_player_2D(old_row, old_col, new_pos[@@ROW], new_pos[@@COL], player)
 	 end
 
+	 # Añade muros bloques al laberinto de diferente longitud y orientación
 	 def add_block(orientation, start_row, start_col, length)
 
 		if orientation == Orientation::VERTICAL
@@ -121,6 +126,7 @@ module Irrgarten
 
 	 end
 
+	 # Calcula las direcciones válidas posibles de movimiento para el jugador en el mapa
 	 def valid_moves(row, col)
 		output = Array.new
 
@@ -140,41 +146,50 @@ module Irrgarten
 		output
 	 end
 
+	 # Getter de la fila
 	 def rows
 		@n_rows
 	 end
 
+	 # Getter de la columna
 	 def cols
 		@n_cols
 	 end
 
 	 private
+	 # Calcula si la posición del laberinto pasada como parámetro es correcta
 	 def pos_ok(row, col)
 		(row >= 0) && (row <= @n_rows) && (col >= 0) && (col <= @n_cols)
 	 end
 
+	 # Devuelve si la posición pasada como parámetro es vacía
 	 def empty_pos(row, col)
 		@labyrinth[row][col] == @@EMPTY_CHAR
 	 end
 
+	 # Devuelve si la posición pasada como parámetro es de monstruo
 	 def monster_pos(row, col)
 		@labyrinth[row][col] == @@MONSTER_CHAR
 	 end
 
+	 # Devuelve si la posición pasada como parámetro es la de salida
 	 def exit_pos(row, col)
 		@labyrinth[row][col] == @@EXIT_CHAR
 	 end
 
+	 # Devuelve si la posición pasada como parámetro es de combate
 	 def combat_pos(row, col)
 		@labyrinth[row][col] == @@COMBAT_CHAR
 	 end
 
+	 # Devuelve si es posible moverse sobre la posición pasada como parámetro
 	 def can_step_on(row, col)
 		if @labyrinth[row][col] != @@BLOCK_CHAR
 		  pos_ok(row,col) and ((empty_pos(row,col) or monster_pos(row,col) or exit_pos(row, col)))
 		end
 	 end
 
+	 # Actualiza la posición del laberinto a su estado anterior previo a un combate o un movimiento del jugador sobre ella
 	 def update_old_pos(row, col)
 
 		if pos_ok(row,col)
@@ -186,6 +201,7 @@ module Irrgarten
 		end
 	 end
 
+	 # Calcula la dirección hacia una posición determinada
 	 def dir_2_pos(row, col, direction)
 
 		new_row=row
@@ -205,6 +221,7 @@ module Irrgarten
 
 	 end
 
+	 # Calcula posiciones aleatorias hasta que sale una vacía
 	 def random_empty_pos
 		resultado = Array.new
 
@@ -225,6 +242,7 @@ module Irrgarten
 		resultado
 	 end
 
+	 # Coloca jugadores en posiciones del laberinto y actualiza el estado de la posición en función de donde haya caído este
 	 def put_player_2D(old_row, old_col, row, col, player)
 
 		output = nil
@@ -259,14 +277,17 @@ module Irrgarten
 	 end
 
 	 public
+	 # Nº de filas del laberinto
 	 def n_rows
 		@n_rows
 	 end
 
+	 # Nº de columnas del laberinto
 	 def n_cols
 		@n_cols
 	 end
 
+	 # Método creado para setear la posición de un fuzzy_player
 	 def place_fuzzy_player(fuzzy_player, row, col)
 		if pos_ok(row,col)
 		  @labyrinth[row][col] = @@EMPTY_CHAR
@@ -274,5 +295,5 @@ module Irrgarten
 		end
 	 end
 
-  end
-end
+  end	# class
+end	# module

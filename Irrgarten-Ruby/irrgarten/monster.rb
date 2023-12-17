@@ -8,14 +8,17 @@ module Irrgarten
 
 	 @@INITIAL_HEALTH = 5
 
+	 # Constructor
 	 def initialize(name, intelligence, strength)
 		super("Monster"+name, intelligence.to_f, strength.to_f, @@INITIAL_HEALTH)
 	 end
 
+	 # Ataque del monstruo (relega en el dado)
 	 def attack
 		Dice.intensity(strength)
 	 end
 
+	 # Método que gestiona la defensa ante ataques de jugadores
 	 def defend(received_attack)
 
 		is_dead = dead
